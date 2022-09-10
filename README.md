@@ -84,8 +84,7 @@ https://www.netmums.com/child/the-uk-missing-children-cases-that-are-still-ongoi
 https://www.freecodecamp.org/news/why-use-react-for-web-development/
 [5] Tomislav Capan. (2013, Aug. 13). Why The Hell Would I Use Node.js? A Case-by-Case 
 Tutorial [Online]. Available:
-https://www.toptal.com/nodejs/why-the-hell-would-i-use-nodejs#:~:text=js%20used%20for%3F-
-,Node.,push%2Dbased%20architectures%20in%20mind.
+https://www.toptal.com/nodejs/why-the-hell-would-i-use-node-js
 [6] Mantra Softech India Pvt. Ltd. (2020, July, 24). Key Features of Mxface Facial 
 Recognition API [Online]. Available: https://mxface.ai
 [7] J. Simpson (2020, March). Best Image Recognition APIs [Online]. Available:
