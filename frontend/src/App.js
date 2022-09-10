@@ -4,9 +4,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      Hello world
-      USMAN KABEER
-      19l-2281
+      FAST NUCES
     </div>
   );
 }
