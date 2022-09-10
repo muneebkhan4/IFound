@@ -1,5 +1,7 @@
 .App {
-  text-align: center;
+  background-image: "https://thumbs.dreamstime.com/z/lost-child-cute-little-crying-city-silhouette-people-background-92061006.jpg";
+  width: auto;
+  height: auto;
 }
 
 .App-logo {
@@ -14,7 +16,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
