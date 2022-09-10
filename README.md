@@ -73,21 +73,21 @@ use be using rapid APIs for image recognitions [8].
 
 [1] Federal Bureau of Investigation. (2022, Feb. 2). 2021 NCIC Missing Person and 
 Unidentified Person Statistics [Online]. Available:
-https://www.fbi.gov/file-repository/2021-ncic-missing-person-and-unidentified-personstatistics.pdf/view
+https://www.fbi.gov/file-repository/2021-ncic-missing-person-and-unidentified-person.statistics.pdf/view 
 [2] Jamal Khurshid. (2022, March 31). 1,271 Children reported missing since 2021, High 
 Court told [Online]. Available:
-https://www.thenews.com.pk/print/945943-1-271-children-reported-missing-since2021-high-court-told
+https://www.thenews.com.pk/print/945943-1-271-children-reported-missing-since.2021-high-court-told 
 [3] Kate Langrish. (2022, May). The UK Missing Children [Online]. Available: 
-https://www.netmums.com/child/the-uk-missing-children-cases-that-are-still-ongoing
+https://www.netmums.com/child/the-uk-missing-children-cases-that-are-still-ongoing 
 [4] Free Code Camp. (2021, Feb. 18) Why You Should Use React.js For Web Development
 [Online]. Available:
-https://www.freecodecamp.org/news/why-use-react-for-web-development/
+https://www.freecodecamp.org/news/why-use-react-for-web-development/ 
 [5] Tomislav Capan. (2013, Aug. 13). Why The Hell Would I Use Node.js? A Case-by-Case 
 Tutorial [Online]. Available:
-https://www.toptal.com/nodejs/why-the-hell-would-i-use-node-js
+https://www.toptal.com/nodejs/why-the-hell-would-i-use-node-js 
 [6] Mantra Softech India Pvt. Ltd. (2020, July, 24). Key Features of Mxface Facial 
-Recognition API [Online]. Available: https://mxface.ai
+Recognition API [Online]. Available: https://mxface.ai 
 [7] J. Simpson (2020, March). Best Image Recognition APIs [Online]. Available:
-https://nordicapis.com/7-best-image-recognition-apis/
+https://nordicapis.com/7-best-image-recognition-apis/ 
 [8] Zayana Tech LLC (2021, Sep. 1). Image Recognition API Documentation [Online]. 
-Available: https://rapidapi.com/zyanyatech1/api/image-recognition
+Available: https://rapidapi.com/zyanyatech1/api/image-recognition 
