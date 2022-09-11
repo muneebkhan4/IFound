@@ -5,6 +5,7 @@ function App() {
   return (
     <div className="App">
       FAST NUCES
+      LAHORE COMPUTER SCIENCE DEGREE
     </div>
   );
 }
