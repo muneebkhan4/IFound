@@ -4,7 +4,8 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      Usman Branch Code added
+      FAST NUCES
+      LAHORE COMPUTER SCIENCE DEGREE
     </div>
   );
 }
