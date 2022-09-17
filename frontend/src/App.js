@@ -1,13 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import React, { Component } from "react";
+import NavBar from "./sections/NavBar";
+import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
+import FoundList from "./pages/FoundList";
+import NotFound from "./pages/NotFound";
+import Home from "./pages/Home";
+import LostList from "./pages/LostList";
+import ContactUs from "./pages/ContactUs";
+import LogIn from "./pages/login";
 
-function App() {
+function AppRoutes() {
   return (
-    <div className="App">
-      FAST NUCES
-      LAHORE COMPUTER SCIENCE DEGREE
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />}></Route>
+      <Route path="/Home" element={<Home />}></Route>
+      <Route path="/Found-List" element={<FoundList />}></Route>
+      <Route path="/Lost-List" element={<LostList />}></Route>
+      <Route path="/Contact-Us" element={<ContactUs />}></Route>
+      <Route path="/login" element={<LogIn />}></Route>
+      <Route path="*" element={<NotFound />}></Route>
+    </Routes>
   );
 }
 
-export default App;
+function Wrapper() {
+  return (
+    <BrowserRouter>
+      <App />
+      <AppRoutes />
+    </BrowserRouter>
+  );
+}
+
+function App() {
+  return (
+    <React.Fragment>
+      <NavBar />
+    </React.Fragment>
+  );
+}
+
+export default Wrapper;
