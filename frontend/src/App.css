@@ -37,6 +37,26 @@
   background-repeat: no-repeat;
 }
 
+.custom-post-card {
+  width: 200px;
+  height: 20px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.custom-report-card {
+  display: "flex";
+  align-items: "center";
+  justify-content: "center";
+  margin-top: 30px;
+  margin-left: 300px;
+  margin-right: 300px;
+}
+
+.web-color {
+  color: rgb(3, 98, 133);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -44,4 +64,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.left-btn-contact {
+  margin-left: 180px;
 }

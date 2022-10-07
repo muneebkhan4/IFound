@@ -1,7 +1,7 @@
 import React, { useState, Component, createRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Input";
-
+import { Link } from "react-router-dom";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -48,6 +48,9 @@ class Login extends Component {
               handleChange={this.handleChange}
             />
             <button className="btn btn-primary m-2">Submit</button>
+            <p>
+              Not Registered? <Link to="/signup">Sign up</Link>
+            </p>
           </form>
         </div>
       </div>
