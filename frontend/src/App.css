@@ -20,8 +20,41 @@
   font-weight: bold;
 }
 
+.fonts {
+  font-size: calc(10px + 2vmin);
+  color: rgb(3, 98, 133);
+  font-weight: bold;
+}
+
 .App-link {
   color: #61dafb;
+}
+
+.Background {
+  background-image: url("../public/assets/bg-pic.jpg");
+  height: 600px;
+  width: 1000px;
+  background-repeat: no-repeat;
+}
+
+.custom-post-card {
+  width: 200px;
+  height: 20px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.custom-report-card {
+  display: "flex";
+  align-items: "center";
+  justify-content: "center";
+  margin-top: 30px;
+  margin-left: 300px;
+  margin-right: 300px;
+}
+
+.web-color {
+  color: rgb(3, 98, 133);
 }
 
 @keyframes App-logo-spin {
@@ -31,4 +64,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.left-btn-contact {
+  margin-left: 180px;
 }

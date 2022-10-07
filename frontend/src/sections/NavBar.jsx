@@ -7,15 +7,20 @@ import {
   Link,
   Navigate,
 } from "react-router-dom";
+import { Button } from "rsuite";
 import NotFound from "../pages/NotFound";
 import "../styles/navbar.css";
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg">
+    <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/Home">
-          IFound
+        <Link
+          style={{ textDecoration: "none" }}
+          className="navbar-brand"
+          to="/"
+        >
+          <h2 className="fonts">IFound</h2>
         </Link>
         <div
           className="collapse navbar-collapse justify-content-center"
@@ -37,7 +42,13 @@ const NavBar = () => {
           </div>
         </div>
         <NavLink className="nav-link m-4" to="/Login">
-          <button className="btn btn-primary m-4">Login/ Signup</button>
+          <Button
+            className="btn btn-primary m-4 "
+            color="blue"
+            appearance="primary"
+          >
+            Login/ Signup
+          </Button>
         </NavLink>
       </div>
     </nav>

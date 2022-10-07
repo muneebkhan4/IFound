@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import LostList from "./pages/LostList";
 import ContactUs from "./pages/ContactUs";
 import LogIn from "./pages/login";
+import SignUpForm from "./pages/Signup";
 
 function AppRoutes() {
   return (
@@ -19,8 +20,17 @@ function AppRoutes() {
       <Route path="/Lost-List" element={<LostList />}></Route>
       <Route path="/Contact-Us" element={<ContactUs />}></Route>
       <Route path="/login" element={<LogIn />}></Route>
+      <Route path="/signup" element={<SignUpForm />}></Route>
       <Route path="*" element={<NotFound />}></Route>
     </Routes>
+  );
+}
+
+function App() {
+  return (
+    <React.Fragment>
+      <NavBar />
+    </React.Fragment>
   );
 }
 
@@ -30,14 +40,6 @@ function Wrapper() {
       <App />
       <AppRoutes />
     </BrowserRouter>
-  );
-}
-
-function App() {
-  return (
-    <React.Fragment>
-      <NavBar />
-    </React.Fragment>
   );
 }
 

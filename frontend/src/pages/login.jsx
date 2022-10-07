@@ -1,56 +1,61 @@
-import React, { Component, useState } from "react";
+import React, { useState, Component, createRef } from "react";
+import { useNavigate } from "react-router-dom";
+import Input from "../components/Input";
+import { Link } from "react-router-dom";
+class Login extends Component {
+  constructor(props) {
+    super(props);
 
-const LogIn = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const handleNameChange = (e) => {
-    setName(e.currentTarget.value);
+    this.state = {
+      credentials: { name: "", password: "" },
+    };
+  }
+  handleChange = (e) => {
+    const credentials = { ...this.state.credentials };
+    credentials[e.currentTarget.name] = e.currentTarget.value;
+    this.setState({ credentials });
   };
-  const handlePasswordChange = (e) => {
-    setPassword(e.currentTarget.value);
-  };
-  const handleLoginSubmit = (e) => {
+  handleLoginSubmit = (e) => {
     e.preventDefault();
-    console.log(`submitted Name: ${name}  Password: ${password} `);
+    console.log(
+      `submitted \nName: ${this.state.credentials.name}\nPassword: ${this.state.credentials.password}`
+    );
   };
-
-  return (
-    <div className="row center">
-      <form onSubmit={handleLoginSubmit}>
-        <h1 className="App-header m-5">Log In</h1>
-        <div className="form-group">
-          <label className="m-2" htmlFor="email">
-            Username
-          </label>
-          <input
-            placeholder="name"
-            value={name}
-            name="name"
-            autoFocus
-            type={"text"}
-            id="email"
-            className="form-control m-2"
-            onChange={handleNameChange}
-          />
+  render() {
+    const { name } = this.state.credentials;
+    const { password } = this.state.credentials;
+    return (
+      <div className="Background">
+        <div class="border-2 border-dark position-absolute top-50 start-50 translate-middle">
+          <h1 className="App-header">Log In</h1>
+          <form onSubmit={this.handleLoginSubmit}>
+            <Input
+              autofocus={true}
+              label="Name"
+              type="text"
+              placeholder="name"
+              name="name"
+              value={name}
+              handleChange={this.handleChange}
+            />
+            <Input
+              autofocus={false}
+              label="Password"
+              type="password"
+              placeholder="password"
+              name="password"
+              value={password}
+              handleChange={this.handleChange}
+            />
+            <button className="btn btn-primary m-2">Submit</button>
+            <p>
+              Not Registered? <Link to="/signup">Sign up</Link>
+            </p>
+          </form>
         </div>
-        <div className="form-group">
-          <label className="m-2" htmlFor="password">
-            Password
-          </label>
-          <input
-            placeholder="password"
-            value={password}
-            name="password"
-            onChange={handlePasswordChange}
-            type="password"
-            id="password"
-            className="form-control m-2"
-          />
-        </div>
-        <button className="btn btn-primary m-2">Submit</button>
-      </form>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
 
-export default LogIn;
+export default Login;
