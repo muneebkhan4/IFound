@@ -15,7 +15,7 @@ const NavBar = () => {
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/Home">
-          IFound
+          <h2 className="fonts">IFound</h2>
         </Link>
         <div
           className="collapse navbar-collapse justify-content-center"
