@@ -11,6 +11,9 @@ const Reports = () => {
           <i className="fa fa-solid fa-user fa-5x web-color"></i>
         </div>
         <div className="col">
+          <i className="fa fa-solid fa-plus fa-5x web-color"></i>
+        </div>
+        <div className="col">
           <div className="card-body">
             <h5 className="card-title">Case Resolved</h5>
             <p className="card-text">

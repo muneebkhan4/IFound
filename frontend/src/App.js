@@ -11,6 +11,7 @@ import ContactUs from "./pages/ContactUs";
 import LogIn from "./pages/login";
 import SignUpForm from "./pages/Signup";
 import UploadPerson from "./pages/uploadPerson";
+import PersonDetail from "./pages/PersonDetail";
 
 function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ function AppRoutes() {
       <Route path="/login" element={<LogIn />}></Route>
       <Route path="/signup" element={<SignUpForm />}></Route>
       <Route path="/upload-person" element={<UploadPerson />}></Route>
+      <Route path="/Person-Details" element={<PersonDetail />}></Route>
       <Route path="*" element={<NotFound />}></Route>
     </Routes>
   );

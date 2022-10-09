@@ -29,7 +29,7 @@ class UploadPerson extends Component {
     return (
       <div className="Background">
         <div className="position-absolute top-50 start-50 translate-middle">
-          <h1 className="App-header">Post Missing Person</h1>
+          <h1 className="App-header">Post Person Details</h1>
           <form onSubmit={this.handleUploadPersonSubmit}>
             <Input
               autofocus={true}
