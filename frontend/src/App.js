@@ -10,6 +10,7 @@ import LostList from "./pages/LostList";
 import ContactUs from "./pages/ContactUs";
 import LogIn from "./pages/login";
 import SignUpForm from "./pages/Signup";
+import UploadPerson from "./pages/uploadPerson";
 
 function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ function AppRoutes() {
       <Route path="/Contact-Us" element={<ContactUs />}></Route>
       <Route path="/login" element={<LogIn />}></Route>
       <Route path="/signup" element={<SignUpForm />}></Route>
+      <Route path="/upload-person" element={<UploadPerson />}></Route>
       <Route path="*" element={<NotFound />}></Route>
     </Routes>
   );
