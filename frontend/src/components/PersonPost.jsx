@@ -16,7 +16,7 @@ const PersonPost = () => {
             Name: AnyName &nbsp;&nbsp; City: Lahore
           </h5>
           <h6 className="card-text">10 years old.</h6>
-          <a href="#" className="btn btn-primary">
+          <a href="/Person-Details" className="btn btn-primary">
             View Details
           </a>
         </div>

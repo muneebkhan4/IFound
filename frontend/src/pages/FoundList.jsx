@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import PersonPost from "../components/PersonPost";
-
+import CustomButton from "../components/CustomButton";
 const FoundList = () => {
   return (
     <React.Fragment>
       <h1 className="App-header">Found List</h1>
+      <CustomButton title="Post Found Person" navTo="/upload-person" />
       <div className="container text-center">
         <div className="row center">
           <div className="col">
