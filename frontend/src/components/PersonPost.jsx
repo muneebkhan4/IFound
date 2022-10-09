@@ -8,12 +8,14 @@ const PersonPost = () => {
           src="https://images.pexels.com/photos/1096147/pexels-photo-1096147.jpeg?cs=srgb&dl=pexels-kelvin-octa-1096147.jpg&fm=jpg"
           className="card-img-top"
           alt="..."
-          width="100"
-          height="auto"
+          width="auto"
+          height="350"
         />
         <div className="card-body">
-          <h5 className="card-title">Name</h5>
-          <p className="card-text">10 years old.</p>
+          <h5 className="card-title">
+            Name: AnyName &nbsp;&nbsp; City: Lahore
+          </h5>
+          <h6 className="card-text">10 years old.</h6>
           <a href="#" className="btn btn-primary">
             View Details
           </a>

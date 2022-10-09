@@ -5,7 +5,19 @@ const LostList = () => {
   return (
     <React.Fragment>
       <h1 className="App-header">Lost List</h1>
-      <PersonPost />
+      <div className="container text-center">
+        <div className="row">
+          <div className="col">
+            <PersonPost />
+          </div>
+          <div className="col">
+            <PersonPost />
+          </div>
+          <div className="col">
+            <PersonPost />
+          </div>
+        </div>
+      </div>
     </React.Fragment>
   );
 };
