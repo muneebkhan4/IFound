@@ -8,12 +8,12 @@ import {
   Navigate,
 } from "react-router-dom";
 import { Button } from "rsuite";
-import NotFound from "../pages/NotFound";
+import NotFound from "../pages/common/NotFound";
 import "../styles/navbar.css";
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-light">
+    <nav className="navbar sticky-top navbar-expand-lg bg-light">
       <div className="container-fluid">
         <Link
           style={{ textDecoration: "none" }}

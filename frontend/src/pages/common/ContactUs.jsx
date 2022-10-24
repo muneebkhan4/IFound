@@ -1,6 +1,6 @@
 import React, { useState, Component, createRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Input from "../components/Input";
+import Input from "../../components/Input";
 
 class Contactus extends Component {
   constructor(props) {
