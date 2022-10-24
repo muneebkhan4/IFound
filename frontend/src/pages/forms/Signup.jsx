@@ -1,6 +1,6 @@
 import React, { useState, Component, createRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Input from "../components/Input";
+import Input from "../../components/Input";
 
 class Signup extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class Signup extends Component {
     const { email } = this.state.credentials;
     return (
       <div className="Background">
-        <div class="position-absolute top-50 start-50 translate-middle">
+        <div className="position-absolute top-50 start-50 translate-middle">
           <h1 className="App-header">Signup</h1>
           <form onSubmit={this.handleSignupSubmit}>
             <Input

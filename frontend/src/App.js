@@ -3,15 +3,20 @@ import "./App.css";
 import React, { Component } from "react";
 import NavBar from "./sections/NavBar";
 import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
-import FoundList from "./pages/FoundList";
-import NotFound from "./pages/NotFound";
-import Home from "./pages/Home";
-import LostList from "./pages/LostList";
-import ContactUs from "./pages/ContactUs";
-import LogIn from "./pages/login";
-import SignUpForm from "./pages/Signup";
-import UploadPerson from "./pages/uploadPerson";
-import PersonDetail from "./pages/PersonDetail";
+import FoundList from "./pages/lists/FoundList";
+import NotFound from "./pages/common/NotFound";
+import Home from "./pages/common/Home";
+import LostList from "./pages/lists/LostList";
+import Contactus from "./pages/common/ContactUs";
+import LogIn from "./pages/forms/login";
+import SignUpForm from "./pages/forms/Signup";
+import UploadPerson from "./pages/forms/uploadPerson";
+import PersonDetail from "./pages/details/PersonDetail";
+import UploadThing from "./pages/forms/uploadThing";
+import UserDashboard from "./pages/Dashboards/user/userDashboard";
+import PremiumUserDashboard from "./pages/Dashboards/premium_user/premiumUserDashboard";
+import PoliceDashboard from "./pages/Dashboards/police/policeDashboard";
+import AdminDashboard from "./pages/Dashboards/admin/adminDashboard";
 
 function AppRoutes() {
   return (
@@ -20,11 +25,19 @@ function AppRoutes() {
       <Route path="/Home" element={<Home />}></Route>
       <Route path="/Found-List" element={<FoundList />}></Route>
       <Route path="/Lost-List" element={<LostList />}></Route>
-      <Route path="/Contact-Us" element={<ContactUs />}></Route>
+      <Route path="/Contact-Us" element={<Contactus />}></Route>
       <Route path="/login" element={<LogIn />}></Route>
       <Route path="/signup" element={<SignUpForm />}></Route>
       <Route path="/upload-person" element={<UploadPerson />}></Route>
       <Route path="/Person-Details" element={<PersonDetail />}></Route>
+      <Route path="/upload-thing" element={<UploadThing />}></Route>
+      <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
+      <Route path="/user-dashboard" element={<UserDashboard />}></Route>
+      <Route
+        path="/premium-user-dashboard"
+        element={<PremiumUserDashboard />}
+      ></Route>
+      <Route path="/police-dashboard" element={<PoliceDashboard />}></Route>
       <Route path="*" element={<NotFound />}></Route>
     </Routes>
   );
