@@ -7,7 +7,7 @@ import FoundList from "./pages/lists/FoundList";
 import NotFound from "./pages/common/NotFound";
 import Home from "./pages/common/Home";
 import LostList from "./pages/lists/LostList";
-import Contactus from "./pages/common/ContactUs";
+import Contactus from "./pages/forms/ContactUs";
 import LogIn from "./pages/forms/login";
 import SignUpForm from "./pages/forms/Signup";
 import UploadPerson from "./pages/forms/uploadPerson";
