@@ -32,35 +32,42 @@ class Login extends Component {
     if (this.state.status) return <Navigate replace to="/user-dashboard" />;
     else
       return (
-        <div className="Background">
-          <div className="border-2 border-dark position-absolute top-50 start-50 translate-middle">
-            <h1 className="App-header">Log In</h1>
-            <form onSubmit={this.handleLoginSubmit}>
-              <Input
-                autofocus={true}
-                label="Name"
-                type="text"
-                placeholder="name"
-                name="name"
-                value={name}
-                handleChange={this.handleChange}
-              />
-              <Input
-                autofocus={false}
-                label="Password"
-                type="password"
-                placeholder="password"
-                name="password"
-                value={password}
-                handleChange={this.handleChange}
-              />
-              <button className="btn btn-primary m-2">Submit</button>
-              <p>
-                Not Registered? <Link to="/signup">Sign up</Link>
-              </p>
-            </form>
+        <React.Fragment>
+          <h1 className="App-header">Log In</h1>
+          <div className="row">
+            <div className="col">
+              <div className="Background"></div>
+            </div>
+            <div className="col">
+              <div className="position-absolute start-50">
+                <form onSubmit={this.handleLoginSubmit}>
+                  <Input
+                    autofocus={true}
+                    label="Name"
+                    type="text"
+                    placeholder="name"
+                    name="name"
+                    value={name}
+                    handleChange={this.handleChange}
+                  />
+                  <Input
+                    autofocus={false}
+                    label="Password"
+                    type="password"
+                    placeholder="password"
+                    name="password"
+                    value={password}
+                    handleChange={this.handleChange}
+                  />
+                  <button className="btn btn-primary m-2">Submit</button>
+                  <p>
+                    Not Registered? <Link to="/signup">Sign up</Link>
+                  </p>
+                </form>
+              </div>
+            </div>
           </div>
-        </div>
+        </React.Fragment>
       );
   }
 }

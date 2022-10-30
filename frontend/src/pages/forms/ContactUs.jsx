@@ -2,12 +2,12 @@ import React, { useState, Component, createRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input";
 
-class Signup extends Component {
+class Contactus extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      credentials: { name: "", email: "", password: "" },
+      credentials: { name: "", email: "", message: "" },
     };
   }
   handleChange = (e) => {
@@ -15,26 +15,26 @@ class Signup extends Component {
     credentials[e.currentTarget.name] = e.currentTarget.value;
     this.setState({ credentials });
   };
-  handleSignupSubmit = (e) => {
+  handleContactusSubmit = (e) => {
     e.preventDefault();
     console.log(
-      `submitted \nName: ${this.state.credentials.name}\nPassword: ${this.state.credentials.password}\Email: ${this.state.credentials.email}`
+      `submitted \nName: ${this.state.credentials.name}\nemail: ${this.state.credentials.email}\nmessage: ${this.state.credentials.message}`
     );
   };
   render() {
     const { name } = this.state.credentials;
-    const { password } = this.state.credentials;
     const { email } = this.state.credentials;
+    const { message } = this.state.credentials;
     return (
       <React.Fragment>
-        <h1 className="App-header">Sign up</h1>
+        <h1 className="App-header">Contact us</h1>
         <div className="row">
           <div className="col">
             <div className="Background"></div>
           </div>
           <div className="col">
             <div className="position-absolute start-50">
-              <form onSubmit={this.handleSignupSubmit}>
+              <form onSubmit={this.handleContactusSubmit}>
                 <Input
                   autofocus={true}
                   label="Name"
@@ -48,21 +48,23 @@ class Signup extends Component {
                   autofocus={false}
                   label="Email"
                   type="email"
-                  placeholder="xyz@email.com"
+                  placeholder="email"
                   name="email"
                   value={email}
                   handleChange={this.handleChange}
                 />
                 <Input
                   autofocus={false}
-                  label="Password"
-                  type="password"
-                  placeholder="password"
-                  name="password"
-                  value={password}
+                  label="Message"
+                  type="text"
+                  placeholder="Message"
+                  name="message"
+                  value={message}
                   handleChange={this.handleChange}
                 />
-                <button className="btn btn-primary m-2">Submit</button>
+                <button className="left-btn-contact btn btn-primary">
+                  Send
+                </button>
               </form>
             </div>
           </div>
@@ -72,4 +74,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default Contactus;

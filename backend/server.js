@@ -8,8 +8,10 @@ function base64Encode(file) {
   var body = fs.readFileSync(file);
   return body.toString("base64");
 }
-var face_1 = base64Encode("test-img-1.jpg");
-var face_2 = base64Encode("test-img-3.jpg");
+
+// console.log("hello world");
+var face_1 = base64Encode("test-img-3.jpg");
+var face_2 = base64Encode("test-img-4.jpg");
 
 var optionsFaceCompare = {
   url: _apiUrl,
@@ -24,6 +26,7 @@ var optionsFaceCompare = {
   },
   rejectUnauthorized: false,
 };
+
 request(optionsFaceCompare, function (error, response) {
   console.log("Response /verify");
   if (error) {
