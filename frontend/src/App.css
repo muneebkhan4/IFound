@@ -15,13 +15,13 @@
   display: flex;
   align-items: top;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(12px + 2vmin);
   color: rgb(3, 98, 133);
   font-weight: bold;
 }
 
 .fonts {
-  font-size: calc(10px + 2vmin);
+  font-size: calc(12px + 2vmin);
   color: rgb(3, 98, 133);
   font-weight: bold;
 }
@@ -56,7 +56,7 @@
   flex: 1;
   flex-direction: row;
   display: flex;
-  align-items: top;
+  align-items: center;
   justify-content: center;
 }
 
@@ -79,4 +79,15 @@
 
 .left-margin-LL {
   margin-left: 60px;
+}
+
+.DashboardButton {
+  width: 18rem;
+  height: 10rem;
+  border-radius: 5px 25px;
+  background: "lightblue";
+}
+.DashboardButton:hover {
+  background-color: lightblue;
+  transition: 0.3s;
 }

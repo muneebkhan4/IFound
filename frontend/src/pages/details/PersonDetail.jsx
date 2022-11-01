@@ -16,7 +16,7 @@ const PersonDetail = () => {
       <div className="col" style={{ marginTop: 80 }}>
         <div className="row">
           <div className="col">
-            <h3 className="center">Name:</h3>
+            <h3>Name:</h3>
           </div>
           <div className="col">
             <h3>khan</h3>
@@ -24,7 +24,7 @@ const PersonDetail = () => {
         </div>
         <div className="row">
           <div className="col">
-            <h3 className="center">Father's Name:</h3>
+            <h3>Father's Name:</h3>
           </div>
           <div className="col">
             <h3>AnyName</h3>
@@ -33,7 +33,7 @@ const PersonDetail = () => {
 
         <div className="row">
           <div className="col">
-            <h3 className="center">Age:</h3>
+            <h3>Age:</h3>
           </div>
           <div className="col">
             <h3>10 years</h3>
@@ -42,7 +42,7 @@ const PersonDetail = () => {
 
         <div className="row">
           <div className="col">
-            <h3 className="center">City:</h3>
+            <h3>City:</h3>
           </div>
           <div className="col">
             <h3>Lahore</h3>
@@ -51,7 +51,7 @@ const PersonDetail = () => {
 
         <div className="row">
           <div className="col">
-            <h3 className="center">Case Type:</h3>
+            <h3>Case Type:</h3>
           </div>
           <div className="col">
             <h3>Found</h3>
@@ -60,7 +60,7 @@ const PersonDetail = () => {
 
         <div className="row">
           <div className="col">
-            <h3 className="center">Founder Name:</h3>
+            <h3>Founder Name:</h3>
           </div>
           <div className="col">
             <h3>AnyName</h3>
@@ -69,7 +69,7 @@ const PersonDetail = () => {
 
         <div className="row">
           <div className="col">
-            <h3 className="center">Contact No.:</h3>
+            <h3>Contact No.:</h3>
           </div>
           <div className="col">
             <h3>00000000000</h3>
@@ -78,7 +78,7 @@ const PersonDetail = () => {
 
         <div className="row">
           <div className="col">
-            <h3 className="center">Founder Address:</h3>
+            <h3>Founder Address:</h3>
           </div>
           <div className="col">
             <h3>House no. 00, AnyTown, Lahore</h3>
@@ -87,7 +87,7 @@ const PersonDetail = () => {
 
         <div className="row">
           <div className="col">
-            <h3 className="center">Details:</h3>
+            <h3>Details:</h3>
           </div>
           <div className="col">
             <h3>Any details come here</h3>

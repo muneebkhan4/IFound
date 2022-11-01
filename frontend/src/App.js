@@ -17,6 +17,7 @@ import UserDashboard from "./pages/Dashboards/user/userDashboard";
 import PremiumUserDashboard from "./pages/Dashboards/premium_user/premiumUserDashboard";
 import PoliceDashboard from "./pages/Dashboards/police/policeDashboard";
 import AdminDashboard from "./pages/Dashboards/admin/adminDashboard";
+import Footer from "./sections/Footer";
 
 function AppRoutes() {
   return (
@@ -47,6 +48,8 @@ function App() {
   return (
     <React.Fragment>
       <NavBar />
+      <AppRoutes />
+      <Footer />
     </React.Fragment>
   );
 }
@@ -55,7 +58,6 @@ function Wrapper() {
   return (
     <BrowserRouter>
       <App />
-      <AppRoutes />
     </BrowserRouter>
   );
 }
