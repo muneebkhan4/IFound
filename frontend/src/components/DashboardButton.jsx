@@ -1,23 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import { Button } from "rsuite";
-import Card from "react-bootstrap/Card";
 
 function DashboardButton({ title, navTo }) {
   return (
     <React.Fragment>
-      <NavLink className="nav-link m-4" style={{ marginTop: 20 }} to={navTo}>
-        <Card
-          style={{
-            width: "18rem",
-            height: "10rem",
-          }}
-          className="center"
-        >
-          <h2 className="center" style={{ marginTop: 43 }}>
-            Card Title
-          </h2>
-        </Card>
+      <NavLink className="nav-link m-4" style={{ marginTop: 10 }} to={navTo}>
+        <button class="DashboardButton">
+          <h2 className="fonts">{title}</h2>
+        </button>
       </NavLink>
     </React.Fragment>
   );

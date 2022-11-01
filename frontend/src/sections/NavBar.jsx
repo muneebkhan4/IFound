@@ -20,7 +20,9 @@ const NavBar = () => {
           className="navbar-brand"
           to="/"
         >
-          <h2 className="fonts">IFound</h2>
+          <h2 className="fonts" style={{ marginLeft: 20 }}>
+            IFound
+          </h2>
         </Link>
         <div
           className="collapse navbar-collapse justify-content-center"

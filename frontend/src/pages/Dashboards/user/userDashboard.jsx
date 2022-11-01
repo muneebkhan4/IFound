@@ -9,7 +9,7 @@ const UserDashboard = () => {
       <div className="row">
         <div className="col ">
           <img
-            src="https://images.pexels.com/photos/1096147/pexels-photo-1096147.jpeg?cs=srgb&dl=pexels-kelvin-octa-1096147.jpg&fm=jpg"
+            src="https://i.postimg.cc/h4H4yPrS/test-img-3.jpg"
             className="figure-img img-fluid rounded"
             alt="..."
             width="200"
@@ -29,9 +29,34 @@ const UserDashboard = () => {
             </div>
             <div className="col">
               <DashboardButton
-                title="Post Missing Thing"
+                title="Post Missing Person/ Child"
                 navTo="/"
               ></DashboardButton>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <DashboardButton
+                title="Post Found Thing"
+                navTo="/"
+              ></DashboardButton>
+            </div>
+            <div className="col">
+              <DashboardButton
+                title="Post Found Person/ Child"
+                navTo="/"
+              ></DashboardButton>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <DashboardButton
+                title="Matched Posts"
+                navTo="/"
+              ></DashboardButton>
+            </div>
+            <div className="col">
+              <DashboardButton title="History" navTo="/"></DashboardButton>
             </div>
           </div>
         </div>
