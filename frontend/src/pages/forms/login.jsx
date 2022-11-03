@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input";
 import { Link } from "react-router-dom";
 import { Navigate, useLocation } from "react-router-dom";
+import axios from "axios";
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +12,7 @@ class Login extends Component {
     this.state = {
       credentials: { name: "", password: "" },
       status: false,
+      test: "",
     };
   }
   handleChange = (e) => {
@@ -26,9 +29,19 @@ class Login extends Component {
     status = true;
     this.setState({ status });
   };
+  componentDidMount() {
+    var test;
+    const { credentials } = this.state;
+    axios.get("http://localhost:1000/api/login", credentials).then((res) => {
+      test = res.data;
+      console.log(res.data);
+      this.setState({ test });
+    });
+  }
   render() {
     const { name } = this.state.credentials;
     const { password } = this.state.credentials;
+    const { test } = this.state;
     if (this.state.status) return <Navigate replace to="/user-dashboard" />;
     else
       return (

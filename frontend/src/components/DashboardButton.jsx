@@ -5,7 +5,7 @@ function DashboardButton({ title, navTo }) {
   return (
     <React.Fragment>
       <NavLink className="nav-link m-4" style={{ marginTop: 10 }} to={navTo}>
-        <button class="DashboardButton">
+        <button className="DashboardButton">
           <h2 className="fonts">{title}</h2>
         </button>
       </NavLink>
