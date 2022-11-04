@@ -51,12 +51,15 @@ const UserDashboard = () => {
           <div className="row">
             <div className="col">
               <DashboardButton
-                title="Matched Posts"
+                title="UnResolved Cases"
                 navTo="/"
               ></DashboardButton>
             </div>
             <div className="col">
-              <DashboardButton title="History" navTo="/"></DashboardButton>
+              <DashboardButton
+                title="Resolved Cases"
+                navTo="/"
+              ></DashboardButton>
             </div>
           </div>
         </div>

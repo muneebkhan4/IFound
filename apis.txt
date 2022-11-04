@@ -1,0 +1,6 @@
+Register user Post /api/users
+Login user    Post /api/logins
+
+
+
+
