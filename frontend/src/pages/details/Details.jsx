@@ -15,7 +15,7 @@ function Details(props) {
           marginLeft: 40,
           //marginTop: 40,
         }}
-        className="center web-color"
+        className="center web-color bg-light"
       >
         <div className="col" style={{ marginLeft: 20, marginTop: 40 }}>
           <div className="row">
