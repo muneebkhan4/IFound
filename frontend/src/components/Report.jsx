@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-const Reports = ({ title }) => {
+function Reports({ title }) {
   return (
     <div className="card custom-report-card">
       <div className="row">
@@ -19,6 +19,6 @@ const Reports = ({ title }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Reports;

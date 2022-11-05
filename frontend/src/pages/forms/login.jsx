@@ -4,15 +4,16 @@ import Input from "../../components/Input";
 import { Link } from "react-router-dom";
 import { Navigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import UserDashboard from "./../Dashboards/user/userDashboard";
 
 class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      credentials: { name: "", password: "" },
-      status: false,
-      test: "",
+      credentials: { email: "", password: "" },
+      user: {},
+      error: "",
     };
   }
   handleChange = (e) => {
@@ -22,66 +23,70 @@ class Login extends Component {
   };
   handleLoginSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      `submitted \nName: ${this.state.credentials.name}\nPassword: ${this.state.credentials.password}`
-    );
-    var status = { ...this.state.status };
-    status = true;
-    this.setState({ status });
+    this.validate();
   };
-  componentDidMount() {
-    var test;
+
+  async validate() {
     const { credentials } = this.state;
-    axios.get("http://localhost:1000/api/login", credentials).then((res) => {
-      test = res.data;
-      console.log(res.data);
-      this.setState({ test });
-    });
+    try {
+      const { data } = await axios.post(
+        "http://localhost:1000/api/auth",
+        credentials
+      );
+      const user = data;
+      this.setState({ user });
+    } catch (err) {
+      const error = err.response.data;
+      this.setState({ error });
+    }
   }
+
   render() {
-    const { name } = this.state.credentials;
+    const { email } = this.state.credentials;
     const { password } = this.state.credentials;
-    const { test } = this.state;
-    if (this.state.status) return <Navigate replace to="/user-dashboard" />;
-    else
-      return (
-        <React.Fragment>
-          <h1 className="App-header">Log In</h1>
-          <div className="row">
-            <div className="col">
-              <div className="Background"></div>
-            </div>
-            <div className="col">
-              <div className="position-absolute start-50">
-                <form onSubmit={this.handleLoginSubmit}>
-                  <Input
-                    autofocus={true}
-                    label="Name"
-                    type="text"
-                    placeholder="name"
-                    name="name"
-                    value={name}
-                    handleChange={this.handleChange}
-                  />
-                  <Input
-                    autofocus={false}
-                    label="Password"
-                    type="password"
-                    placeholder="password"
-                    name="password"
-                    value={password}
-                    handleChange={this.handleChange}
-                  />
-                  <button className="btn btn-primary m-2">Submit</button>
-                  <p>
-                    Not Registered? <Link to="/signup">Sign up</Link>
-                  </p>
-                </form>
-              </div>
+    const { user } = this.state;
+    const { error } = this.state;
+    if (user.email)
+      return <UserDashboard email={user.email} name={user.name} />;
+    return (
+      <React.Fragment>
+        <h1 className="App-header">Log In</h1>
+        <div className="row">
+          <div className="col">
+            <div className="Background"></div>
+          </div>
+          <div className="col">
+            <div className="position-absolute start-50">
+              <form onSubmit={this.handleLoginSubmit}>
+                <Input
+                  autofocus={true}
+                  label="Email"
+                  type="text"
+                  placeholder="email"
+                  name="email"
+                  value={email}
+                  handleChange={this.handleChange}
+                />
+                <Input
+                  autofocus={false}
+                  label="Password"
+                  type="password"
+                  placeholder="password"
+                  name="password"
+                  value={password}
+                  handleChange={this.handleChange}
+                />
+                <p style={{ marginLeft: 120, color: "red" }}>{error}</p>
+                <button className="btn btn-primary m-2">Submit</button>
+                <p>
+                  Not Registered? <Link to="/signup">Sign up</Link>
+                </p>
+              </form>
             </div>
           </div>
-        </React.Fragment>
-      );
+        </div>
+      </React.Fragment>
+    );
   }
 }
 

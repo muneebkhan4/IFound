@@ -21,7 +21,8 @@ router.post("/", async (req, res) => {
 
   const token = jwt.sign({ _id: user._id }, config.get("JwtPrivateKey"));
 
-  res.send(token); // avoid sending userId, asigned by database
+  //res.send(token); // avoid sending userId, asigned by database
+  res.send(_.pick(user, ["email", "name"])); // avoid sending userId, asigned by database
 });
 
 function authUser(user) {

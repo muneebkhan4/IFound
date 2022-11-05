@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-const Input = ({
+function Input({
   label,
   name,
   placeholder,
@@ -8,7 +8,7 @@ const Input = ({
   value,
   handleChange,
   autofocus,
-}) => {
+}) {
   return (
     <div className="form-group">
       <label className="m-2" htmlFor="email">
@@ -26,6 +26,6 @@ const Input = ({
       />
     </div>
   );
-};
+}
 
 export default Input;

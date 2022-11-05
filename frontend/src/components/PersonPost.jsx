@@ -1,6 +1,6 @@
 import React from "react";
 
-const PersonPost = () => {
+function PersonPost() {
   return (
     <React.Fragment>
       <div className="card custom-post-card">
@@ -23,6 +23,6 @@ const PersonPost = () => {
       </div>
     </React.Fragment>
   );
-};
+}
 
 export default PersonPost;

@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 
-function Details(props) {
+function Details({ name, email }) {
   return (
     <React.Fragment>
       <h2 className="fonts" style={{ marginLeft: 40, marginTop: 40 }}>
@@ -23,7 +23,16 @@ function Details(props) {
               <h4>Name:</h4>
             </div>
             <div className="col">
-              <h4>khan</h4>
+              <h4>{name}</h4>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col">
+              <h4>Email:</h4>
+            </div>
+            <div className="col">
+              <h4>{email}</h4>
             </div>
           </div>
 
