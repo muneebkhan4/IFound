@@ -2,7 +2,7 @@ import React from "react";
 import DashboardButton from "../../../components/DashboardButton";
 import Details from "../../details/Details";
 
-const UserDashboard = () => {
+function UserDashboard({ name, email }) {
   return (
     <React.Fragment>
       <h1 className="App-header"> User dashboard</h1>
@@ -16,7 +16,7 @@ const UserDashboard = () => {
             height="200"
             style={{ marginLeft: 40, marginTop: 40 }}
           />
-          <Details></Details>
+          <Details name={name} email={email}></Details>
         </div>
 
         <div className="col">
@@ -66,6 +66,6 @@ const UserDashboard = () => {
       </div>
     </React.Fragment>
   );
-};
+}
 
 export default UserDashboard;

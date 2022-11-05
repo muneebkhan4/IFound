@@ -13,7 +13,6 @@ if (!config.get("JwtPrivateKey")) {
   console.log("FATAL ERROR: JwtPrivateKey is not defined!"); // set by running "set IFound_JwtPrivateKey= MySecureKey"
   process.exit(1);
 }
-console.log(process.env.IFound_JwtPrivateKey); // set by running "set IFound_JwtPrivateKey= MySecureKey"
 
 mongoose
   .connect("mongodb://localhost/IFound")
