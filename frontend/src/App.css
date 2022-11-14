@@ -32,8 +32,8 @@
 
 .Background {
   background-image: url("../public/assets/bg-pic.jpg");
-  height: 600px;
-  width: 1000px;
+  height: 50rem;
+  width: 70rem;
   background-repeat: no-repeat;
 }
 

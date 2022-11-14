@@ -1,7 +1,6 @@
 const config = require("config");
 const _ = require("lodash");
 const Joi = require("joi");
-const jwt = require("jsonwebtoken");
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
@@ -19,10 +18,11 @@ router.post("/", async (req, res) => {
 
   if (!validAuth) return res.status(400).send("Invalid email or password.");
 
-  const token = jwt.sign({ _id: user._id }, config.get("JwtPrivateKey"));
+  const token = user.generateAuthToken();
 
   //res.send(token); // avoid sending userId, asigned by database
-  res.send(_.pick(user, ["email", "name"])); // avoid sending userId, asigned by database
+
+  res.header("x-auth-token", token).send(_.pick(user, ["email", "name"])); // avoid sending userId, asigned by database
 });
 
 function authUser(user) {

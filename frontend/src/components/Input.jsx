@@ -10,20 +10,18 @@ function Input({
   autofocus,
 }) {
   return (
-    <div className="form-group">
-      <label className="m-2" htmlFor="email">
-        {label}
-      </label>
+    <div className="form-floating mb-3">
       <input
         autoFocus={autofocus}
         placeholder={placeholder}
         value={value}
         name={name}
         type={type}
-        id={name}
-        className="form-control m-2"
+        id={label}
+        className="form-control"
         onChange={handleChange}
       />
+      <label htmlFor={label}>{name}</label>
     </div>
   );
 }

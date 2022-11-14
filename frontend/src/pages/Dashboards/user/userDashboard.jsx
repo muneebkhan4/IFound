@@ -53,12 +53,14 @@ function UserDashboard({ name, email }) {
               <DashboardButton
                 title="UnResolved Cases"
                 navTo="/"
+                value={2}
               ></DashboardButton>
             </div>
             <div className="col">
               <DashboardButton
                 title="Resolved Cases"
                 navTo="/"
+                value={5}
               ></DashboardButton>
             </div>
           </div>
