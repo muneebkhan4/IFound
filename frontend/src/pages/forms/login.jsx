@@ -25,7 +25,8 @@ class Login extends Component {
     e.preventDefault();
     this.validate();
   };
-
+  // insecure implementation showing api calls,
+  // send 400 in any case and show error
   async validate() {
     const { credentials } = this.state;
     try {
@@ -50,13 +51,25 @@ class Login extends Component {
       return <UserDashboard email={user.email} name={user.name} />;
     return (
       <React.Fragment>
-        <h1 className="App-header">Log In</h1>
         <div className="row">
-          <div className="col">
-            <div className="Background"></div>
+          <div
+            className="col-3 mt-5 center"
+            style={{ width: "30%", height: "100%" }}
+          >
+            <img
+              src="https://i.postimg.cc/tChbCN8h/bg-pic.jpg"
+              className="card-img-top"
+              alt="..."
+              width="auto"
+              height="500"
+            />
           </div>
-          <div className="col">
-            <div className="position-absolute start-50">
+          <div className="col-6 center">
+            <div
+              className="position-absolute bg-light"
+              style={{ width: "20%", height: "50%" }}
+            >
+              <h1 className="App-header mt-3">Log In</h1>
               <form onSubmit={this.handleLoginSubmit}>
                 <Input
                   autofocus={true}

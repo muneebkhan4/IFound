@@ -9,6 +9,39 @@ const app = express();
 app.use(cors());
 const port = 1000;
 
+// upload image handling
+const upload = require("./middleware/upload");
+
+const { Image } = require("./models/image");
+
+app.use(express.static("uploads"));
+app.post("/post", upload.single("file"), async function (req, res) {
+  // req.file is the name of your file in the form above, here 'uploaded_file'
+  // req.body will hold the text fields, if there were any
+
+  let img = new Image(); // handled the case if malicious user try to request more arguments
+
+  if (req.file === undefined) return res.send("you must select an image.");
+  const imgUrl = `http://localhost:1000/post/${req.file.filename}`;
+
+  img.imgUrl = imgUrl;
+
+  await img.save();
+
+  return res.send(imgUrl);
+});
+
+app.get("/getPosts", async function (req, res) {
+  // req.file is the name of your file in the form above, here 'uploaded_file'
+  // req.body will hold the text fields, if there were any
+
+  const posts = await Image.find();
+
+  return res.send(posts);
+});
+
+// http://localhost:1000/1667927440979-20210402_195757.jpg
+
 if (!config.get("JwtPrivateKey")) {
   console.log("FATAL ERROR: JwtPrivateKey is not defined!"); // set by running "set IFound_JwtPrivateKey= MySecureKey"
   process.exit(1);
