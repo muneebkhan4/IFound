@@ -27,13 +27,22 @@ class Contactus extends Component {
     const { message } = this.state.credentials;
     return (
       <React.Fragment>
-        <h1 className="App-header">Contact us</h1>
         <div className="row">
-          <div className="col">
-            <div className="Background"></div>
+          <div
+            className="col-3 mt-5 center"
+            style={{ width: "40%", height: "100%" }}
+          >
+            <img
+              src="https://i.postimg.cc/tChbCN8h/bg-pic.jpg"
+              className="card-img-top"
+              alt="..."
+              width="auto"
+              height="500"
+            />
           </div>
-          <div className="col">
-            <div className="position-absolute start-50">
+          <div className="col-4 center">
+            <div className="bg-light mt-2" style={{ width: "20rem" }}>
+              <h1 className="App-header">Contact Us</h1>
               <form onSubmit={this.handleContactusSubmit}>
                 <Input
                   autofocus={true}
@@ -62,7 +71,10 @@ class Contactus extends Component {
                   value={message}
                   handleChange={this.handleChange}
                 />
-                <button className="left-btn-contact btn btn-primary">
+                <button
+                  className="btn btn-primary"
+                  style={{ marginLeft: "9rem", marginBottom: "1rem" }}
+                >
                   Send
                 </button>
               </form>

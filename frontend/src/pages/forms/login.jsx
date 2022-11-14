@@ -54,7 +54,7 @@ class Login extends Component {
         <div className="row">
           <div
             className="col-3 mt-5 center"
-            style={{ width: "30%", height: "100%" }}
+            style={{ width: "40%", height: "100%" }}
           >
             <img
               src="https://i.postimg.cc/tChbCN8h/bg-pic.jpg"
@@ -64,12 +64,9 @@ class Login extends Component {
               height="500"
             />
           </div>
-          <div className="col-6 center">
-            <div
-              className="position-absolute bg-light"
-              style={{ width: "20%", height: "50%" }}
-            >
-              <h1 className="App-header mt-3">Log In</h1>
+          <div className="col-4 center">
+            <div className="bg-light mt-2" style={{ width: "20rem" }}>
+              <h1 className="App-header">Log In</h1>
               <form onSubmit={this.handleLoginSubmit}>
                 <Input
                   autofocus={true}
@@ -91,7 +88,7 @@ class Login extends Component {
                 />
                 <p style={{ marginLeft: 120, color: "red" }}>{error}</p>
                 <button className="btn btn-primary m-2">Submit</button>
-                <p>
+                <p style={{ marginBottom: "1rem" }}>
                   Not Registered? <Link to="/signup">Sign up</Link>
                 </p>
               </form>
