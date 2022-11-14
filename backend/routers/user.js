@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
 
   if (user) return res.status(400).send("User already exists.");
 
-  user = new User(_.pick(req.body, ["email", "password"])); // handled the case if malicious user try to request more arguments
+  user = new User(_.pick(req.body, ["name", "email", "password"])); // handled the case if malicious user try to request more arguments
 
   // hashing password
   const salt = await bcrypt.genSalt(10);
