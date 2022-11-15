@@ -87,8 +87,13 @@ class Login extends Component {
                   handleChange={this.handleChange}
                 />
                 <p style={{ marginLeft: 120, color: "red" }}>{error}</p>
-                <button className="btn btn-primary m-2">Submit</button>
-                <p style={{ marginBottom: "1rem" }}>
+                <button
+                  className="btn btn-primary"
+                  style={{ marginLeft: "8rem" }}
+                >
+                  Submit
+                </button>
+                <p style={{ marginBottom: "1rem", marginTop: "1rem" }}>
                   Not Registered? <Link to="/signup">Sign up</Link>
                 </p>
               </form>

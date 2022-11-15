@@ -1,6 +1,8 @@
 import React, { useState, Component, createRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input";
+import UserDashboard from "./../Dashboards/user/userDashboard";
+import axios from "axios";
 
 class Signup extends Component {
   constructor(props) {
@@ -8,6 +10,8 @@ class Signup extends Component {
 
     this.state = {
       credentials: { name: "", email: "", password: "" },
+      user: {},
+      error: "",
     };
   }
   handleChange = (e) => {
@@ -20,11 +24,32 @@ class Signup extends Component {
     console.log(
       `submitted \nName: ${this.state.credentials.name}\nPassword: ${this.state.credentials.password}\Email: ${this.state.credentials.email}`
     );
+    this.validate();
   };
+
+  async validate() {
+    const { credentials } = this.state;
+    try {
+      const { data } = await axios.post(
+        "http://localhost:1000/api/users",
+        credentials
+      );
+      const user = data;
+      this.setState({ user });
+    } catch (err) {
+      const error = err.response.data;
+      this.setState({ error });
+    }
+  }
+
   render() {
     const { name } = this.state.credentials;
     const { password } = this.state.credentials;
     const { email } = this.state.credentials;
+    const { user } = this.state;
+    const { error } = this.state;
+    if (user.email)
+      return <UserDashboard email={user.email} name={user.name} />;
     return (
       <React.Fragment>
         <div className="row">
@@ -35,7 +60,6 @@ class Signup extends Component {
             <img
               src="https://i.postimg.cc/tChbCN8h/bg-pic.jpg"
               className="card-img-top"
-              alt="..."
               width="auto"
               height="500"
             />
@@ -71,6 +95,15 @@ class Signup extends Component {
                   value={password}
                   handleChange={this.handleChange}
                 />
+                <p
+                  style={{
+                    marginLeft: "2rem",
+                    marginBottom: "1rem",
+                    color: "red",
+                  }}
+                >
+                  {error}
+                </p>
                 <button
                   className="btn btn-primary"
                   style={{ marginLeft: "8rem", marginBottom: "1rem" }}

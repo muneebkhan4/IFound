@@ -37,10 +37,19 @@
   background-repeat: no-repeat;
 }
 
+.bg-list {
+  background-color: rgb(168, 225, 254);
+  border-radius: 1rem;
+}
+
 .custom-post-card {
-  width: 350px;
-  margin-left: 40px;
-  margin-top: 20px;
+  width: 15rem;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  border: 0.25rem;
+  border-style: solid;
+  border-radius: 1.5rem;
+  border-color: rgb(3, 98, 133);
 }
 
 .custom-report-card {
@@ -88,6 +97,6 @@
   background: "lightblue";
 }
 .DashboardButton:hover {
-  background-color: lightblue;
-  transition: 0.3s;
+  background-color: rgb(182, 184, 186);
+  transition: 0.2s;
 }

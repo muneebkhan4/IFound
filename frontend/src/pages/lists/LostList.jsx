@@ -15,8 +15,14 @@ const LostList = () => {
           <CustomButton title="Post Missing Thing" navTo="/upload-thing" />
         </div>
       </div>
-      <div className="container text-center">
+      <div className="container text-center bg-list">
         <div className="row">
+          <div className="col">
+            <PersonPost />
+          </div>
+          <div className="col">
+            <PersonPost />
+          </div>
           <div className="col">
             <PersonPost />
           </div>
