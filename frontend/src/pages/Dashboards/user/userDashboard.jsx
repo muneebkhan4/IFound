@@ -10,27 +10,30 @@ function UserDashboard({ name, email }) {
         <div className="col ">
           <img
             src="https://i.postimg.cc/h4H4yPrS/test-img-3.jpg"
-            className="figure-img img-fluid rounded"
-            alt="..."
-            width="200"
-            height="200"
-            style={{ marginLeft: 40, marginTop: 40 }}
+            className="card-img-top"
+            style={{
+              marginTop: "0.25rem",
+              marginLeft: "2.5rem",
+              borderRadius: "1rem",
+              width: "13rem",
+              height: "17rem",
+            }}
           />
           <Details name={name} email={email}></Details>
         </div>
 
-        <div className="col">
+        <div className="col bg-list">
           <div className="row">
             <div className="col">
               <DashboardButton
                 title="Post Missing Thing"
-                navTo="/"
+                navTo="/upload-thing"
               ></DashboardButton>
             </div>
             <div className="col">
               <DashboardButton
                 title="Post Missing Person/ Child"
-                navTo="/"
+                navTo="/upload-person"
               ></DashboardButton>
             </div>
           </div>
@@ -38,13 +41,13 @@ function UserDashboard({ name, email }) {
             <div className="col">
               <DashboardButton
                 title="Post Found Thing"
-                navTo="/"
+                navTo="/upload-thing"
               ></DashboardButton>
             </div>
             <div className="col">
               <DashboardButton
                 title="Post Found Person/ Child"
-                navTo="/"
+                navTo="/upload-person"
               ></DashboardButton>
             </div>
           </div>

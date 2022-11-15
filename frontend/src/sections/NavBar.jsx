@@ -24,11 +24,8 @@ const NavBar = () => {
             IFound
           </h2>
         </Link>
-        <div
-          className="collapse navbar-collapse justify-content-center"
-          id="navbarNavAltMarkup"
-        >
-          <div className="navbar-nav ">
+        <div className="justify-content-center">
+          <div className="navbar-nav">
             <NavLink className="nav-link m-4" aria-current="page" to="/Home">
               Home
             </NavLink>

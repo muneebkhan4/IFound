@@ -8,15 +8,15 @@ const FoundList = () => {
 
       <div className="row">
         <div className="col center">
-          <CustomButton title="Post Found Person" navTo="/upload-person" />
+          <CustomButton title="Post Missing Person" navTo="/upload-person" />
         </div>
         <div className="col center">
-          <CustomButton title="Post Found thing" navTo="/upload-thing" />
+          <CustomButton title="Post Missing Thing" navTo="/upload-thing" />
         </div>
       </div>
 
-      <div className="container text-center">
-        <div className="row center">
+      <div className="container text-center bg-list">
+        <div className="row">
           <div className="col">
             <PersonPost />
           </div>
@@ -26,9 +26,12 @@ const FoundList = () => {
           <div className="col">
             <PersonPost />
           </div>
-        </div>
-        <div className="col">
-          <PersonPost />
+          <div className="col">
+            <PersonPost />
+          </div>
+          <div className="col">
+            <PersonPost />
+          </div>
         </div>
       </div>
     </React.Fragment>
