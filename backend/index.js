@@ -4,6 +4,8 @@ const express = require("express");
 cors = require("cors");
 const user = require("./routers/user");
 const auth = require("./routers/auth");
+const publishPost = require("./routers/publishPost");
+const getPosts = require("./routers/getPosts");
 const app = express();
 
 app.use(cors());
@@ -19,7 +21,7 @@ app.post("/post", upload.single("file"), async function (req, res) {
   // req.file is the name of your file in the form above, here 'uploaded_file'
   // req.body will hold the text fields, if there were any
 
-  let img = new Image(); // handled the case if malicious user try to request more arguments
+  let img = new Image();
 
   if (req.file === undefined) return res.send("you must select an image.");
   const imgUrl = `http://localhost:1000/post/${req.file.filename}`;
@@ -29,15 +31,6 @@ app.post("/post", upload.single("file"), async function (req, res) {
   await img.save();
 
   return res.send(imgUrl);
-});
-
-app.get("/getPosts", async function (req, res) {
-  // req.file is the name of your file in the form above, here 'uploaded_file'
-  // req.body will hold the text fields, if there were any
-
-  const posts = await Image.find();
-
-  return res.send(posts);
 });
 
 // http://localhost:1000/1667927440979-20210402_195757.jpg
@@ -56,6 +49,8 @@ mongoose
 app.use(express.json());
 app.use("/api/users", user);
 app.use("/api/auth", auth);
+app.use("/api/publish-post", publishPost);
+app.use("/api/get-posts", getPosts);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
