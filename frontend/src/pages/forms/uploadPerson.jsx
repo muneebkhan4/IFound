@@ -1,6 +1,7 @@
 import React, { useState, Component, createRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input";
+import axios from "axios";
 
 class UploadPerson extends Component {
   constructor(props) {
@@ -8,8 +9,37 @@ class UploadPerson extends Component {
 
     this.state = {
       credentials: { name: "", age: "", detail: "", city: "" },
+      selectedFile: null,
     };
   }
+
+  // On file select (from the pop up)
+  onFileChange = (event) => {
+    // Update the state
+    this.setState({ selectedFile: event.target.files[0] });
+  };
+
+  // // On file upload (click the upload button)
+  // onFileUpload = () => {
+
+  //   // Create an object of formData
+  //   const formData = new FormData();
+
+  //   // Update the formData object
+  //   formData.append(
+  //     "myFile",
+  //     this.state.selectedFile,
+  //     this.state.selectedFile.name
+  //   );
+
+  //   // Details of the uploaded file
+  //   console.log(this.state.selectedFile);
+
+  //   // Request made to the backend api
+  //   // Send formData object
+  //   axios.post("api/uploadfile", formData);
+  // };
+
   handleChange = (e) => {
     const credentials = { ...this.state.credentials };
     credentials[e.currentTarget.name] = e.currentTarget.value;
@@ -17,8 +47,26 @@ class UploadPerson extends Component {
   };
   handleUploadPersonSubmit = (e) => {
     e.preventDefault();
+
+    // Create an object of formData
+    const formData = new FormData();
+
+    // Update the formData object
+    formData.append(
+      "myFile",
+      this.state.selectedFile,
+      this.state.selectedFile.name
+    );
+
+    // Details of the uploaded file
+    console.log(this.state.selectedFile);
+
+    // Request made to the backend api
+    // Send formData object
+    axios.post("api/uploadfile", formData);
+
     console.log(
-      `submitted \nName: ${this.state.credentials.name}\ndetail: ${this.state.credentials.detail}\nEmail: ${this.state.credentials.age}\city: ${this.state.credentials.city}`
+      `submitted \nName: ${this.state.credentials.name}\ndetail: ${this.state.credentials.detail}\nEmail: ${this.state.credentials.age}\ncity: ${this.state.credentials.city}`
     );
   };
   render() {
@@ -62,6 +110,8 @@ class UploadPerson extends Component {
                   name="age"
                   value={age}
                   handleChange={this.handleChange}
+                  min="1"
+                  max="5"
                 />
                 <Input
                   autofocus={false}
@@ -88,6 +138,7 @@ class UploadPerson extends Component {
                   placeholder="Photo"
                   required=""
                   capture
+                  handleChange={this.onFileChange}
                 />
                 <button
                   className="btn btn-primary"
