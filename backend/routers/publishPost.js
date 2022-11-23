@@ -16,7 +16,7 @@ router.post("/", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let post = new Post(_.pick(req.body, ["name"])); // handled the case if malicious user try to request more arguments
+  let post = new Post(_.pick(req.body, ["name", "age", "city", "details"])); // handled the case if malicious user try to request more arguments
 
   await post.save();
   return res.status(400).send("saved");

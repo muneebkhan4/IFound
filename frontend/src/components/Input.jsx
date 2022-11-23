@@ -20,6 +20,9 @@ function Input({
         id={label}
         className="form-control"
         onChange={handleChange}
+        min="1"
+        max="150"
+        style={{ width: "15rem" }}
       />
       <label htmlFor={label}>{name}</label>
     </div>
