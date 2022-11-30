@@ -53,7 +53,7 @@ allow to upload only pictures, it will not allow uploading of videos, audios or
 Gif etc. Our system will not have any mechanism to avoid uploading of irrelevant pictures. Our 
 app will only allow to posting any lost or found case, with the location poster’s own country.
 
-#Initial Study and Work Done so Far
+# Initial Study and Work Done so Far
 
 React JS was made open source by Facebook in 2016. It has support of big tech companies like 
 Facebook, Instagram, and Electron etc. It is easy to make great looking website interfaces using 
@@ -69,7 +69,7 @@ There are many Object recognition APIs like Cloud Vision API, Amazon Rekognition
 Watson Visual Recognition, Rapid APIs, and Microsoft Image Processing API [7]. We will 
 use be using rapid APIs for image recognitions [8].
 
-#References
+# References
 
 [1] Federal Bureau of Investigation. (2022, Feb. 2). 2021 NCIC Missing Person and 
 Unidentified Person Statistics [Online]. Available:
