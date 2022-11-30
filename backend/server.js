@@ -1,7 +1,7 @@
 var request = require("request");
 
 const _apiUrl = "https://faceapi.mxface.ai/api/v2/face/verify";
-const _subscriptionKey = "lHiBQftcNivnqPKPu3-r7VmZVadBu1083"; //change subscription key
+const _subscriptionKey = "XYiyrB4lAxfLx8F4o8-nAjyNS0wKw1148"; //change subscription key
 
 var fs = require("fs");
 function base64Encode(file) {
@@ -10,8 +10,12 @@ function base64Encode(file) {
 }
 
 // console.log("hello world");
-var face_1 = base64Encode("test-img-3.jpg");
-var face_2 = base64Encode("test-img-4.jpg");
+var face_1 = base64Encode(
+  "../backend/uploads/1669706652422-20210402_195757.jpg"
+);
+var face_2 = base64Encode(
+  "../backend/uploads/1669706652422-20210402_195757.jpg"
+);
 
 var optionsFaceCompare = {
   url: _apiUrl,

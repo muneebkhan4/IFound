@@ -26,6 +26,10 @@ const postSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 500,
   },
+  file: {
+    type: String,
+    required: true,
+  },
 });
 
 const Post = mongoose.model("Post", postSchema);
@@ -36,6 +40,7 @@ function validatePost(Post) {
     age: Joi.string().required(),
     city: Joi.string().min(5).max(50).required(),
     details: Joi.string().min(5).max(500).required(),
+    //file: Joi.string().required(),
   });
   return schema.validate(Post);
 }

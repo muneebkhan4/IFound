@@ -30,12 +30,14 @@ class Login extends Component {
   async validate() {
     const { credentials } = this.state;
     try {
-      const { data } = await axios.post(
+      const { header, data } = await axios.post(
         "http://localhost:1000/api/auth",
         credentials
       );
       const user = data;
       this.setState({ user });
+      localStorage.setItem("user", data.email);
+      localStorage.setItem("token", header.token);
     } catch (err) {
       const error = err.response.data;
       this.setState({ error });

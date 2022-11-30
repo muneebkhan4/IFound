@@ -19,33 +19,12 @@ class UploadPerson extends Component {
     this.setState({ selectedFile: event.target.files[0] });
   };
 
-  // // On file upload (click the upload button)
-  // onFileUpload = () => {
-
-  //   // Create an object of formData
-  //   const formData = new FormData();
-
-  //   // Update the formData object
-  //   formData.append(
-  //     "myFile",
-  //     this.state.selectedFile,
-  //     this.state.selectedFile.name
-  //   );
-
-  //   // Details of the uploaded file
-  //   console.log(this.state.selectedFile);
-
-  //   // Request made to the backend api
-  //   // Send formData object
-  //   axios.post("api/uploadfile", formData);
-  // };
-
   handleChange = (e) => {
     const credentials = { ...this.state.credentials };
     credentials[e.currentTarget.name] = e.currentTarget.value;
     this.setState({ credentials });
   };
-  handleUploadPersonSubmit = (e) => {
+  handleUploadPersonSubmit = async (e) => {
     e.preventDefault();
 
     // Create an object of formData
@@ -53,9 +32,25 @@ class UploadPerson extends Component {
 
     // Update the formData object
     formData.append(
-      "myFile",
+      "file",
       this.state.selectedFile,
       this.state.selectedFile.name
+    );
+    formData.append(
+      "name",
+      this.state.selectedFile,
+      this.state.credentials.name
+    );
+    formData.append("age", this.state.selectedFile, this.state.credentials.age);
+    formData.append(
+      "city",
+      this.state.selectedFile,
+      this.state.credentials.city
+    );
+    formData.append(
+      "details",
+      this.state.selectedFile,
+      this.state.credentials.detail
     );
 
     // Details of the uploaded file
@@ -63,7 +58,18 @@ class UploadPerson extends Component {
 
     // Request made to the backend api
     // Send formData object
-    axios.post("api/uploadfile", formData);
+
+    await axios.post("http://localhost:1000/api/publish-post", formData);
+
+    // token secured
+    //   const token =
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdkMGZhNjRjOWYzMzI4NmI0YWY2NTciLCJpYXQiOjE2Njk3OTA1ODB9.YTdNf-iJ06tejNrADZ6hqiqoMw1lPI_2QVDl2Y-44yk";
+    // await axios.post("http://localhost:1000/api/publish-post", {
+    //   formData,
+    //   headers: {
+    //     token: `${token}`,
+    //   },
+    // });
 
     console.log(
       `submitted \nName: ${this.state.credentials.name}\ndetail: ${this.state.credentials.detail}\nEmail: ${this.state.credentials.age}\ncity: ${this.state.credentials.city}`
