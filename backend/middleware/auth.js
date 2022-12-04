@@ -11,9 +11,8 @@ const { Image } = require("../models/image");
 const { Post } = require("../models/post");
 
 module.exports = function (req, res, next) {
-  const token = req.header("token");
+  const token = req.header("x_auth_token");
   if (!token) return res.status(401).send("Access denied. No token provided.");
-
   try {
     const decoded = jwt.verify(token, config.get("JwtPrivateKey"));
     req.user = decoded;

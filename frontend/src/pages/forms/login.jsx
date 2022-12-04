@@ -1,4 +1,4 @@
-import React, { useState, Component, createRef } from "react";
+import React, { Component, createRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input";
 import { Link } from "react-router-dom";
@@ -12,9 +12,14 @@ class Login extends Component {
 
     this.state = {
       credentials: { email: "", password: "" },
-      user: {},
+      currentUserEmail: "",
       error: "",
     };
+  }
+
+  componentDidMount() {
+    console.log("mounted", this.state.currentUserEmail);
+    <Navigate to="/user-dashboard" replace={true} />;
   }
   handleChange = (e) => {
     const credentials = { ...this.state.credentials };
@@ -30,14 +35,16 @@ class Login extends Component {
   async validate() {
     const { credentials } = this.state;
     try {
-      const { header, data } = await axios.post(
+      const { data, headers } = await axios.post(
         "http://localhost:1000/api/auth",
         credentials
       );
-      const user = data;
-      this.setState({ user });
-      localStorage.setItem("user", data.email);
-      localStorage.setItem("token", header.token);
+      console.log(data.headers);
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("name", data.name);
+      localStorage.setItem("x_auth_token", headers.x_auth_token);
+      const currentUserEmail = data.email;
+      this.setState({ currentUserEmail });
     } catch (err) {
       const error = err.response.data;
       this.setState({ error });
@@ -47,12 +54,11 @@ class Login extends Component {
   render() {
     const { email } = this.state.credentials;
     const { password } = this.state.credentials;
-    const { user } = this.state;
+    const { currentUserEmail } = this.state;
     const { error } = this.state;
-    if (user.email)
-      return <UserDashboard email={user.email} name={user.name} />;
     return (
       <React.Fragment>
+        {currentUserEmail && <Navigate to="/user-dashboard" replace={true} />}
         <div className="row">
           <div
             className="col-3 mt-5 center"

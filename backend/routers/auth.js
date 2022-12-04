@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 
   //res.send(token); // avoid sending userId, asigned by database
 
-  res.header("token", token).send(_.pick(user, ["email", "name"])); // avoid sending userId, asigned by database
+  res.header("x_auth_token", token).send(_.pick(user, ["email", "name"])); // avoid sending userId, asigned by database
 });
 
 function authUser(user) {

@@ -6,6 +6,10 @@ const imageSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  data: {
+    type: Buffer, // casted to MongoDB's BSON type: binData
+    //  required: true,
+  },
 });
 
 const Image = mongoose.model("Image", imageSchema);
