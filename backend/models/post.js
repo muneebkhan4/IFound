@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const { Image } = require("./image");
 
 const postSchema = new mongoose.Schema({
   name: {
@@ -26,7 +27,11 @@ const postSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 500,
   },
-  file: {
+  userId: {
+    type: String,
+    required: true,
+  },
+  imageId: {
     type: String,
     required: true,
   },
@@ -40,7 +45,8 @@ function validatePost(Post) {
     age: Joi.string().required(),
     city: Joi.string().min(5).max(50).required(),
     details: Joi.string().min(5).max(500).required(),
-    //file: Joi.string().required(),
+    //userId: Joi.string().required(),
+    //imageId: Joi.string().required(),
   });
   return schema.validate(Post);
 }

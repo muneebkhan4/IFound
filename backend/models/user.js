@@ -28,7 +28,8 @@ const userSchema = new mongoose.Schema({
 // basically its a key value pair generateAuthToken become name of the function (act as key)
 // and its value is the function
 userSchema.methods.generateAuthToken = function () {
-  return jwt.sign({ _id: this._id }, config.get("JwtPrivateKey"));
+  const token = jwt.sign({ _id: this._id }, config.get("JwtPrivateKey"));
+  return token;
 };
 
 const User = mongoose.model("User", userSchema);
