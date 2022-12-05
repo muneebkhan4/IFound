@@ -27,6 +27,14 @@ const postSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 500,
   },
+  postType: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
   userId: {
     type: String,
     required: true,
@@ -45,6 +53,7 @@ function validatePost(Post) {
     age: Joi.string().required(),
     city: Joi.string().min(5).max(50).required(),
     details: Joi.string().min(5).max(500).required(),
+    postType: Joi.string().required(),
     //userId: Joi.string().required(),
     //imageId: Joi.string().required(),
   });

@@ -1,10 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function DashboardButton({ title, navTo, value }) {
+function DashboardButton({ title, navTo, value, PostType }) {
   return (
     <React.Fragment>
-      <NavLink className="nav-link m-4" style={{ marginTop: 10 }} to={navTo}>
+      <NavLink
+        className="nav-link m-4"
+        style={{ marginTop: 10 }}
+        to={{ pathname: navTo }}
+        state={{ givenPostType: PostType, title: title }}
+      >
         <button className="DashboardButton">
           <h2 className="fonts">
             {title}&nbsp;

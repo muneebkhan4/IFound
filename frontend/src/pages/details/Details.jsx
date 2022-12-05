@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 
-function Details({ name, email }) {
+function Details() {
   return (
     <React.Fragment>
       <h2 className="fonts" style={{ marginLeft: 40, marginTop: 40 }}>
@@ -23,7 +23,7 @@ function Details({ name, email }) {
               <h4>Name:</h4>
             </div>
             <div className="col">
-              <h4>{name}</h4>
+              <h4>{localStorage.getItem("name")}</h4>
             </div>
           </div>
 
@@ -32,7 +32,7 @@ function Details({ name, email }) {
               <h4>Email:</h4>
             </div>
             <div className="col">
-              <h4>{email}</h4>
+              <h4>{localStorage.getItem("email")}</h4>
             </div>
           </div>
 

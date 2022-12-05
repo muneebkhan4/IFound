@@ -22,13 +22,15 @@ router.post("/", [auth, upload.single("file")], async (req, res) => {
   if (req.file === undefined) return res.send("you must select an image.");
 
   const Url = `http://localhost:1000/${req.file.filename}`;
-  let post = new Post(_.pick(req.body, ["name", "age", "city", "details"])); // handled the case if malicious user try to request more arguments
+  let post = new Post(
+    _.pick(req.body, ["name", "age", "city", "details", "postType"])
+  ); // handled the case if malicious user try to request more arguments
+
+  post.date = new Date();
 
   const image = new Image({
     imgUrl: Url,
   });
-
-  //  image.data = fs.readFileSync(`http://localhost:1000/${req.file.filename}`);
 
   image.data = fs.readFileSync(`./uploads/${req.file.filename}`);
 

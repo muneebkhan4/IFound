@@ -2,7 +2,7 @@ import React from "react";
 import DashboardButton from "../../../components/DashboardButton";
 import Details from "../../details/Details";
 
-function UserDashboard({ name, email }) {
+function UserDashboard({ navigation }) {
   return (
     <React.Fragment>
       <h1 className="App-header"> User dashboard</h1>
@@ -19,7 +19,7 @@ function UserDashboard({ name, email }) {
               height: "17rem",
             }}
           />
-          <Details name={name} email={email}></Details>
+          <Details />
         </div>
 
         <div className="col bg-list">
@@ -34,6 +34,7 @@ function UserDashboard({ name, email }) {
               <DashboardButton
                 title="Post Missing Person/ Child"
                 navTo="/upload-person"
+                PostType="MissingPerson"
               ></DashboardButton>
             </div>
           </div>
@@ -48,6 +49,7 @@ function UserDashboard({ name, email }) {
               <DashboardButton
                 title="Post Found Person/ Child"
                 navTo="/upload-person"
+                PostType="FoundPerson"
               ></DashboardButton>
             </div>
           </div>

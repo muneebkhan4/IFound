@@ -34,7 +34,7 @@ mongoose
 // Routes
 app.use("/api/users", user);
 app.use("/api/auth", auth);
-app.use("/api/publish-post", publishPost);
+app.use("/api/publish-missing-person-post", publishPost);
 app.use("/api/get-posts", getPosts);
 
 app.get("/image", async (req, res) => {
