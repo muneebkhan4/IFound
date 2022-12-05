@@ -1,5 +1,6 @@
 import React, { useState, Component, createRef } from "react";
 import { useNavigate } from "react-router-dom";
+import NavBar from "../../sections/NavBar";
 import Input from "../../components/Input";
 
 class UploadThing extends Component {
@@ -28,6 +29,7 @@ class UploadThing extends Component {
     const { city } = this.state.credentials;
     return (
       <React.Fragment>
+        <NavBar currentUser={localStorage.getItem("email")} />
         <div className="row">
           <div
             className="col-3 mt-5 center"

@@ -2,6 +2,7 @@ import React, { useState, Component, createRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input";
 import UserDashboard from "./../Dashboards/user/userDashboard";
+import NavBar from "../../sections/NavBar";
 import axios from "axios";
 
 class Signup extends Component {
@@ -52,6 +53,7 @@ class Signup extends Component {
       return <UserDashboard email={user.email} name={user.name} />;
     return (
       <React.Fragment>
+        <NavBar currentUser={localStorage.getItem("email")} />
         <div className="row">
           <div
             className="col-3 mt-5 center"
