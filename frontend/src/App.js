@@ -1,7 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
 import React, { Component } from "react";
-import NavBar from "./sections/NavBar";
 import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 import FoundList from "./pages/lists/FoundList";
 import NotFound from "./pages/common/NotFound";
@@ -47,7 +46,6 @@ function AppRoutes() {
 function App() {
   return (
     <React.Fragment>
-      <NavBar />
       <AppRoutes />
       <Footer />
     </React.Fragment>

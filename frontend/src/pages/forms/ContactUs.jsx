@@ -1,6 +1,7 @@
 import React, { useState, Component, createRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input";
+import NavBar from "../../sections/NavBar";
 
 class Contactus extends Component {
   constructor(props) {
@@ -27,6 +28,8 @@ class Contactus extends Component {
     const { message } = this.state.credentials;
     return (
       <React.Fragment>
+        <NavBar currentUser={localStorage.getItem("email")} />
+
         <div className="row">
           <div
             className="col-3 mt-5 center"

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import Reports from "./../../components/Report";
-
+import NavBar from "../../sections/NavBar";
 const Home = () => {
   return (
     <React.Fragment>
+      <NavBar currentUser={localStorage.getItem("email")} />
+
       <h1 className="App-header">Home</h1>
       <Reports title="100+ Parents got their children back successfully." />
       <Reports title="20+ People got their missing disabled person back successfully." />

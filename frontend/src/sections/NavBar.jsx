@@ -5,6 +5,9 @@ import NotFound from "../pages/common/NotFound";
 import "../styles/navbar.css";
 
 class NavBar extends Component {
+  handleLogout = () => {
+    localStorage.clear();
+  };
   render() {
     return (
       <nav className="navbar sticky-top navbar-expand-lg bg-light">
@@ -23,6 +26,15 @@ class NavBar extends Component {
               <NavLink className="nav-link m-4" aria-current="page" to="/Home">
                 Home
               </NavLink>
+              {localStorage.getItem("email") && (
+                <NavLink
+                  className="nav-link m-4"
+                  aria-current="page"
+                  to="/user-dashboard"
+                >
+                  Dashboards
+                </NavLink>
+              )}
               <NavLink className="nav-link m-4" to="/Found-List">
                 Found List
               </NavLink>
@@ -35,16 +47,30 @@ class NavBar extends Component {
             </div>
           </div>
 
-          <NavLink className="nav-link m-4" to="/Login">
-            <Button
-              className="btn btn-primary m-4 "
-              color="blue"
-              appearance="primary"
-              onClick={this.handleLogout}
-            >
-              Login/ Signup
-            </Button>
-          </NavLink>
+          {this.props.currentUser && (
+            <NavLink className="nav-link m-4" to="/Login">
+              <Button
+                className="btn btn-primary m-4 "
+                color="blue"
+                appearance="primary"
+                onClick={this.handleLogout}
+              >
+                Logout
+              </Button>
+            </NavLink>
+          )}
+          {!this.props.currentUser && (
+            <NavLink className="nav-link m-4" to="/Login">
+              <Button
+                className="btn btn-primary m-4 "
+                color="blue"
+                appearance="primary"
+                onClick={this.handleLogout}
+              >
+                Login/ Signup
+              </Button>
+            </NavLink>
+          )}
         </div>
       </nav>
     );

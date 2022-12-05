@@ -1,13 +1,13 @@
 import { useLocation } from "react-router-dom";
 import React, { useState, Component } from "react";
 import Input from "../../components/Input";
+import NavBar from "../../sections/NavBar";
 import axios from "axios";
 
 const UploadPerson = () => {
   // handle submit button event
   const handleUploadPersonSubmit = async (e) => {
     e.preventDefault();
-
     // checking fileds data before sending request
     if (!credentials.name) {
       const message = "Name cannot be Empty.";
@@ -99,6 +99,7 @@ const UploadPerson = () => {
   // return
   return (
     <React.Fragment>
+      <NavBar currentUser={localStorage.getItem("email")} />
       <div className="row">
         <div
           className="col-3 mt-5 center"

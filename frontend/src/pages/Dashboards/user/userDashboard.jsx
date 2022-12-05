@@ -1,10 +1,12 @@
 import React from "react";
 import DashboardButton from "../../../components/DashboardButton";
 import Details from "../../details/Details";
+import Navbar from "../../../sections/NavBar";
 
-function UserDashboard({ navigation }) {
+function UserDashboard() {
   return (
     <React.Fragment>
+      <Navbar currentUser={localStorage.getItem("email")} />
       <h1 className="App-header"> User dashboard</h1>
       <div className="row">
         <div className="col ">
