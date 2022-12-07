@@ -60,7 +60,7 @@ class Signup extends Component {
             style={{ width: "40%", height: "100%" }}
           >
             <img
-              src="https://i.postimg.cc/tChbCN8h/bg-pic.jpg"
+              src="https://i.ibb.co/tBYg2xv/bg-pic.png"
               className="card-img-top"
               width="auto"
               height="500"
