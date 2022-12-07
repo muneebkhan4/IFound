@@ -13,6 +13,7 @@ const Login = () => {
   // data
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [progressbar, setProgressbar] = useState("");
 
   // Update specific input field
   const handleChange = (e) =>
@@ -23,6 +24,10 @@ const Login = () => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
+    setProgressbar("true");
+    setTimeout(() => {
+      setProgressbar("");
+    }, 500);
     validate();
   };
   // insecure implementation showing api calls,
@@ -55,10 +60,10 @@ const Login = () => {
           style={{ width: "40%", height: "100%" }}
         >
           <img
-            src="https://i.postimg.cc/tChbCN8h/bg-pic.jpg"
+            src="https://i.ibb.co/tBYg2xv/bg-pic.png"
             className="card-img-top"
             alt="..."
-            width="auto"
+            width="500"
             height="500"
           />
         </div>
@@ -98,6 +103,11 @@ const Login = () => {
               <p style={{ marginBottom: "1rem", marginTop: "1rem" }}>
                 Not Registered? <Link to="/signup">Sign up</Link>
               </p>
+              {progressbar && (
+                <div class="spinner-grow fonts" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              )}
             </form>
           </div>
         </div>

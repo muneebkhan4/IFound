@@ -16,13 +16,13 @@
   align-items: top;
   justify-content: center;
   font-size: calc(12px + 2vmin);
-  color: rgb(3, 98, 133);
+  color: rgb(5, 125, 164);
   font-weight: bold;
 }
 
 .fonts {
   font-size: calc(12px + 2vmin);
-  color: rgb(3, 98, 133);
+  color: rgb(5, 125, 164);
   font-weight: bold;
 }
 
@@ -31,10 +31,7 @@
 }
 
 .Background {
-  background-image: url("../public/assets/bg-pic.jpg");
-  height: 50rem;
-  width: 70rem;
-  background-repeat: no-repeat;
+  background-color: rgb(216, 217, 218);
 }
 
 .bg-list {
