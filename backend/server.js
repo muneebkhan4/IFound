@@ -10,7 +10,7 @@ function base64Encode(file) {
 }
 
 // console.log("hello world");
-var face_1 = base64Encode("../backend/uploads/1670162006203-child-1.jpg");
+var face_1;
 // var face_2 = base64Encode("../backend/uploads/1670162006203-child-1.jpg");
 
 //console.log(face_1);
