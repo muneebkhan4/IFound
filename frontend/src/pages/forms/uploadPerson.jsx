@@ -9,6 +9,12 @@ const UploadPerson = () => {
   const handleUploadPersonSubmit = async (e) => {
     e.preventDefault();
     // checking fileds data before sending request
+
+    setProgressbar("true");
+    setTimeout(() => {
+      setProgressbar("");
+    }, 500);
+
     if (!credentials.name) {
       const message = "Name cannot be Empty.";
       setMessage(message);
@@ -61,6 +67,14 @@ const UploadPerson = () => {
         }
       );
       const message = data;
+      setCredentials({
+        name: "",
+        age: "",
+        detail: "",
+        city: "",
+      });
+      const temp = "";
+      setSelectedFile(temp); // clearing form
       setMessage(message);
     } catch (err) {
       const message = err.response.data;
@@ -95,6 +109,7 @@ const UploadPerson = () => {
   });
   var [selectedFile, setSelectedFile] = useState("");
   var [message, setMessage] = useState("");
+  const [progressbar, setProgressbar] = useState("");
 
   // return
   return (
@@ -170,6 +185,11 @@ const UploadPerson = () => {
                 <p style={{ color: "green", marginBottom: "1rem" }}>
                   Post Added Successfully
                 </p>
+              )}
+              {progressbar && (
+                <div class="spinner-grow fonts" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
               )}
               <button
                 className="btn btn-primary"

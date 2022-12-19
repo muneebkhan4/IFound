@@ -15,7 +15,10 @@ const PersonDetail = () => {
             style={{ marginLeft: 40, marginTop: 20 }}
           />
         </div>
-        <div className="col" style={{ marginTop: 80 }}>
+        <div
+          className="col bg-light"
+          style={{ marginTop: 80, marginRight: 40 }}
+        >
           <div className="row">
             <div className="col">
               <h3>Name:</h3>
