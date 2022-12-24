@@ -59,14 +59,14 @@ function UserDashboard() {
             <div className="col">
               <DashboardButton
                 title="UnResolved Cases"
-                navTo="/"
+                navTo="/unresolved-cases"
                 value={2}
               ></DashboardButton>
             </div>
             <div className="col">
               <DashboardButton
                 title="Resolved Cases"
-                navTo="/"
+                navTo="/resolved-cases"
                 value={5}
               ></DashboardButton>
             </div>
