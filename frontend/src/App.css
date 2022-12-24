@@ -35,13 +35,13 @@
 }
 
 .bg-list {
-  background-color: rgb(216, 217, 218);
+  background-color: rgb(189, 189, 189);
   border-radius: 1rem;
 }
 
 .custom-post-card {
-  width: 15rem;
-  margin-left: 2rem;
+  width: 17rem;
+  margin-left: 1rem;
   margin-top: 1rem;
   border: 0.25rem;
   border-style: solid;
@@ -94,6 +94,6 @@
   background: "lightblue";
 }
 .DashboardButton:hover {
-  background-color: rgb(182, 184, 186);
+  background-color: rgb(205, 205, 205);
   transition: 0.2s;
 }

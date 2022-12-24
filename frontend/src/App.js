@@ -17,6 +17,7 @@ import PremiumUserDashboard from "./pages/Dashboards/premium_user/premiumUserDas
 import PoliceDashboard from "./pages/Dashboards/police/policeDashboard";
 import AdminDashboard from "./pages/Dashboards/admin/adminDashboard";
 import ResolvedCases from "./pages/Dashboards/user/reolvedCases";
+import UnResolvedCases from "./pages/Dashboards/user/unResolvedCases";
 import Footer from "./sections/Footer";
 
 function AppRoutes() {
@@ -35,6 +36,7 @@ function AppRoutes() {
       <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
       <Route path="/user-dashboard" element={<UserDashboard />}></Route>
       <Route path="/resolved-cases" element={<ResolvedCases />}></Route>
+      <Route path="/unresolved-cases" element={<UnResolvedCases />}></Route>
       <Route
         path="/premium-user-dashboard"
         element={<PremiumUserDashboard />}

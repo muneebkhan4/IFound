@@ -16,7 +16,13 @@ router.get("/", auth, async (req, res) => {
 
   const posts = await Post.find();
 
-  return res.status(400).send(posts);
+  const result = [];
+  for (let i = 0; i < posts.length; i++) {
+    result.push(
+      _.pick(posts[i], ["name", "age", "city", "details", "postType"])
+    );
+  }
+  return res.status(200).send(result);
 });
 
 module.exports = router;

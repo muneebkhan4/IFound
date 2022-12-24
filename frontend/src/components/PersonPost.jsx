@@ -1,6 +1,6 @@
 import React from "react";
 
-function PersonPost() {
+function PersonPost(props) {
   return (
     <React.Fragment>
       <div className="custom-post-card" style={{ marginBottom: "1rem" }}>
@@ -9,7 +9,7 @@ function PersonPost() {
             src="https://images.pexels.com/photos/1096147/pexels-photo-1096147.jpeg?cs=srgb&dl=pexels-kelvin-octa-1096147.jpg&fm=jpg"
             className="card-img-top"
             style={{
-              marginTop: "0.25rem",
+              marginTop: "0.15rem",
               borderRadius: "1.5rem",
               width: "14rem",
             }}
@@ -17,7 +17,7 @@ function PersonPost() {
         </a>
         <div className="card-body">
           <a href="/Person-Details">
-            <h5 className="card-title">Name: AnyName</h5>
+            <h5 className="card-title">Name: {props.name}</h5>
             <h6 className="card-text">City: Lahore</h6>
             <h6 className="card-text">Age: 10 years</h6>
           </a>
