@@ -41,7 +41,9 @@ const Login = () => {
       localStorage.setItem("email", data.email);
       localStorage.setItem("name", data.name);
       localStorage.setItem("x_auth_token", headers.x_auth_token);
-      navigate("/user-dashboard");
+      if (data.userType === "admin") navigate("/admin-dashboard");
+      else if (data.userType === "police") navigate("/police-dashboard");
+      else if (data.userType === "user") navigate("/user-dashboard");
     } catch (err) {
       const error = err.response.data;
       setError(error);

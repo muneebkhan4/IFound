@@ -24,11 +24,17 @@ const userSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 150,
   },
+  userType: {
+    type: String,
+  },
 });
 // basically its a key value pair generateAuthToken become name of the function (act as key)
 // and its value is the function
 userSchema.methods.generateAuthToken = function () {
-  const token = jwt.sign({ _id: this._id }, config.get("JwtPrivateKey"));
+  const token = jwt.sign(
+    { _id: this._id, userType: this.userType },
+    config.get("JwtPrivateKey")
+  );
   return token;
 };
 
@@ -39,6 +45,7 @@ function validateUser(user) {
     name: Joi.string().min(5).max(150).required(),
     email: Joi.string().min(5).max(150).required().email(),
     password: Joi.string().min(5).max(150).required(),
+    userType: Joi.string(),
   });
   return schema.validate(user);
 }

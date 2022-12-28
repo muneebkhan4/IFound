@@ -7,6 +7,7 @@ const user = require("./routers/user");
 const auth = require("./routers/auth");
 const publishPost = require("./routers/publishPost");
 const getPosts = require("./routers/getPosts");
+const jwt = require("jsonwebtoken");
 const app = express();
 const { Image } = require("./models/image");
 app.use(express.static("uploads")); // make upload folder publically available
@@ -36,6 +37,18 @@ app.use("/api/users", user);
 app.use("/api/auth", auth);
 app.use("/api/publish-missing-person-post", publishPost);
 app.use("/api/get-posts", getPosts);
+
+// for differnt users dashboard validation
+app.post("/verifyToken", async (req, res) => {
+  const token = req.header("x_auth_token");
+  if (!token) return res.status(401).send("Access denied. No token provided.");
+  try {
+    const decoded = jwt.verify(token, config.get("JwtPrivateKey"));
+    res.status(200).send(decoded.userType);
+  } catch (ex) {
+    res.status(400).send("Invalid Token.");
+  }
+});
 
 app.get("/image", async (req, res) => {
   let image = await Image.findOne({ _id: "638ca6955d202658b08e5387" });
