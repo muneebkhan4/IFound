@@ -1,7 +1,39 @@
-import { useState, React } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "../../../sections/NavBar";
+import PersonPost from "../../../components/PersonPost";
+import axios from "axios";
 
-const ReolvedCases = () => {
+const ResolvedCases = () => {
+  const [posts, setPosts] = useState();
+
+  useEffect(() => {
+    const getData = async () => {
+      // authentication token
+      const token = localStorage.getItem("x_auth_token");
+      // Request made to the backend api
+      // Send formData object
+      try {
+        const { data } = await axios.get(
+          "http://localhost:1000/api/get-posts",
+          {
+            headers: {
+              x_auth_token: token,
+            },
+          }
+        );
+        //console.log(data[0]);
+        setPosts(data);
+        //console.log(posts);
+      } catch (err) {
+        if (err) console.log(err.response.data);
+      }
+    };
+
+    getData();
+  }, []);
+
+  if (posts) console.log(posts[0]);
+
   const Users = [
     {
       name: "Deepak",
@@ -33,17 +65,26 @@ const ReolvedCases = () => {
     },
   ];
 
-  return (
-    <div>
-      <NavBar />
-      <h1 className="center fonts">Resolved cases</h1>
-      {Users.map((x) => (
+  {
+    /* {Users.map((x) => (
         <h1 className="center fonts" key={x.rollNo}>
           Name: {x.name} RollNo. {x.rollNo}
         </h1>
-      ))}
-    </div>
+      ))} */
+  }
+  return (
+    <React.Fragment>
+      <NavBar currentUser={localStorage.getItem("email")} />
+      <h1 className="App-header">UnResolved Cases</h1>
+      <div className="container text-center bg-list">
+        <div className="row">
+          <div className="col">
+            {posts && <PersonPost name={posts[0].name} />}
+          </div>
+        </div>
+      </div>
+    </React.Fragment>
   );
 };
 
-export default ReolvedCases;
+export default ResolvedCases;

@@ -1,18 +1,18 @@
 import React, { useState, Component, createRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Input from "../../components/Input";
-import UserDashboard from "./../Dashboards/user/userDashboard";
 import NavBar from "../../sections/NavBar";
 import axios from "axios";
 
 class Signup extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       credentials: { name: "", email: "", password: "" },
-      user: {},
       error: "",
+      success: "",
+      progressbar: "",
+      messageShow: "",
     };
   }
   handleChange = (e) => {
@@ -35,8 +35,15 @@ class Signup extends Component {
         "http://localhost:1000/api/users",
         credentials
       );
-      const user = data;
-      this.setState({ user });
+      const success = true;
+      this.setState({ progressbar: "true" });
+      this.setState({
+        messageShow: "User added successfully. Navigating to Login Screen...",
+      });
+      setTimeout(() => {
+        this.setState({ progressbar: "" });
+        this.setState({ success });
+      }, 4000);
     } catch (err) {
       const error = err.response.data;
       this.setState({ error });
@@ -47,12 +54,13 @@ class Signup extends Component {
     const { name } = this.state.credentials;
     const { password } = this.state.credentials;
     const { email } = this.state.credentials;
-    const { user } = this.state;
     const { error } = this.state;
-    if (user.email)
-      return <UserDashboard email={user.email} name={user.name} />;
+    const { progressbar } = this.state;
+    const { messageShow } = this.state;
+
     return (
       <React.Fragment>
+        {this.state.success && <Navigate to="/login" replace={true} />}
         <NavBar currentUser={localStorage.getItem("email")} />
         <div className="row">
           <div
@@ -106,12 +114,29 @@ class Signup extends Component {
                 >
                   {error}
                 </p>
+
+                <p
+                  style={{
+                    marginLeft: "2rem",
+                    marginBottom: "1rem",
+                    color: "green",
+                  }}
+                >
+                  {messageShow}
+                </p>
+
                 <button
                   className="btn btn-primary"
                   style={{ marginLeft: "8rem", marginBottom: "1rem" }}
                 >
                   Submit
                 </button>
+
+                {progressbar && (
+                  <div class="spinner-grow fonts" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                )}
               </form>
             </div>
           </div>
