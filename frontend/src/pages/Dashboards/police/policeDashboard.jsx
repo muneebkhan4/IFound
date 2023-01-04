@@ -79,7 +79,7 @@ const PoliceDashboard = () => {
             <div className="row">
               <div className="col">
                 <DashboardButton
-                  title="Reported Posts"
+                  title="Theft Reported Posts"
                   navTo="/unresolved-cases"
                   value={2}
                 ></DashboardButton>

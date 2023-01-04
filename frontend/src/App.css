@@ -97,3 +97,10 @@
   background-color: rgb(205, 205, 205);
   transition: 0.2s;
 }
+.line {
+  width: 53px;
+  height: 0;
+  border: 1px solid #c4c4c4;
+  margin: 3px;
+  display: inline-block;
+}

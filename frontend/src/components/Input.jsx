@@ -13,13 +13,13 @@ function Input({
   return (
     <div className="form-floating mb-3">
       <input
+        className="form-control"
         autoFocus={autofocus}
         placeholder={placeholder}
         value={value}
         name={name}
         type={type}
         id={label}
-        className="form-control"
         onChange={handleChange}
         min="1"
         max="150"

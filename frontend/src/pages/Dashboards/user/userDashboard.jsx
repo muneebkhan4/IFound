@@ -65,6 +65,7 @@ function UserDashboard() {
               <div className="col">
                 <DashboardButton
                   title="Post Missing Thing"
+                  PostType="MissingThing"
                   navTo="/upload-thing"
                 ></DashboardButton>
               </div>
@@ -80,6 +81,7 @@ function UserDashboard() {
               <div className="col">
                 <DashboardButton
                   title="Post Found Thing"
+                  PostType="FoundThing"
                   navTo="/upload-thing"
                 ></DashboardButton>
               </div>
