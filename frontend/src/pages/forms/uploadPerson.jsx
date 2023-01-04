@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, Component } from "react";
 import Input from "../../components/Input";
 import NavBar from "../../sections/NavBar";
@@ -10,38 +10,33 @@ const UploadPerson = () => {
     e.preventDefault();
     // checking fileds data before sending request
 
-    setProgressbar("true");
-    setTimeout(() => {
-      setProgressbar("");
-    }, 500);
+    // if (!credentials.name) {
+    //   const message = "Name cannot be Empty.";
+    //   setMessage(message);
+    //   return;
+    // }
 
-    if (!credentials.name) {
-      const message = "Name cannot be Empty.";
-      setMessage(message);
-      return;
-    }
-
-    if (!credentials.age) {
-      const message = "Age cannot be Empty. You can enter an approximate age.";
-      setMessage(message);
-      return;
-    }
-    if (!credentials.city) {
-      const message = "City cannot be Empty.";
-      setMessage(message);
-      return;
-    }
-    if (!credentials.detail) {
-      const message =
-        "Details cannot be Empty. Please enter few lines of details.";
-      setMessage(message);
-      return;
-    }
-    if (!selectedFile) {
-      const message = "Please attach one Picture.";
-      setMessage(message);
-      return;
-    }
+    // if (!credentials.age) {
+    //   const message = "Age cannot be Empty. You can enter an approximate age.";
+    //   setMessage(message);
+    //   return;
+    // }
+    // if (!credentials.city) {
+    //   const message = "City cannot be Empty.";
+    //   setMessage(message);
+    //   return;
+    // }
+    // if (!credentials.detail) {
+    //   const message =
+    //     "Details cannot be Empty. Please enter few lines of details.";
+    //   setMessage(message);
+    //   return;
+    // }
+    // if (!selectedFile) {
+    //   const message = "Please attach one Picture.";
+    //   setMessage(message);
+    //   return;
+    // }
     // Create an object of formData
     const formData = new FormData();
 
@@ -56,29 +51,90 @@ const UploadPerson = () => {
     const token = localStorage.getItem("x_auth_token");
     // Request made to the backend api
     // Send formData object
-    try {
-      const { data } = await axios.post(
-        "http://localhost:1000/api/publish-missing-person-post",
-        formData,
-        {
-          headers: {
-            x_auth_token: token,
-          },
+    if (credentials.postType == "MissingPerson") {
+      try {
+        const { data } = await axios.post(
+          "https://localhost:44364/findFoundGroup",
+          formData,
+          {
+            headers: {
+              x_auth_token: token,
+            },
+          }
+        );
+        console.log("Searched MissingPerson: ", data);
+
+        const response = data;
+        setCredentials({
+          name: "",
+          age: "",
+          detail: "",
+          city: "",
+        });
+        const temp = "";
+        console.log(message);
+        setSelectedFile(temp); // clearing form
+        setMessage(message);
+        if (response.message === "Found") {
+          navigate("/resolved-cases", {
+            state: {
+              posted: previewFile,
+              matched: response.image,
+            },
+          });
+        } else {
+          message = "saved";
+          setProgressbar("true");
+          setTimeout(() => {
+            setProgressbar("");
+          }, 3000);
+          navigate("/user-dashboard");
         }
-      );
-      const message = data;
-      setCredentials({
-        name: "",
-        age: "",
-        detail: "",
-        city: "",
-      });
-      const temp = "";
-      setSelectedFile(temp); // clearing form
-      setMessage(message);
-    } catch (err) {
-      const message = err.response.data;
-      setMessage(message);
+      } catch (err) {
+        const message = err.response.data;
+        setMessage(message);
+      }
+    } else if (credentials.postType == "FoundPerson") {
+      try {
+        const { data } = await axios.post(
+          "https://localhost:44364/findLostGroup",
+          formData,
+          {
+            headers: {
+              x_auth_token: token,
+            },
+          }
+        );
+        console.log("Searched Found Person: ", data);
+        const { message } = data;
+        setCredentials({
+          name: "",
+          age: "",
+          detail: "",
+          city: "",
+        });
+        const temp = "";
+        setSelectedFile(temp); // clearing form
+        setMessage(message);
+        if (message === "Found") {
+          navigate("/resolved-cases", {
+            state: {
+              posted: previewFile,
+              matched: data.image,
+            },
+          });
+        } else {
+          message = "saved";
+          setProgressbar("true");
+          setTimeout(() => {
+            setProgressbar("");
+          }, 3000);
+          navigate("/user-dashboard");
+        }
+      } catch (err) {
+        const message = err.response.data;
+        setMessage(message);
+      }
     }
   };
 
@@ -86,6 +142,7 @@ const UploadPerson = () => {
   const onFileChange = (event) => {
     // Update the selectedFile
     const data = event.target.files[0];
+    setpreviewFile(URL.createObjectURL(event.target.files[0]));
     setSelectedFile(data);
   };
 
@@ -108,8 +165,11 @@ const UploadPerson = () => {
     postType: givenPostType, // setting the postType
   });
   var [selectedFile, setSelectedFile] = useState("");
+  var [previewFile, setpreviewFile] = useState("");
   var [message, setMessage] = useState("");
   const [progressbar, setProgressbar] = useState("");
+
+  const navigate = useNavigate();
 
   // return
   return (
@@ -178,6 +238,12 @@ const UploadPerson = () => {
                 capture
                 handleChange={(e) => onFileChange(e)}
               />
+              {previewFile && (
+                <img
+                  src={previewFile}
+                  style={{ width: "5rem", height: "5rem", marginLeft: "10rem" }}
+                ></img>
+              )}
               {message != "saved" && (
                 <p style={{ color: "red", marginBottom: "1rem" }}>{message}</p>
               )}
@@ -187,8 +253,8 @@ const UploadPerson = () => {
                 </p>
               )}
               {progressbar && (
-                <div class="spinner-grow fonts" role="status">
-                  <span class="visually-hidden">Loading...</span>
+                <div className="spinner-grow fonts" role="status">
+                  <span className="visually-hidden">Loading...</span>
                 </div>
               )}
               <button

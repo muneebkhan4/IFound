@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import NavBar from "../../../sections/NavBar";
 import PersonPost from "../../../components/PersonPost";
 import axios from "axios";
 
 const ResolvedCases = () => {
+  const location = useLocation();
   const [posts, setPosts] = useState();
 
   useEffect(() => {
@@ -33,38 +35,6 @@ const ResolvedCases = () => {
   }, []);
 
   if (posts) console.log(posts[0]);
-
-  const Users = [
-    {
-      name: "Deepak",
-      rollNo: "123",
-    },
-    {
-      name: "Yash",
-      rollNo: "124",
-    },
-    {
-      name: "Raj",
-      rollNo: "125",
-    },
-    {
-      name: "Rohan",
-      rollNo: "126",
-    },
-    {
-      name: "Puneet",
-      rollNo: "127",
-    },
-    {
-      name: "Vivek",
-      rollNo: "128",
-    },
-    {
-      name: "Aman",
-      rollNo: "129",
-    },
-  ];
-
   {
     /* {Users.map((x) => (
         <h1 className="center fonts" key={x.rollNo}>
@@ -75,11 +45,39 @@ const ResolvedCases = () => {
   return (
     <React.Fragment>
       <NavBar currentUser={localStorage.getItem("email")} />
-      <h1 className="App-header">UnResolved Cases</h1>
+      <h1 className="App-header">Resolved Cases</h1>
       <div className="container text-center bg-list">
         <div className="row">
-          <div className="col">
+          {/* <div className="col">
             {posts && <PersonPost name={posts[0].name} />}
+          </div> */}
+
+          <div className="col">
+            <img
+              src={location.state.posted}
+              style={{
+                width: "25rem",
+                height: "25rem",
+                marginLeft: "2rem",
+                marginTop: "1rem",
+                marginBottom: "1rem",
+              }}
+            ></img>
+          </div>
+          <div className="col" style={{ marginTop: "12rem" }}>
+            <h1 className="fonts"> Matched with</h1>
+          </div>
+          <div className="col">
+            <img
+              src={`data:image/png;base64,${location.state.matched}`}
+              style={{
+                width: "25rem",
+                height: "25rem",
+                marginRight: "2rem",
+                marginTop: "1rem",
+                marginBottom: "1rem",
+              }}
+            ></img>
           </div>
         </div>
       </div>
