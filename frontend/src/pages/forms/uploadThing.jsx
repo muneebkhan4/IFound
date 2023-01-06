@@ -18,14 +18,20 @@ const UploadThing = () => {
       setmessage(message);
       return;
     }
-    if (credentials.type === "Categories") {
-      const message = "Please Select the Thing type.";
+    if (credentials.category === "Category") {
+      const message = "Please select the category.";
       setmessage(message);
       return;
     }
 
-    if (!credentials.city) {
-      const message = "City cannot be Empty.";
+    if (credentials.color === "Color") {
+      const message = "Please select the color.";
+      setmessage(message);
+      return;
+    }
+
+    if (credentials.city === "City") {
+      const message = "Please select the city.";
       setmessage(message);
       return;
     }
@@ -35,111 +41,110 @@ const UploadThing = () => {
       setmessage(message);
       return;
     }
-    if (!selectedFile) {
-      const message = "Please attach one Picture.";
-      setmessage(message);
-      return;
-    }
 
-    // Create an object of formData
-    const formData = new FormData();
+    // // Create an object of formData
+    // const formData = new FormData();
 
-    // Attaching the data to the form
-    formData.append("name", credentials.name);
-    formData.append("type", credentials.type);
-    formData.append("city", credentials.city);
-    formData.append("details", credentials.detail);
-    formData.append("postType", credentials.postType);
-    formData.append("file", selectedFile, selectedFile.name);
-    // authentication token
-    const token = localStorage.getItem("x_auth_token");
-    // Request made to the backend api
-    // Send formData object
-    if (credentials.postType == "MissingPerson") {
-      try {
-        const { data } = await axios.post(
-          "https://localhost:44364/findFoundGroup",
-          formData,
-          {
-            headers: {
-              x_auth_token: token,
-            },
-          }
-        );
-        console.log("Searched MissingPerson: ", data);
+    // // Attaching the data to the form
+    // formData.append("name", credentials.name);
+    // formData.append("category", credentials.category);
+    // formData.append("city", credentials.city);
+    // formData.append("details", credentials.detail);
+    // formData.append("postType", credentials.postType);
+    // if (selectedFile) {
+    // formData.append("file", selectedFile, selectedFile.name);
+    //}
+    // // authentication token
+    // const token = localStorage.getItem("x_auth_token");
+    // // Request made to the backend api
+    // // Send formData object
+    // if (credentials.postType == "MissingPerson") {
+    //   try {
+    //     const { data } = await axios.post(
+    //       "https://localhost:44364/findFoundGroup",
+    //       formData,
+    //       {
+    //         headers: {
+    //           x_auth_token: token,
+    //         },
+    //       }
+    //     );
+    //     console.log("Searched MissingPerson: ", data);
 
-        const response = data;
-        setCredentials({
-          name: "",
-          type: "",
-          detail: "",
-          city: "",
-        });
-        const image = "";
-        console.log(message);
-        setSelectedFile(image); // clearing form
-        setmessage(message);
-        if (response.message === "Found") {
-          navigate("/resolved-cases", {
-            state: {
-              posted: previewFile,
-              matched: response.image,
-            },
-          });
-        } else {
-          message = "saved";
-          setProgressbar("true");
-          setTimeout(() => {
-            setProgressbar("");
-          }, 3000);
-          navigate("/user-dashboard");
-        }
-      } catch (err) {
-        const message = err.response.data;
-        setmessage(message);
-      }
-    } else if (credentials.postType == "FoundPerson") {
-      try {
-        const { data } = await axios.post(
-          "https://localhost:44364/findLostGroup",
-          formData,
-          {
-            headers: {
-              x_auth_token: token,
-            },
-          }
-        );
-        console.log("Searched Found Person: ", data);
-        const { message } = data;
-        setCredentials({
-          name: "",
-          type: "",
-          detail: "",
-          city: "",
-        });
-        const image = "";
-        setSelectedFile(image); // clearing form
-        setmessage(message);
-        if (message === "Found") {
-          navigate("/resolved-cases", {
-            state: {
-              posted: previewFile,
-              matched: data.image,
-            },
-          });
-        } else {
-          message = "saved";
-          setProgressbar("true");
-          setTimeout(() => {
-            setProgressbar("");
-          }, 3000);
-          navigate("/user-dashboard");
-        }
-      } catch (err) {
-        const message = err.response.data;
-        setmessage(message);
-      }
-    }
+    //     const response = data;
+    //     setCredentials({
+    //       name: "",
+    //       category: "",
+    //       detail: "",
+    //       city: "",
+    //     });
+    //     const image = "";
+    //     console.log(message);
+    //     setSelectedFile(image); // clearing form
+    //     setmessage(message);
+    //     if (response.message === "Found") {
+    //       navigate("/resolved-cases", {
+    //         state: {
+    //           posted: previewFile,
+    //           matched: response.image,
+    //         },
+    //       });
+    //     } else {
+    //       message = "saved";
+    //       setProgressbar("true");
+    //       setTimeout(() => {
+    //         setProgressbar("");
+    //       }, 3000);
+    //       navigate("/user-dashboard");
+    //     }
+    //   } catch (err) {
+    //     const message = err.response.data;
+    //     setmessage(message);
+    //   }
+    // } else if (credentials.postType == "FoundPerson") {
+    //   try {
+    //     const { data } = await axios.post(
+    //       "https://localhost:44364/findLostGroup",
+    //       formData,
+    //       {
+    //         headers: {
+    //           x_auth_token: token,
+    //         },
+    //       }
+    //     );
+    //     console.log("Searched Found Person: ", data);
+    //     const { message } = data;
+    //     setCredentials({
+    //       name: "",
+    //       category: "",
+    //       detail: "",
+    //       city: "",
+    //     });
+    //     const image = "";
+    //     setSelectedFile(image); // clearing form
+    //     setmessage(message);
+    //     if (message === "Found") {
+    //       navigate("/resolved-cases", {
+    //         state: {
+    //           posted: previewFile,
+    //           matched: data.image,
+    //         },
+    //       });
+    //     } else {
+    //       message = "saved";
+    //       setProgressbar("true");
+    //       setTimeout(() => {
+    //         setProgressbar("");
+    //       }, 3000);
+    //       navigate("/user-dashboard");
+    //     }
+    //   } catch (err) {
+    //     const message = err.response.data;
+    //     setmessage(message);
+    //   }
+    // }
+
+    console.log(credentials);
   };
 
   // On file select (from the pop up)
@@ -163,9 +168,10 @@ const UploadThing = () => {
   const { givenPostType, title } = location.state;
   var [credentials, setCredentials] = useState({
     name: "",
-    type: "Categories",
+    category: "Category",
+    color: "Color",
+    city: "City",
     detail: "",
-    city: "",
     postType: givenPostType, // setting the postType
   });
   var [selectedFile, setSelectedFile] = useState("");
@@ -173,14 +179,24 @@ const UploadThing = () => {
   var [message, setmessage] = useState("");
   const [progressbar, setProgressbar] = useState("");
 
-  const options = [
-    "Categories",
+  const categories = [
+    "Category",
     "Mobile",
     "Laptop",
     "Watch",
     "Wallet",
     "Glasses",
   ];
+  const cities = [
+    "City",
+    "Lahore",
+    "Karachi",
+    "Islamabad",
+    "Multan",
+    "Peshwar",
+  ];
+
+  const colors = ["Color", "Black", "White", "Blue", "Red", "Green"];
 
   // return
   return (
@@ -214,20 +230,27 @@ const UploadThing = () => {
 
               <Dropdown
                 type="text"
-                name="type"
-                value={credentials.type}
-                options={options}
+                name="category"
+                value={credentials.category}
+                options={categories}
                 handleChange={(e) => handleChange(e)}
-                opacity={credentials.type === "Categories" ? 0.7 : 1}
+                opacity={credentials.category === "Category" ? 0.7 : 1}
               />
-              <Input
-                autofocus={false}
-                label="City"
+              <Dropdown
                 type="text"
-                placeholder="city"
+                name="color"
+                value={credentials.color}
+                options={colors}
+                handleChange={(e) => handleChange(e)}
+                opacity={credentials.color === "Color" ? 0.7 : 1}
+              />
+              <Dropdown
+                type="text"
                 name="city"
                 value={credentials.city}
+                options={cities}
                 handleChange={(e) => handleChange(e)}
+                opacity={credentials.city === "City" ? 0.7 : 1}
               />
               <Input
                 autofocus={false}
@@ -254,7 +277,16 @@ const UploadThing = () => {
                 ></img>
               )}
               {message !== "saved" && (
-                <p style={{ color: "red", marginBottom: "1rem" }}>{message}</p>
+                <p
+                  style={{
+                    color: "red",
+                    marginBottom: "1rem",
+                    marginLeft: "3rem",
+                    width: "18rem",
+                  }}
+                >
+                  {message}
+                </p>
               )}
               {message === "saved" && (
                 <p style={{ color: "green", marginBottom: "1rem" }}>
