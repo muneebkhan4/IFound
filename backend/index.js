@@ -5,7 +5,8 @@ const express = require("express");
 cors = require("cors");
 const user = require("./routers/user");
 const auth = require("./routers/auth");
-const publishPost = require("./routers/publishPost");
+const publishPersonPost = require("./routers/publishPersonPost");
+const publishThingPost = require("./routers/publishThingPost");
 const getPosts = require("./routers/getPosts");
 const jwt = require("jsonwebtoken");
 const app = express();
@@ -35,7 +36,8 @@ mongoose
 // Routes
 app.use("/api/users", user);
 app.use("/api/auth", auth);
-app.use("/api/publish-missing-person-post", publishPost);
+app.use("/api/publish-person-post", publishPersonPost);
+app.use("/api/publish-thing-post", publishThingPost);
 app.use("/api/get-posts", getPosts);
 
 // for differnt users dashboard validation
