@@ -18,6 +18,7 @@ import PoliceDashboard from "./pages/Dashboards/police/policeDashboard";
 import AdminDashboard from "./pages/Dashboards/admin/adminDashboard";
 import ResolvedCases from "./pages/Dashboards/user/reolvedCases";
 import UnResolvedCases from "./pages/Dashboards/user/unResolvedCases";
+import LoadingPage from "./pages/forms/LoadingPage";
 import Footer from "./sections/Footer";
 
 function AppRoutes() {
@@ -43,6 +44,7 @@ function AppRoutes() {
         element={<PremiumUserDashboard />}
       ></Route>
       <Route path="/police-dashboard" element={<PoliceDashboard />}></Route>
+      <Route path="/LoadingPage" element={<LoadingPage />}></Route>
       <Route path="*" element={<NotFound />}></Route>
     </Routes>
   );

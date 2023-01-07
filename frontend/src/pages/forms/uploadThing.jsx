@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import React, { useState, Component } from "react";
+import React, { useState, useEffect, Component } from "react";
 import Input from "../../components/Input";
 import NavBar from "../../sections/NavBar";
 import Dropdown from "./dropdown";
@@ -43,108 +43,61 @@ const UploadThing = () => {
     }
 
     // // Create an object of formData
-    // const formData = new FormData();
+    const formData = new FormData();
 
-    // // Attaching the data to the form
-    // formData.append("name", credentials.name);
-    // formData.append("category", credentials.category);
-    // formData.append("city", credentials.city);
-    // formData.append("details", credentials.detail);
-    // formData.append("postType", credentials.postType);
-    // if (selectedFile) {
-    // formData.append("file", selectedFile, selectedFile.name);
-    //}
-    // // authentication token
-    // const token = localStorage.getItem("x_auth_token");
-    // // Request made to the backend api
-    // // Send formData object
-    // if (credentials.postType == "MissingPerson") {
-    //   try {
-    //     const { data } = await axios.post(
-    //       "https://localhost:44364/findFoundGroup",
-    //       formData,
-    //       {
-    //         headers: {
-    //           x_auth_token: token,
-    //         },
-    //       }
-    //     );
-    //     console.log("Searched MissingPerson: ", data);
+    // Attaching the data to the form
+    formData.append("name", credentials.name);
+    formData.append("category", credentials.category);
+    formData.append("city", credentials.city);
+    formData.append("color", credentials.color);
+    formData.append("details", credentials.detail);
+    formData.append("postType", credentials.postType);
+    if (selectedFile) {
+      formData.append("file", selectedFile, selectedFile.name);
+    }
+    // authentication token
+    const token = localStorage.getItem("x_auth_token");
+    // Request made to the backend api
+    // Send formData object
 
-    //     const response = data;
-    //     setCredentials({
-    //       name: "",
-    //       category: "",
-    //       detail: "",
-    //       city: "",
-    //     });
-    //     const image = "";
-    //     console.log(message);
-    //     setSelectedFile(image); // clearing form
-    //     setmessage(message);
-    //     if (response.message === "Found") {
-    //       navigate("/resolved-cases", {
-    //         state: {
-    //           posted: previewFile,
-    //           matched: response.image,
-    //         },
-    //       });
-    //     } else {
-    //       message = "saved";
-    //       setProgressbar("true");
-    //       setTimeout(() => {
-    //         setProgressbar("");
-    //       }, 3000);
-    //       navigate("/user-dashboard");
-    //     }
-    //   } catch (err) {
-    //     const message = err.response.data;
-    //     setmessage(message);
-    //   }
-    // } else if (credentials.postType == "FoundPerson") {
-    //   try {
-    //     const { data } = await axios.post(
-    //       "https://localhost:44364/findLostGroup",
-    //       formData,
-    //       {
-    //         headers: {
-    //           x_auth_token: token,
-    //         },
-    //       }
-    //     );
-    //     console.log("Searched Found Person: ", data);
-    //     const { message } = data;
-    //     setCredentials({
-    //       name: "",
-    //       category: "",
-    //       detail: "",
-    //       city: "",
-    //     });
-    //     const image = "";
-    //     setSelectedFile(image); // clearing form
-    //     setmessage(message);
-    //     if (message === "Found") {
-    //       navigate("/resolved-cases", {
-    //         state: {
-    //           posted: previewFile,
-    //           matched: data.image,
-    //         },
-    //       });
-    //     } else {
-    //       message = "saved";
-    //       setProgressbar("true");
-    //       setTimeout(() => {
-    //         setProgressbar("");
-    //       }, 3000);
-    //       navigate("/user-dashboard");
-    //     }
-    //   } catch (err) {
-    //     const message = err.response.data;
-    //     setmessage(message);
-    //   }
-    // }
-
-    console.log(credentials);
+    try {
+      const { data } = await axios.post(
+        "http://localhost:1000/api/publish-thing-post",
+        formData,
+        {
+          headers: {
+            x_auth_token: token,
+          },
+        }
+      );
+      const response = data;
+      if (response === "saved") {
+        const message = response;
+        setmessage("saved");
+        console.log(message);
+        navigate("/LoadingPage", {
+          state: {
+            message: "Post added Successfully. ",
+          },
+        });
+      } else {
+        const message = response;
+        setmessage(message);
+      }
+      setCredentials({
+        name: "",
+        category: "category",
+        color: "color",
+        city: "city",
+        detail: "",
+      });
+      const image = "";
+      setSelectedFile(image); // clearing form
+      setmessage(message);
+    } catch (err) {
+      const message = err.response.data;
+      setmessage(message);
+    }
   };
 
   // On file select (from the pop up)
@@ -290,7 +243,7 @@ const UploadThing = () => {
               )}
               {message === "saved" && (
                 <p style={{ color: "green", marginBottom: "1rem" }}>
-                  Post Added Successfully
+                  Post Saved Successfully. Navigating to Dashboard.
                 </p>
               )}
               {progressbar && (

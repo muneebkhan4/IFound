@@ -5,7 +5,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const { Image } = require("../models/image");
-const { Post, validate } = require("../models/thingPost");
+const { PostThing, validate } = require("../models/thingPost");
 const fs = require("fs");
 
 const auth = require("../middleware/auth");
@@ -17,33 +17,41 @@ router.post("/", [auth, upload.single("file")], async (req, res) => {
   // req.file is the name of your file in the form above, here 'uploaded_file'
   // req.body will hold the text fields, if there were any
 
-  // const { error } = validate(req.body);
-  // if (error) return res.status(400).send(error.details[0].message);
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  // image not compulsory
   // if (req.file === undefined) return res.send("you must select an image.");
 
-  // const Url = `http://localhost:1000/${req.file.filename}`;
-  // let post = new Post(
-  //   _.pick(req.body, ["name", "age", "city", "details", "postType"])
-  // ); // handled the case if malicious user try to request more arguments
+  let post = new PostThing(
+    _.pick(req.body, [
+      "name",
+      "category",
+      "color",
+      "city",
+      "details",
+      "postType",
+    ])
+  ); // handled the case if malicious user try to request more arguments
 
-  // post.date = new Date();
+  post.date = new Date();
 
-  // const image = new Image({
-  //   imgUrl: Url,
-  // });
+  post.imageId = null;
 
-  // image.data = fs.readFileSync(`./uploads/${req.file.filename}`);
+  if (req.file) {
+    const Url = `http://localhost:1000/${req.file.filename}`;
+    const image = new Image({
+      imgUrl: Url,
+    });
+    image.data = fs.readFileSync(`./uploads/${req.file.filename}`);
+    const temp = await image.save();
+    if (Image.findOne({ _id: temp._id })) post.imageId = temp._id;
+  }
 
-  // const temp = await image.save();
+  post.userId = req.user._id;
+  await post.save();
 
-  // if (Image.findOne({ _id: temp._id })) post.imageId = temp._id;
-
-  // post.userId = req.user._id;
-
-  // await post.save();
-  //  return res.status(200).send("saved");
-
-  return res.status(200).send("Thing found");
+  return res.status(200).send("saved");
 });
 
 module.exports = router;

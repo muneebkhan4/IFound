@@ -104,3 +104,15 @@
   margin: 3px;
   display: inline-block;
 }
+
+.content {
+  flex: 1;
+  height: 40rem;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(12px + 2vmin);
+  color: rgb(5, 125, 164);
+  font-weight: bold;
+}

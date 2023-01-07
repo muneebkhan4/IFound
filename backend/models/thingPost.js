@@ -8,18 +8,24 @@ const postSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: 3,
     maxlength: 150,
   },
-  age: {
+  category: {
     type: String,
     required: true,
+  },
+  color: {
+    type: String,
+    required: true,
+    minlength: 3,
+    maxlength: 25,
   },
   city: {
     type: String,
     required: true,
-    minlength: 5,
-    maxlength: 50,
+    minlength: 3,
+    maxlength: 25,
   },
   details: {
     type: String,
@@ -41,24 +47,24 @@ const postSchema = new mongoose.Schema({
   },
   imageId: {
     type: String,
-    required: true,
   },
 });
 
-const Post = mongoose.model("Post", postSchema);
+const PostThing = mongoose.model("PostThing", postSchema);
 
-function validatePost(Post) {
+function validatePost(PostThing) {
   const schema = Joi.object({
-    name: Joi.string().min(5).max(150).required(),
-    age: Joi.string().required(),
-    city: Joi.string().min(5).max(50).required(),
+    name: Joi.string().min(3).max(150).required(),
+    category: Joi.string().required(),
+    color: Joi.string().min(3).max(50).required(),
+    city: Joi.string().min(3).max(50).required(),
     details: Joi.string().min(5).max(500).required(),
     postType: Joi.string().required(),
     //userId: Joi.string().required(),
     //imageId: Joi.string().required(),
   });
-  return schema.validate(Post);
+  return schema.validate(PostThing);
 }
 
-exports.Post = Post;
+exports.PostThing = PostThing;
 exports.validate = validatePost;
