@@ -45,9 +45,9 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-const Post = mongoose.model("Post", postSchema);
+const PersonPost = mongoose.model("PersonPost", postSchema);
 
-function validatePost(Post) {
+function validatePost(PersonPost) {
   const schema = Joi.object({
     name: Joi.string().min(5).max(150).required(),
     age: Joi.string().required(),
@@ -57,8 +57,8 @@ function validatePost(Post) {
     //userId: Joi.string().required(),
     //imageId: Joi.string().required(),
   });
-  return schema.validate(Post);
+  return schema.validate(PersonPost);
 }
 
-exports.Post = Post;
+exports.PersonPost = PersonPost;
 exports.validate = validatePost;

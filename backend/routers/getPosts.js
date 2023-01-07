@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const { User, validate, validatePassword } = require("../models/user");
 const { Image } = require("../models/image");
-const { Post } = require("../models/post");
+const { Post } = require("../models/personPost");
 
 const auth = require("../middleware/auth");
 
