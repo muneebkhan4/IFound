@@ -75,9 +75,16 @@ const UploadThing = () => {
         const message = response;
         setmessage("saved");
         console.log(message);
+        let nav;
+        if (credentials.postType == "TheftRecoveredThing")
+          nav = "/police-dashboard";
+        else if (credentials.postType == "MissingThing")
+          nav = "/user-dashboard";
+        else if (credentials.postType == "FoundThing") nav = "/user-dashboard";
         navigate("/LoadingPage", {
           state: {
             message: "Post added Successfully. ",
+            navigate: nav,
           },
         });
       } else {

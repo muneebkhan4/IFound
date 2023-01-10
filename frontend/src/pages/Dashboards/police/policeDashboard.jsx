@@ -65,25 +65,37 @@ const PoliceDashboard = () => {
               <div className="col">
                 <DashboardButton
                   title="Post Theft Recovered Things"
+                  PostType="TheftRecoveredThing"
                   navTo="/upload-thing"
                 ></DashboardButton>
               </div>
               <div className="col">
                 <DashboardButton
-                  title="Post Found Person/ Child"
-                  navTo="/upload-person"
-                  PostType="FoundPerson"
-                ></DashboardButton>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <DashboardButton
-                  title="Theft Reported Posts"
+                  title="View Theft Reported Posts"
                   navTo="/unresolved-cases"
                   value={2}
                 ></DashboardButton>
               </div>
+            </div>
+
+            <div className="row">
+              <div className="col">
+                <DashboardButton
+                  title="Post Found Person/ Child"
+                  navTo="/upload-person"
+                  PostType="PoliceFoundPerson"
+                ></DashboardButton>
+              </div>
+              <div className="col">
+                <DashboardButton
+                  title="Post Missing Person/ Child"
+                  navTo="/upload-person"
+                  PostType="PoliceMissingPerson"
+                ></DashboardButton>
+              </div>
+            </div>
+
+            <div className="row">
               <div className="col">
                 <DashboardButton
                   title="View Reports"
