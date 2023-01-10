@@ -50,7 +50,7 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-const PostThing = mongoose.model("PostThing", postSchema);
+const PostThing = mongoose.model("ThingPost", postSchema);
 
 function validatePost(PostThing) {
   const schema = Joi.object({
