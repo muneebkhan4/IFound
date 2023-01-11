@@ -20,6 +20,7 @@ import ResolvedCases from "./pages/Dashboards/user/reolvedCases";
 import UnResolvedCases from "./pages/Dashboards/user/unResolvedCases";
 import LoadingPage from "./pages/forms/LoadingPage";
 import Footer from "./sections/Footer";
+import ThingDetail from "./pages/details/ThingDetails";
 
 function AppRoutes() {
   return (
@@ -33,6 +34,7 @@ function AppRoutes() {
       <Route path="/signup" element={<SignUpForm />}></Route>
       <Route path="/upload-person" element={<UploadPerson />}></Route>
       <Route path="/Person-Details" element={<PersonDetail />}></Route>
+      <Route path="/Thing-Details" element={<ThingDetail />}></Route>
       <Route path="/upload-thing" element={<UploadThing />}></Route>
       <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
       <Route path="/user-dashboard" element={<UserDashboard />}></Route>
