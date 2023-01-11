@@ -8,6 +8,8 @@ const auth = require("./routers/auth");
 const publishPersonPost = require("./routers/publishPersonPost");
 const publishThingPost = require("./routers/publishThingPost");
 const getPosts = require("./routers/getPosts");
+const getThingPosts = require("./routers/getThingPosts");
+const verifyToken = require("./routers/verifyToken");
 const jwt = require("jsonwebtoken");
 const app = express();
 const { Image } = require("./models/image");
@@ -39,18 +41,8 @@ app.use("/api/auth", auth);
 app.use("/api/publish-person-post", publishPersonPost);
 app.use("/api/publish-thing-post", publishThingPost);
 app.use("/api/get-posts", getPosts);
-
-// for differnt users dashboard validation
-app.post("/verifyToken", async (req, res) => {
-  const token = req.header("x_auth_token");
-  if (!token) return res.status(401).send("Access denied. No token provided.");
-  try {
-    const decoded = jwt.verify(token, config.get("JwtPrivateKey"));
-    res.status(200).send(decoded.userType);
-  } catch (ex) {
-    res.status(400).send("Invalid Token.");
-  }
-});
+app.use("/api/getThingPosts", getThingPosts);
+app.use("/verifyToken", verifyToken); // for differnt users dashboard validation
 
 app.get("/image", async (req, res) => {
   let image = await Image.findOne({ _id: "638ca6955d202658b08e5387" });
