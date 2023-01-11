@@ -7,7 +7,7 @@ const user = require("./routers/user");
 const auth = require("./routers/auth");
 const publishPersonPost = require("./routers/publishPersonPost");
 const publishThingPost = require("./routers/publishThingPost");
-const getPosts = require("./routers/getPosts");
+const getPersonPosts = require("./routers/getPersonPosts");
 const getThingPosts = require("./routers/getThingPosts");
 const verifyToken = require("./routers/verifyToken");
 const jwt = require("jsonwebtoken");
@@ -40,7 +40,7 @@ app.use("/api/users", user);
 app.use("/api/auth", auth);
 app.use("/api/publish-person-post", publishPersonPost);
 app.use("/api/publish-thing-post", publishThingPost);
-app.use("/api/get-posts", getPosts);
+app.use("/api/getPersonPosts", getPersonPosts);
 app.use("/api/getThingPosts", getThingPosts);
 app.use("/verifyToken", verifyToken); // for differnt users dashboard validation
 

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PersonPost from "../../components/PersonPost";
+import ThingPost from "../../components/ThingPost";
 import NavBar from "../../sections/NavBar";
 const FoundList = () => {
   return (
@@ -18,10 +19,10 @@ const FoundList = () => {
             <PersonPost />
           </div>
           <div className="col">
-            <PersonPost />
+            <ThingPost />
           </div>
           <div className="col">
-            <PersonPost />
+            <ThingPost />
           </div>
         </div>
       </div>

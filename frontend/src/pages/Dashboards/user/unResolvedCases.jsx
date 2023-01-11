@@ -14,7 +14,7 @@ const UnResolvedCases = () => {
       // Send formData object
       try {
         const { data } = await axios.get(
-          "http://localhost:1000/api/get-posts",
+          "http://localhost:1000/api/getPersonPosts",
           {
             headers: {
               x_auth_token: token,

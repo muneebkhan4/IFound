@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PersonPost from "../../components/PersonPost";
 import NavBar from "../../sections/NavBar";
+import ThingPost from "./../../components/ThingPost";
 
 const LostList = () => {
   return (
@@ -19,10 +20,10 @@ const LostList = () => {
             <PersonPost />
           </div>
           <div className="col">
-            <PersonPost />
+            <ThingPost />
           </div>
           <div className="col">
-            <PersonPost />
+            <ThingPost />
           </div>
         </div>
       </div>
