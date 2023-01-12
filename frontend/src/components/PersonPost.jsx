@@ -6,7 +6,8 @@ function PersonPost(props) {
       <div className="custom-post-card" style={{ marginBottom: "1rem" }}>
         <a href="/Person-Details">
           <img
-            src="https://images.pexels.com/photos/1096147/pexels-photo-1096147.jpeg?cs=srgb&dl=pexels-kelvin-octa-1096147.jpg&fm=jpg"
+            src={"data:image/jpg;base64," + props.image}
+            alt="image"
             className="card-img-top"
             style={{
               marginTop: "0.15rem",
@@ -18,8 +19,8 @@ function PersonPost(props) {
         <div className="card-body">
           <a href="/Person-Details">
             <h5 className="card-title">Name: {props.name}</h5>
-            <h6 className="card-text">City: Lahore</h6>
-            <h6 className="card-text">Age: 10 years</h6>
+            <h6 className="card-text">City: {props.city}</h6>
+            <h6 className="card-text">Age: {props.age} years</h6>
           </a>
           <a
             href="/Person-Details"

@@ -51,90 +51,57 @@ const UploadPerson = () => {
     const token = localStorage.getItem("x_auth_token");
     // Request made to the backend api
     // Send formData object
-    if (credentials.postType == "MissingPerson") {
-      try {
-        const { data } = await axios.post(
-          "https://localhost:44364/findFoundGroup",
-          formData,
-          {
-            headers: {
-              x_auth_token: token,
-            },
-          }
-        );
-        console.log("Searched MissingPerson: ", data);
 
-        const response = data;
-        setCredentials({
-          name: "",
-          age: "",
-          detail: "",
-          city: "",
-        });
-        const temp = "";
+    // Send formData object
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:1000/api/publish-person-post",
+        formData,
+        {
+          headers: {
+            x_auth_token: token,
+          },
+        }
+      );
+      const response = data;
+      if (response === "saved") {
+        setMessage("saved");
         console.log(message);
-        setSelectedFile(temp); // clearing form
-        setMessage(message);
-        if (response.message === "Found") {
-          navigate("/resolved-cases", {
-            state: {
-              posted: previewFile,
-              matched: response.image,
-            },
-          });
-        } else {
-          message = "saved";
-          setProgressbar("true");
-          setTimeout(() => {
-            setProgressbar("");
-          }, 3000);
-          navigate("/user-dashboard");
-        }
-      } catch (err) {
-        const message = err.response.data;
-        setMessage(message);
-      }
-    } else if (credentials.postType == "FoundPerson") {
-      try {
-        const { data } = await axios.post(
-          "https://localhost:44364/findLostGroup",
-          formData,
-          {
-            headers: {
-              x_auth_token: token,
-            },
-          }
-        );
-        console.log("Searched Found Person: ", data);
-        const { message } = data;
-        setCredentials({
-          name: "",
-          age: "",
-          detail: "",
-          city: "",
+        let nav = "/notFound";
+        if (
+          credentials.postType == "PoliceMissingPerson" ||
+          credentials.postType == "PoliceFoundPerson"
+        )
+          nav = "/police-dashboard";
+        else if (
+          credentials.postType == "FoundPerson" ||
+          credentials.postType == "MissingPerson"
+        )
+          nav = "/user-dashboard";
+        navigate("/LoadingPage", {
+          state: {
+            message: "Post added Successfully. ",
+            navigate: nav,
+          },
         });
-        const temp = "";
-        setSelectedFile(temp); // clearing form
-        setMessage(message);
-        if (message === "Found") {
-          navigate("/resolved-cases", {
-            state: {
-              posted: previewFile,
-              matched: data.image,
-            },
-          });
-        } else {
-          message = "saved";
-          setProgressbar("true");
-          setTimeout(() => {
-            setProgressbar("");
-          }, 3000);
-          navigate("/user-dashboard");
-        }
-      } catch (err) {
-        const message = err.response.data;
+      } else {
+        const message = response;
         setMessage(message);
       }
+      setCredentials({
+        name: "",
+        category: "category",
+        color: "color",
+        city: "city",
+        detail: "",
+      });
+      const image = "";
+      setSelectedFile(image); // clearing form
+      setMessage(message);
+    } catch (err) {
+      const message = err.response.data;
+      setMessage(message);
     }
   };
 
@@ -462,3 +429,91 @@ export default UploadPerson;
 // }
 
 // export default UploadPerson;
+
+// usmna's code API calling
+
+// if (credentials.postType == "MissingPerson") {
+//   try {
+//     const { data } = await axios.post(
+//       "https://localhost:44364/findFoundGroup",
+//       formData,
+//       {
+//         headers: {
+//           x_auth_token: token,
+//         },
+//       }
+//     );
+//     console.log("Searched MissingPerson: ", data);
+
+//     const response = data;
+//     setCredentials({
+//       name: "",
+//       age: "",
+//       detail: "",
+//       city: "",
+//     });
+//     const temp = "";
+//     console.log(message);
+//     setSelectedFile(temp); // clearing form
+//     setMessage(message);
+//     if (response.message === "Found") {
+//       navigate("/resolved-cases", {
+//         state: {
+//           posted: previewFile,
+//           matched: response.image,
+//         },
+//       });
+//     } else {
+//       message = "saved";
+//       setProgressbar("true");
+//       setTimeout(() => {
+//         setProgressbar("");
+//       }, 3000);
+//       navigate("/user-dashboard");
+//     }
+//   } catch (err) {
+//     const message = err.response.data;
+//     setMessage(message);
+//   }
+// } else if (credentials.postType == "FoundPerson") {
+//   try {
+//     const { data } = await axios.post(
+//       "https://localhost:44364/findLostGroup",
+//       formData,
+//       {
+//         headers: {
+//           x_auth_token: token,
+//         },
+//       }
+//     );
+//     console.log("Searched Found Person: ", data);
+//     const { message } = data;
+//     setCredentials({
+//       name: "",
+//       age: "",
+//       detail: "",
+//       city: "",
+//     });
+//     const temp = "";
+//     setSelectedFile(temp); // clearing form
+//     setMessage(message);
+//     if (message === "Found") {
+//       navigate("/resolved-cases", {
+//         state: {
+//           posted: previewFile,
+//           matched: data.image,
+//         },
+//       });
+//     } else {
+//       message = "saved";
+//       setProgressbar("true");
+//       setTimeout(() => {
+//         setProgressbar("");
+//       }, 3000);
+//       navigate("/user-dashboard");
+//     }
+//   } catch (err) {
+//     const message = err.response.data;
+//     setMessage(message);
+//   }
+// }

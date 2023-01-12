@@ -43,7 +43,7 @@ router.post("/", [auth, upload.single("file")], async (req, res) => {
 
   await post.save();
 
-  return res.status(200).send("Person found");
+  return res.status(200).send("saved");
 });
 
 module.exports = router;

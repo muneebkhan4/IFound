@@ -78,9 +78,11 @@ const UploadThing = () => {
         let nav;
         if (credentials.postType == "TheftRecoveredThing")
           nav = "/police-dashboard";
-        else if (credentials.postType == "MissingThing")
+        else if (
+          credentials.postType == "MissingThing" ||
+          credentials.postType == "FoundThing"
+        )
           nav = "/user-dashboard";
-        else if (credentials.postType == "FoundThing") nav = "/user-dashboard";
         navigate("/LoadingPage", {
           state: {
             message: "Post added Successfully. ",
