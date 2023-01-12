@@ -18,18 +18,16 @@ router.get("/", auth, async (req, res) => {
   let images = [];
   for (let i = 0; i < posts.length; i++) {
     let x = await Image.findById(posts[i].imageId);
-    images[i] = x.data;
+    images[i] = x.data.toString("base64"); // getting actual data only and converting it ot base64
   }
   let filtered = [];
   let i = 0;
-  posts.forEach((x) => [
-    filtered.push(
-      _.pick(x, ["name", "age", "city", "details", "postType", "date"]),
-      { data: images[i++] }
-    ),
-  ]);
+  posts.forEach((x) => {
+    let obj = _.pick(x, ["name", "age", "city", "details", "postType", "date"]);
+    filtered.push({ data: obj, image: images[i++] });
+  });
 
-  // filtered contains "name", "age", "city", "details", "postType", "date" "data:{}"
+  // filtered contains {data{"name", "age", "city", "details", "postType", "date"},"image:{}"}
 
   return res.status(200).send(filtered);
 });

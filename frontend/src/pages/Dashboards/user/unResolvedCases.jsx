@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../../../sections/NavBar";
 import PersonPost from "../../../components/PersonPost";
 import axios from "axios";
+import ThingPost from "./../../../components/ThingPost";
 
 const UnResolvedCases = () => {
-  const [posts, setPosts] = useState();
+  const [PersonPosts, setPersonPosts] = useState();
+  const [ThingPosts, setThingPosts] = useState();
 
   useEffect(() => {
-    const getData = async () => {
+    const getPersonPostData = async () => {
       // authentication token
       const token = localStorage.getItem("x_auth_token");
       // Request made to the backend api
@@ -21,66 +23,80 @@ const UnResolvedCases = () => {
             },
           }
         );
-        //console.log(data[0]);
-        setPosts(data);
-        //console.log(posts);
+        setPersonPosts(data);
       } catch (err) {
         if (err) console.log(err.response.data);
       }
     };
 
-    getData();
+    const getThingPostData = async () => {
+      // authentication token
+      const token = localStorage.getItem("x_auth_token");
+      // Request made to the backend api
+      // Send formData object
+      try {
+        const { data } = await axios.get(
+          "http://localhost:1000/api/getThingPosts",
+          {
+            headers: {
+              x_auth_token: token,
+            },
+          }
+        );
+        setThingPosts(data);
+      } catch (err) {
+        if (err) console.log(err.response.data);
+      }
+    };
+
+    getPersonPostData();
+    getThingPostData();
   }, []);
 
-  if (posts) console.log(posts[0]);
-
-  const Users = [
-    {
-      name: "Deepak",
-      rollNo: "123",
-    },
-    {
-      name: "Yash",
-      rollNo: "124",
-    },
-    {
-      name: "Raj",
-      rollNo: "125",
-    },
-    {
-      name: "Rohan",
-      rollNo: "126",
-    },
-    {
-      name: "Puneet",
-      rollNo: "127",
-    },
-    {
-      name: "Vivek",
-      rollNo: "128",
-    },
-    {
-      name: "Aman",
-      rollNo: "129",
-    },
-  ];
-
-  {
-    /* {Users.map((x) => (
-        <h1 className="center fonts" key={x.rollNo}>
-          Name: {x.name} RollNo. {x.rollNo}
-        </h1>
-      ))} */
-  }
   return (
     <React.Fragment>
       <NavBar currentUser={localStorage.getItem("email")} />
       <h1 className="App-header">UnResolved Cases</h1>
+
       <div className="container text-center bg-list">
-        <div className="row">
-          <div className="col">
-            {posts && <PersonPost name={posts[0].name} />}
+        <h1 className="App-header">Person Cases</h1>
+        {!PersonPosts && (
+          <div className="spinner-grow fonts" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
+        )}
+        <div className="row">
+          {PersonPosts &&
+            PersonPosts.map((post) => (
+              <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
+                <PersonPost
+                  name={post.data.name}
+                  age={post.data.age}
+                  city={post.data.city}
+                  image={post.image}
+                />
+              </div>
+            ))}
+        </div>
+
+        <h1 className="App-header">Things Cases</h1>
+        {!ThingPosts && (
+          <div className="spinner-grow fonts" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        )}
+        <div className="row">
+          {ThingPosts &&
+            ThingPosts.map((post) => (
+              <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
+                <ThingPost
+                  name={post.data.name}
+                  age={post.data.city}
+                  city={post.data.color}
+                  image={post.image}
+                />
+              </div>
+            ))}
         </div>
       </div>
     </React.Fragment>

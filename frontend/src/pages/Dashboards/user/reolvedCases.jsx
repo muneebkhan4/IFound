@@ -34,14 +34,6 @@ const ResolvedCases = () => {
     getData();
   }, []);
 
-  if (PersonPosts) console.log(PersonPosts);
-  {
-    /* {Users.map((x) => (
-        <h1 className="center fonts" key={x.rollNo}>
-          Name: {x.name} RollNo. {x.rollNo}
-        </h1>
-      ))} */
-  }
   return (
     <React.Fragment>
       <NavBar currentUser={localStorage.getItem("email")} />
