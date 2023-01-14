@@ -71,7 +71,7 @@ function AdminDashboard() {
               <div className="col">
                 <DashboardButton
                   title="Remove User"
-                  navTo="/upload-person"
+                  navTo="/signup"
                   PostType="MissingPerson"
                 ></DashboardButton>
               </div>
@@ -81,6 +81,7 @@ function AdminDashboard() {
                 <DashboardButton
                   title="Post Found Thing"
                   navTo="/upload-thing"
+                  PostType="FoundThing"
                 ></DashboardButton>
               </div>
               <div className="col">
@@ -88,6 +89,22 @@ function AdminDashboard() {
                   title="Post Found Person/ Child"
                   navTo="/upload-person"
                   PostType="FoundPerson"
+                ></DashboardButton>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <DashboardButton
+                  title="Post Missing Thing"
+                  navTo="/upload-thing"
+                  PostType="MissingThing"
+                ></DashboardButton>
+              </div>
+              <div className="col">
+                <DashboardButton
+                  title="Post Missing Person/ Child"
+                  navTo="/upload-person"
+                  PostType="MissingPerson"
                 ></DashboardButton>
               </div>
             </div>
