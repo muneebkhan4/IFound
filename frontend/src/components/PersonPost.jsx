@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 function PersonPost(props) {
   return (
@@ -22,13 +23,15 @@ function PersonPost(props) {
             <h6 className="card-text">City: {props.city}</h6>
             <h6 className="card-text">Age: {props.age} years</h6>
           </a>
-          <a
-            href="/Person-Details"
-            className="btn btn-primary"
+
+          <NavLink
+            className="nav-link m-4"
             style={{ marginTop: "1rem", marginBottom: "0.25rem" }}
+            to={{ pathname: "/Person-Details" }}
+            state={{ data: props.data, image: props.image }}
           >
             View Details
-          </a>
+          </NavLink>
         </div>
       </div>
     </React.Fragment>

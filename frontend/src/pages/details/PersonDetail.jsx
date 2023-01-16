@@ -1,13 +1,16 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import React from "react";
 import NavBar from "../../sections/NavBar";
-const PersonDetail = () => {
+function PersonDetail(props) {
+  const location = useLocation();
+  const { data, image } = location.state;
   return (
     <React.Fragment>
       <NavBar currentUser={localStorage.getItem("email")} />;
       <div className="row">
         <div className="col">
           <img
-            src="https://images.pexels.com/photos/1096147/pexels-photo-1096147.jpeg?cs=srgb&dl=pexels-kelvin-octa-1096147.jpg&fm=jpg"
+            src={"data:image/jpg;base64," + image}
             className="figure-img img-fluid rounded"
             alt="..."
             width="600"
@@ -24,7 +27,7 @@ const PersonDetail = () => {
               <h3>Name:</h3>
             </div>
             <div className="col">
-              <h3>khan</h3>
+              <h3>{data.name}</h3>
             </div>
           </div>
           <div className="row">
@@ -32,7 +35,7 @@ const PersonDetail = () => {
               <h3>Father's Name:</h3>
             </div>
             <div className="col">
-              <h3>AnyName</h3>
+              <h3>{data.fatherName}</h3>
             </div>
           </div>
 
@@ -41,7 +44,7 @@ const PersonDetail = () => {
               <h3>Age:</h3>
             </div>
             <div className="col">
-              <h3>10 years</h3>
+              <h3>{data.age} years</h3>
             </div>
           </div>
 
@@ -50,7 +53,7 @@ const PersonDetail = () => {
               <h3>City:</h3>
             </div>
             <div className="col">
-              <h3>Lahore</h3>
+              <h3>{data.city}</h3>
             </div>
           </div>
 
@@ -59,7 +62,7 @@ const PersonDetail = () => {
               <h3>Case Type:</h3>
             </div>
             <div className="col">
-              <h3>Found</h3>
+              <h3>{data.postType}</h3>
             </div>
           </div>
 
@@ -68,7 +71,7 @@ const PersonDetail = () => {
               <h3>Founder Name:</h3>
             </div>
             <div className="col">
-              <h3>AnyName</h3>
+              <h3>{data.founderName}</h3>
             </div>
           </div>
 
@@ -77,16 +80,7 @@ const PersonDetail = () => {
               <h3>Contact No.:</h3>
             </div>
             <div className="col">
-              <h3>00000000000</h3>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col">
-              <h3>Founder Address:</h3>
-            </div>
-            <div className="col">
-              <h3>House no. 00, AnyTown, Lahore</h3>
+              <h3>{data.phoneNumber}</h3>
             </div>
           </div>
 
@@ -95,13 +89,13 @@ const PersonDetail = () => {
               <h3>Details:</h3>
             </div>
             <div className="col">
-              <h3>Any details come here</h3>
+              <h3>{data.details}</h3>
             </div>
           </div>
         </div>
       </div>
     </React.Fragment>
   );
-};
+}
 
 export default PersonDetail;
