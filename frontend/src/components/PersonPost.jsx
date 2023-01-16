@@ -5,24 +5,20 @@ function PersonPost(props) {
   return (
     <React.Fragment>
       <div className="custom-post-card" style={{ marginBottom: "1rem" }}>
-        <a href="/Person-Details">
-          <img
-            src={"data:image/jpg;base64," + props.image}
-            alt="image"
-            className="card-img-top"
-            style={{
-              marginTop: "0.15rem",
-              borderRadius: "1.5rem",
-              width: "14rem",
-            }}
-          />
-        </a>
-        <div className="card-body">
-          <a href="/Person-Details">
-            <h5 className="card-title">Name: {props.name}</h5>
-            <h6 className="card-text">City: {props.city}</h6>
-            <h6 className="card-text">Age: {props.age} years</h6>
-          </a>
+        <img
+          src={"data:image/jpg;base64," + props.image}
+          alt="image"
+          className="card-img-top"
+          style={{
+            marginTop: "0.15rem",
+            borderRadius: "1rem",
+            width: "14rem",
+          }}
+        />
+        <div className="card-body" style={{ marginTop: "1rem" }}>
+          <h5 className="card-title">Name: {props.data.name}</h5>
+          <h6 className="card-text">City: {props.data.city}</h6>
+          <h6 className="card-text">Age: {props.data.age} years</h6>
 
           <NavLink
             className="nav-link m-4"
