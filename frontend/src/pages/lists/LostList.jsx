@@ -68,13 +68,7 @@ const LostList = () => {
           {PersonPosts &&
             PersonPosts.map((post) => (
               <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
-                <PersonPost
-                  name={post.data.name}
-                  age={post.data.age}
-                  city={post.data.city}
-                  image={post.image}
-                  data={post.data}
-                />
+                <PersonPost image={post.image} data={post.data} />
               </div>
             ))}
         </div>
@@ -89,13 +83,7 @@ const LostList = () => {
           {ThingPosts &&
             ThingPosts.map((post) => (
               <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
-                <ThingPost
-                  name={post.data.name}
-                  age={post.data.city}
-                  city={post.data.color}
-                  image={post.image}
-                  data={post.data}
-                />
+                <ThingPost image={post.image} data={post.data} />
               </div>
             ))}
         </div>

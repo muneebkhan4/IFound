@@ -1,5 +1,5 @@
 import React from "react";
-
+import { NavLink } from "react-router-dom";
 const ThingPost = (props) => {
   let image = "data:image/jpg;base64," + props.image;
   if (!props.image)
@@ -8,30 +8,27 @@ const ThingPost = (props) => {
   return (
     <React.Fragment>
       <div className="custom-post-card" style={{ marginBottom: "1rem" }}>
-        <a href="/Thing-Details">
-          <img
-            src={image}
-            className="card-img-top"
-            style={{
-              marginTop: "0.15rem",
-              borderRadius: "1.5rem",
-              width: "14rem",
-            }}
-          />
-        </a>
-        <div className="card-body">
-          <a href="/Thing-Details">
-            <h5 className="card-title">Name: {props.name}</h5>
-            <h6 className="card-text">City: {props.city}</h6>
-            <h6 className="card-text">Color: {props.color}</h6>
-          </a>
-          <a
-            href="/Thing-Details"
-            className="btn btn-primary"
+        <img
+          src={image}
+          className="card-img-top"
+          style={{
+            marginTop: "0.15rem",
+            borderRadius: "1.5rem",
+            width: "14rem",
+          }}
+        />
+        <div className="card-body" style={{ marginTop: "1rem" }}>
+          <h5 className="card-title">Name: {props.data.name}</h5>
+          <h6 className="card-text">City: {props.data.city}</h6>
+          <h6 className="card-text">Color: {props.data.color}</h6>
+          <NavLink
+            className="nav-link m-4"
             style={{ marginTop: "1rem", marginBottom: "0.25rem" }}
+            to={{ pathname: "/Thing-Details" }}
+            state={{ data: props.data, image: props.image }}
           >
             View Details
-          </a>
+          </NavLink>
         </div>
       </div>
     </React.Fragment>
