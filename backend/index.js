@@ -9,6 +9,10 @@ const publishPersonPost = require("./routers/publishPersonPost");
 const publishThingPost = require("./routers/publishThingPost");
 const getPersonPosts = require("./routers/getPersonPosts");
 const getThingPosts = require("./routers/getThingPosts");
+const allMissingPersonPosts = require("./routers/allMissingPersonPosts");
+const allFoundPersonPosts = require("./routers/allFoundPersonPosts");
+const allMissingThingPosts = require("./routers/allMissingThingPosts");
+const allFoundThingPosts = require("./routers/allFoundThingPosts");
 const verifyToken = require("./routers/verifyToken");
 const jwt = require("jsonwebtoken");
 const app = express();
@@ -32,6 +36,7 @@ if (!config.get("JwtPrivateKey")) {
 // connecting to database (MongoDB)
 mongoose
   .connect("mongodb://localhost/IFound")
+  // .connect("mongodb+srv://muneeb:muneeb@cluster0.v3vpd.mongodb.net/IFound")  // for deployment MongoDB Altas
   .then(() => console.log("connection to mongo db successful..."))
   .catch((err) => (console.error("Error in connecting to mongo db..."), err));
 
@@ -42,6 +47,10 @@ app.use("/api/publish-person-post", publishPersonPost);
 app.use("/api/publish-thing-post", publishThingPost);
 app.use("/api/getPersonPosts", getPersonPosts);
 app.use("/api/getThingPosts", getThingPosts);
+app.use("/api/allMissingPersonPosts", allMissingPersonPosts);
+app.use("/api/allFoundPersonPosts", allFoundPersonPosts);
+app.use("/api/allMissingThingPosts", allMissingThingPosts);
+app.use("/api/allFoundThingPosts", allFoundThingPosts);
 app.use("/verifyToken", verifyToken); // for differnt users dashboard validation
 
 app.get("/image", async (req, res) => {

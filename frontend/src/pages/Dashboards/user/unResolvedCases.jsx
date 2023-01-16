@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import NavBar from "../../../sections/NavBar";
 import PersonPost from "../../../components/PersonPost";
-import axios from "axios";
 import ThingPost from "./../../../components/ThingPost";
 
 const UnResolvedCases = () => {
@@ -74,6 +74,7 @@ const UnResolvedCases = () => {
                   age={post.data.age}
                   city={post.data.city}
                   image={post.image}
+                  data={post.data}
                 />
               </div>
             ))}
@@ -94,6 +95,7 @@ const UnResolvedCases = () => {
                   age={post.data.city}
                   city={post.data.color}
                   image={post.image}
+                  data={post.data}
                 />
               </div>
             ))}
