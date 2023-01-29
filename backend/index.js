@@ -36,7 +36,11 @@ if (!config.get("JwtPrivateKey")) {
 // connecting to database (MongoDB)
 mongoose
   .connect("mongodb://localhost/IFound")
-  // .connect("mongodb+srv://muneeb:muneeb@cluster0.v3vpd.mongodb.net/IFound")  // for deployment MongoDB Altas
+  // .connect(
+  //   "mongodb://muneeb:muneeb@cluster0-shard-00-00.v3vpd.mongodb.net:27017,cluster0-shard-00-01.v3vpd.mongodb.net:27017,cluster0-shard-00-02.v3vpd.mongodb.net:27017/?ssl=true&replicaSet=atlas-h6u2e8-shard-0&authSource=admin&retryWrites=true&w=majority"
+  // )
+  // for deployment MongoDB Altas
+
   .then(() => console.log("connection to mongo db successful..."))
   .catch((err) => (console.error("Error in connecting to mongo db..."), err));
 

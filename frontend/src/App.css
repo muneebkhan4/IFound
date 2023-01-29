@@ -116,3 +116,9 @@
   color: rgb(5, 125, 164);
   font-weight: bold;
 }
+
+.footer {
+  /* position: fixed; */
+  margin-bottom: 0;
+  width: 100%;
+}

@@ -56,7 +56,6 @@ function App() {
   return (
     <React.Fragment>
       <AppRoutes />
-      <Footer />
     </React.Fragment>
   );
 }
@@ -65,6 +64,7 @@ function Wrapper() {
   return (
     <BrowserRouter>
       <App />
+      <Footer />
     </BrowserRouter>
   );
 }
