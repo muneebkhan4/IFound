@@ -15,6 +15,9 @@ const Login = () => {
   const [error, setError] = useState("");
   const [progressbar, setProgressbar] = useState("");
 
+  const screenHeight = window.innerHeight;
+  // Set the height of the to the current screen height
+
   // Update specific input field
   const handleChange = (e) =>
     setCredentials((prevState) => ({
@@ -56,61 +59,68 @@ const Login = () => {
         <Navigate to="/user-dashboard" replace={true} />
       )}
       <NavBar currentUser={localStorage.getItem("email")} />
-      <div className="row">
-        <div
-          className="col-3 mt-5 center"
-          style={{ width: "40%", height: "100%" }}
-        >
-          <img
-            src="https://i.ibb.co/tBYg2xv/bg-pic.png"
-            className="card-img-top"
-            alt="..."
-            width="500"
-            height="500"
-          />
-        </div>
-        <div className="col-4 center">
-          <div className="bg-light mt-2" style={{ width: "20rem" }}>
-            <h1 className="App-header">Log In</h1>
-            <form onSubmit={(e) => handleLoginSubmit(e)}>
-              <Input
-                autofocus={true}
-                label="Email"
-                type="text"
-                placeholder="email"
-                name="email"
-                value={credentials.email}
-                handleChange={(e) => handleChange(e)}
-              />
-              <Input
-                autofocus={false}
-                label="Password"
-                type="password"
-                placeholder="password"
-                name="password"
-                value={credentials.password}
-                handleChange={(e) => handleChange(e)}
-              />
-              <p
-                style={{ marginLeft: 120, marginBottom: "1rem", color: "red" }}
-              >
-                {error}
-              </p>
-              <button
-                className="btn btn-primary"
-                style={{ marginLeft: "8rem" }}
-              >
-                Submit
-              </button>
-              <p style={{ marginBottom: "1rem", marginTop: "1rem" }}>
-                Not Registered? <Link to="/signup">Sign up</Link>
-              </p>
-              {progressbar && (
-                <div class="spinner-grow fonts" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-              )}
-            </form>
+
+      <div style={{ minHeight: screenHeight }}>
+        <div className="row">
+          <div
+            className="col-3 mt-5 center"
+            style={{ width: "40%", height: "100%" }}
+          >
+            <img
+              src="https://i.ibb.co/tBYg2xv/bg-pic.png"
+              className="card-img-top"
+              alt="..."
+              width="500"
+              height="500"
+            />
+          </div>
+          <div className="col-4 center">
+            <div className="bg-light mt-2" style={{ width: "20rem" }}>
+              <h1 className="App-header">Log In</h1>
+              <form onSubmit={(e) => handleLoginSubmit(e)}>
+                <Input
+                  autofocus={true}
+                  label="Email"
+                  type="text"
+                  placeholder="email"
+                  name="email"
+                  value={credentials.email}
+                  handleChange={(e) => handleChange(e)}
+                />
+                <Input
+                  autofocus={false}
+                  label="Password"
+                  type="password"
+                  placeholder="password"
+                  name="password"
+                  value={credentials.password}
+                  handleChange={(e) => handleChange(e)}
+                />
+                <p
+                  style={{
+                    marginLeft: 120,
+                    marginBottom: "1rem",
+                    color: "red",
+                  }}
+                >
+                  {error}
+                </p>
+                <button
+                  className="btn btn-primary"
+                  style={{ marginLeft: "8rem" }}
+                >
+                  Submit
+                </button>
+                <p style={{ marginBottom: "1rem", marginTop: "1rem" }}>
+                  Not Registered? <Link to="/signup">Sign up</Link>
+                </p>
+                {progressbar && (
+                  <div class="spinner-grow fonts" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                )}
+              </form>
+            </div>
           </div>
         </div>
       </div>
