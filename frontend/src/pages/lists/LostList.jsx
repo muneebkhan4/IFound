@@ -7,6 +7,9 @@ const LostList = () => {
   const [PersonPosts, setPersonPosts] = useState();
   const [ThingPosts, setThingPosts] = useState();
 
+  const screenHeight = window.innerHeight;
+  // Set the height of the current screen height
+
   useEffect(() => {
     const getPersonPostData = async () => {
       // authentication token

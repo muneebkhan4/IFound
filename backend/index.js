@@ -43,8 +43,12 @@ const url = `mongodb://uahmad565:uahmad565@ac-6p7zp25-shard-00-00.ns5xulq.mongod
 
 // connecting to database (MongoDB)
 mongoose
-  // .connect("mongodb://localhost/IFound")
-  .connect("mongodb+srv://uahmad565:usman565@cluster0.ns5xulq.mongodb.net/IFound?retryWrites=true&w=majority")  // for deployment MongoDB Altas
+  .connect("mongodb://localhost/IFound")
+  // .connect(
+  //   "mongodb://muneeb:muneeb@cluster0-shard-00-00.v3vpd.mongodb.net:27017,cluster0-shard-00-01.v3vpd.mongodb.net:27017,cluster0-shard-00-02.v3vpd.mongodb.net:27017/?ssl=true&replicaSet=atlas-h6u2e8-shard-0&authSource=admin&retryWrites=true&w=majority"
+  // )
+  // for deployment MongoDB Altas
+
   .then(() => console.log("connection to mongo db successful..."))
   .catch((err) => (console.log("Error in connecting to mongo db...",err)));
 

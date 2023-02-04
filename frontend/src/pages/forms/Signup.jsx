@@ -58,86 +58,91 @@ class Signup extends Component {
     const { progressbar } = this.state;
     const { messageShow } = this.state;
 
+    const screenHeight = window.innerHeight;
+    // Set the height of the to the current screen height
+
     return (
       <React.Fragment>
         {this.state.success && <Navigate to="/login" replace={true} />}
         <NavBar currentUser={localStorage.getItem("email")} />
-        <div className="row">
-          <div
-            className="col-3 mt-5 center"
-            style={{ width: "40%", height: "100%" }}
-          >
-            <img
-              src="https://i.ibb.co/tBYg2xv/bg-pic.png"
-              className="card-img-top"
-              width="auto"
-              height="500"
-            />
-          </div>
-          <div className="col-4 center">
-            <div className="bg-light mt-2" style={{ width: "20rem" }}>
-              <h1 className="App-header">Sign up</h1>
-              <form onSubmit={this.handleSignupSubmit}>
-                <Input
-                  autofocus={true}
-                  label="Name"
-                  type="text"
-                  placeholder="name"
-                  name="name"
-                  value={name}
-                  handleChange={this.handleChange}
-                />
-                <Input
-                  autofocus={false}
-                  label="Email"
-                  type="email"
-                  placeholder="xyz@email.com"
-                  name="email"
-                  value={email}
-                  handleChange={this.handleChange}
-                />
-                <Input
-                  autofocus={false}
-                  label="Password"
-                  type="password"
-                  placeholder="password"
-                  name="password"
-                  value={password}
-                  handleChange={this.handleChange}
-                />
-                <p
-                  style={{
-                    marginLeft: "2rem",
-                    marginBottom: "1rem",
-                    color: "red",
-                  }}
-                >
-                  {error}
-                </p>
+        <div style={{ minHeight: screenHeight }}>
+          <div className="row">
+            <div
+              className="col-3 mt-5 center"
+              style={{ width: "40%", height: "100%" }}
+            >
+              <img
+                src="https://i.ibb.co/tBYg2xv/bg-pic.png"
+                className="card-img-top"
+                width="auto"
+                height="500"
+              />
+            </div>
+            <div className="col-4 center">
+              <div className="bg-light mt-2" style={{ width: "20rem" }}>
+                <h1 className="App-header">Sign up</h1>
+                <form onSubmit={this.handleSignupSubmit}>
+                  <Input
+                    autofocus={true}
+                    label="Name"
+                    type="text"
+                    placeholder="name"
+                    name="name"
+                    value={name}
+                    handleChange={this.handleChange}
+                  />
+                  <Input
+                    autofocus={false}
+                    label="Email"
+                    type="email"
+                    placeholder="xyz@email.com"
+                    name="email"
+                    value={email}
+                    handleChange={this.handleChange}
+                  />
+                  <Input
+                    autofocus={false}
+                    label="Password"
+                    type="password"
+                    placeholder="password"
+                    name="password"
+                    value={password}
+                    handleChange={this.handleChange}
+                  />
+                  <p
+                    style={{
+                      marginLeft: "2rem",
+                      marginBottom: "1rem",
+                      color: "red",
+                    }}
+                  >
+                    {error}
+                  </p>
 
-                <p
-                  style={{
-                    marginLeft: "2rem",
-                    marginBottom: "1rem",
-                    color: "green",
-                  }}
-                >
-                  {messageShow}
-                </p>
+                  <p
+                    style={{
+                      marginLeft: "2rem",
+                      marginBottom: "1rem",
+                      color: "green",
+                    }}
+                  >
+                    {messageShow}
+                  </p>
 
-                <button
-                  className="btn btn-primary"
-                  style={{ marginLeft: "8rem", marginBottom: "1rem" }}
-                >
-                  Submit
-                </button>
+                  <button
+                    className="btn btn-primary"
+                    style={{ marginLeft: "8rem", marginBottom: "1rem" }}
+                  >
+                    Submit
+                  </button>
 
-                {progressbar && (
-                  <div class="spinner-grow fonts" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                )}
-              </form>
+                  {progressbar && (
+                    <div class="spinner-grow fonts" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  )}
+                </form>
+              </div>
             </div>
           </div>
         </div>
