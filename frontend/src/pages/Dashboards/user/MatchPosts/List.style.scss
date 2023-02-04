@@ -1,0 +1,30 @@
+.fixed-nav {
+    position: sticky;
+    top: 0;
+    padding: 10px;
+    background-color: #fff;
+  }
+  
+  .list {
+    display: grid;
+    grid-template-columns: repeat(3, fr);
+    grid-gap: 5px;
+  
+    &-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  
+    &-item {
+      border: 1px solid #eee;
+      padding: 10px;
+  
+      &-image {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+  
+      &-description {
+        margin: 0;
+      }
+    }
+  }

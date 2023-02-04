@@ -25,6 +25,7 @@ function UserDashboard() {
             },
           }
         );
+        console.log("Server Returned",userType);
         if (userType.data === "user") setValidate("true");
         else if (userType.data === "police") navigate("/police-dashboard");
         else if (userType.data === "admin") navigate("/admin-dashboard");
@@ -72,7 +73,7 @@ function UserDashboard() {
               <div className="col">
                 <DashboardButton
                   title="Post Missing Person/ Child"
-                  navTo="/upload-person"
+                  navTo="/uploadLostPerson"
                   PostType="MissingPerson"
                 ></DashboardButton>
               </div>
@@ -88,7 +89,7 @@ function UserDashboard() {
               <div className="col">
                 <DashboardButton
                   title="Post Found Person/ Child"
-                  navTo="/upload-person"
+                  navTo="/uploadFoundPerson"
                   PostType="FoundPerson"
                 ></DashboardButton>
               </div>

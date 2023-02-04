@@ -15,14 +15,26 @@ const LostList = () => {
       // Send formData object
       try {
         const { data } = await axios.get(
-          "http://localhost:1000/api/allMissingPersonPosts",
+          "https://localhost:44364/api/home/getCurrentLostPosts",
           {
             headers: {
               x_auth_token: token,
             },
           }
         );
-        setPersonPosts(data);
+        console.log(".Net Server ",data);
+        
+        const arr=data.map(element => {
+          const name=element.targetPersonDto.name;
+          const age=element.targetPersonDto.age;
+          const city=element.targetPersonDto.location;
+          const details=element.targetPersonDto.description;
+          const image=element.imageDto.base64String;
+
+          return {name,age,city,details,image};
+        });
+        console.log("Filtered Data ",arr);
+        setPersonPosts(arr);
       } catch (err) {
         if (err) console.log(err.response.data);
       }
@@ -34,23 +46,28 @@ const LostList = () => {
       // Request made to the backend api
       // Send formData object
       try {
-        const { data } = await axios.get(
-          "http://localhost:1000/api/allMissingThingPosts",
-          {
-            headers: {
-              x_auth_token: token,
-            },
-          }
-        );
-        setThingPosts(data);
+        // const { data } = await axios.get(
+        //   "http://localhost:1000/api/allMissingThingPosts",
+        //   {
+        //     headers: {
+        //       x_auth_token: token,
+        //     },
+        //   }
+        // );
+        // console.log(data);
+        // setThingPosts(data);
       } catch (err) {
         if (err) console.log(err.response.data);
       }
     };
 
+
+
     getPersonPostData();
     getThingPostData();
   }, []);
+
+  console.log("NodeServer:", PersonPosts);
 
   return (
     <React.Fragment>
@@ -68,7 +85,7 @@ const LostList = () => {
           {PersonPosts &&
             PersonPosts.map((post) => (
               <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
-                <PersonPost image={post.image} data={post.data} />
+                <PersonPost image={post.image} data={post} />
               </div>
             ))}
         </div>
@@ -79,14 +96,14 @@ const LostList = () => {
             <span className="visually-hidden">Loading...</span>
           </div>
         )}
-        <div className="row">
+        {/* <div className="row">
           {ThingPosts &&
             ThingPosts.map((post) => (
               <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
                 <ThingPost image={post.image} data={post.data} />
               </div>
             ))}
-        </div>
+        </div> */}
       </div>
     </React.Fragment>
   );
