@@ -17,6 +17,8 @@ const verifyToken = require("./routers/verifyToken");
 const jwt = require("jsonwebtoken");
 const app = express();
 const { Image } = require("./models/image");
+const { User } = require("./models/user");
+
 app.use(express.static("uploads")); // make upload folder publically available
 app.use(cors()); // sop (same origin policy, rejects api requets to other websites, so cross origin resource share allow us to do it safely)
 const corsOptions = {
@@ -33,12 +35,18 @@ if (!config.get("JwtPrivateKey")) {
   process.exit(1);
 }
 
+
+// const mongoose = require('mongoose')
+
+const url = `mongodb://uahmad565:uahmad565@ac-6p7zp25-shard-00-00.ns5xulq.mongodb.net:27017,ac-6p7zp25-shard-00-01.ns5xulq.mongodb.net:27017,ac-6p7zp25-shard-00-02.ns5xulq.mongodb.net:27017/?ssl=true&replicaSet=atlas-rrwik5-shard-0&authSource=admin&retryWrites=true&w=majority`;
+
+
 // connecting to database (MongoDB)
 mongoose
-  .connect("mongodb://localhost/IFound")
-  // .connect("mongodb+srv://muneeb:muneeb@cluster0.v3vpd.mongodb.net/IFound")  // for deployment MongoDB Altas
+  // .connect("mongodb://localhost/IFound")
+  .connect("mongodb+srv://uahmad565:usman565@cluster0.ns5xulq.mongodb.net/IFound?retryWrites=true&w=majority")  // for deployment MongoDB Altas
   .then(() => console.log("connection to mongo db successful..."))
-  .catch((err) => (console.error("Error in connecting to mongo db..."), err));
+  .catch((err) => (console.log("Error in connecting to mongo db...",err)));
 
 // Routes
 app.use("/api/users", user);
@@ -52,6 +60,26 @@ app.use("/api/allFoundPersonPosts", allFoundPersonPosts);
 app.use("/api/allMissingThingPosts", allMissingThingPosts);
 app.use("/api/allFoundThingPosts", allFoundThingPosts);
 app.use("/verifyToken", verifyToken); // for differnt users dashboard validation
+
+app.get("/api/users/:id", async (req, res) => {
+  const currentUserId=req.params;
+  console.log(currentUserId);
+  // const currentUserId = req.user.id;
+  if (!currentUserId)
+    return res.status(400).send("Bad ReuqestError! UserId Provided Is Not Correct");
+  // const user=new User();
+  // console.log(await User.find());
+  User.findById(currentUserId.id, function (err, user) {
+    if (err) {
+      return res.status(500).send("Internal Server Error! UserId Provided Is Not Correct");
+    }
+    else {
+      console.log(user);
+      return res.status(200).send(user);
+    }
+  });
+
+});
 
 app.get("/image", async (req, res) => {
   let image = await Image.findOne({ _id: "638ca6955d202658b08e5387" });
