@@ -23,39 +23,45 @@ import Footer from "./sections/Footer";
 import ThingDetail from "./pages/details/ThingDetails";
 import { TargetType } from "./Enums/Enums";
 import ActiveCase from "./pages/Dashboards/user/activeCase";
+import CurrentCase from "./pages/Dashboards/user/currentCase";
+import NavBar from "./sections/NavBar";
 
 function AppRoutes() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />}></Route>
-      <Route path="/Home" element={<Home />}></Route>
-      <Route path="/Found-List" element={<FoundList />}></Route>
-      <Route path="/Lost-List" element={<LostList />}></Route>
-      <Route path="/Contact-Us" element={<Contactus />}></Route>
-      <Route path="/login" element={<LogIn />}></Route>
-      <Route path="/signup" element={<SignUpForm />}></Route>
-      <Route path="/upload-person" element={<UploadPerson />}></Route>
-      <Route path="/uploadFoundPerson" element={<UploadPerson PostType={TargetType.LOST} ApiUrl={"https://localhost:44364/api/home/createFoundPersonForm"}/>}></Route>
-      <Route path="/uploadLostPerson" element={<UploadPerson PostType={TargetType.FOUND} ApiUrl={"https://localhost:44364/api/home/createLostPersonForm"} />}></Route>
+    <React.Fragment>
+      <NavBar currentUser={localStorage.getItem("email")} />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/Home" element={<Home />}></Route>
+        <Route path="/Found-List" element={<FoundList />}></Route>
+        <Route path="/Lost-List" element={<LostList />}></Route>
+        <Route path="/Contact-Us" element={<Contactus />}></Route>
+        <Route path="/login" element={<LogIn />}></Route>
+        <Route path="/signup" element={<SignUpForm />}></Route>
+        <Route path="/upload-person" element={<UploadPerson />}></Route>
+        <Route path="/uploadFoundPerson" element={<UploadPerson PostType={TargetType.LOST} ApiUrl={"https://localhost:44364/api/home/createFoundPersonForm"} />}></Route>
+        <Route path="/uploadLostPerson" element={<UploadPerson PostType={TargetType.FOUND} ApiUrl={"https://localhost:44364/api/home/createLostPersonForm"} />}></Route>
+        <Route path="/Person-Details" element={<PersonDetail />}></Route>
+        <Route path="/Thing-Details" element={<ThingDetail />}></Route>
+        <Route path="/upload-thing" element={<UploadThing />}></Route>
+        <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
+        <Route path="/user-dashboard" element={<UserDashboard />}></Route>
+        <Route path="/resolved-cases" element={<ResolvedCases />}></Route>
+        <Route path="/unresolved-cases" element={<UnResolvedCases />}></Route>
+        <Route path="/active" element={<ActiveCase />}></Route>
+        <Route path="/current-cases" element={<CurrentCase />}></Route>
 
-      <Route path="/Person-Details" element={<PersonDetail />}></Route>
-      <Route path="/Thing-Details" element={<ThingDetail />}></Route>
-      <Route path="/upload-thing" element={<UploadThing />}></Route>
-      <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
-      <Route path="/user-dashboard" element={<UserDashboard />}></Route>
-      <Route path="/resolved-cases" element={<ResolvedCases />}></Route>
-      <Route path="/unresolved-cases" element={<UnResolvedCases />}></Route>
-      <Route path="/active" element={<ActiveCase />}></Route>
-      
-      <Route path="/notFound" element={<NotFound />}></Route>
-      <Route
-        path="/premium-user-dashboard"
-        element={<PremiumUserDashboard />}
-      ></Route>
-      <Route path="/police-dashboard" element={<PoliceDashboard />}></Route>
-      <Route path="/LoadingPage" element={<LoadingPage />}></Route>
-      <Route path="*" element={<NotFound />}></Route>
-    </Routes>
+        <Route path="/notFound" element={<NotFound />}></Route>
+        <Route
+          path="/premium-user-dashboard"
+          element={<PremiumUserDashboard />}
+        ></Route>
+        <Route path="/police-dashboard" element={<PoliceDashboard />}></Route>
+        <Route path="/LoadingPage" element={<LoadingPage />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
+      </Routes>
+    </React.Fragment>
+
   );
 }
 

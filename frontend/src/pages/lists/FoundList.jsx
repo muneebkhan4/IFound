@@ -73,8 +73,6 @@ const FoundList = () => {
 
   return (
     <React.Fragment>
-      <NavBar currentUser={localStorage.getItem("email")} />
-
       {localStorage.getItem("x_auth_token") && (
         <div>
           <h1 className="App-header">Found List</h1>

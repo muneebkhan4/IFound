@@ -43,7 +43,6 @@ function UserDashboard() {
   return (
     validate === "true" && (
       <React.Fragment>
-        <Navbar currentUser={localStorage.getItem("email")} />
         <h1 className="App-header"> User Dashboard</h1>
         <div className="row">
           <div className="col ">
@@ -97,8 +96,8 @@ function UserDashboard() {
             <div className="row">
               <div className="col">
                 <DashboardButton
-                  title="UnResolved Cases"
-                  navTo="/unresolved-cases"
+                  title="Current Cases"
+                  navTo="/current-cases"
                   value={2}
                 ></DashboardButton>
               </div>
