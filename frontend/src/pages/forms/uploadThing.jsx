@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, Component } from "react";
+import axios from "axios";
 import Input from "../../components/Input";
 import NavBar from "../../sections/NavBar";
 import Dropdown from "./dropdown";
-import axios from "axios";
 
 const UploadThing = () => {
   const navigate = useNavigate();

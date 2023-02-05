@@ -7,7 +7,8 @@ const router = express.Router();
 const { Image } = require("../models/image");
 const { PostThing, validate } = require("../models/thingPost");
 const fs = require("fs");
-
+const jwt_decode = require('jwt-decode');
+const {User}=require('../models/user');
 const auth = require("../middleware/auth");
 
 const upload = require("../middleware/upload");
@@ -15,10 +16,15 @@ const upload = require("../middleware/upload");
 // add auth middle ware for seucrity and token validation check
 router.post("/", [auth, upload.single("file")], async (req, res) => {
   // req.file is the name of your file in the form above, here 'uploaded_file'
-  // req.body will hold the text fields, if there were any
+  
+  const token= req.header("x_auth_token");
+  var {_id} = jwt_decode(token);
 
   const { error } = validate(req.body);
+  console.log("validation error",error);
   if (error) return res.status(400).send(error.details[0].message);
+
+  console.log("_id ",_id);
 
   // image not compulsory
   // if (req.file === undefined) return res.send("you must select an image.");
@@ -35,7 +41,8 @@ router.post("/", [auth, upload.single("file")], async (req, res) => {
   ); // handled the case if malicious user try to request more arguments
 
   post.date = new Date();
-
+  post.userId=_id;
+  console.log("post",post);
   post.imageId = null;
 
   if (req.file) {
@@ -48,7 +55,6 @@ router.post("/", [auth, upload.single("file")], async (req, res) => {
     if (Image.findOne({ _id: temp._id })) post.imageId = temp._id;
   }
 
-  post.userId = req.user._id;
   await post.save();
 
   return res.status(200).send("saved");
