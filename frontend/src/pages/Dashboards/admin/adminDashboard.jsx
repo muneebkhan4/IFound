@@ -42,7 +42,6 @@ function AdminDashboard() {
   return (
     validate === "true" && (
       <React.Fragment>
-        <Navbar currentUser={localStorage.getItem("email")} />
         <h1 className="App-header">Admin Dashboard</h1>
         <div className="row">
           <div className="col ">

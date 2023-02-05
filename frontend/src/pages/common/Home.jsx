@@ -6,7 +6,6 @@ const Home = () => {
   // Set the height of the to the current screen height
   return (
     <React.Fragment>
-      <NavBar currentUser={localStorage.getItem("email")} />
       <div style={{ minHeight: screenHeight }}>
         <h1 className="App-header">Home</h1>
         <Reports title="100+ Parents got their children back successfully." />

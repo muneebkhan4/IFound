@@ -55,7 +55,6 @@ const UnResolvedCases = () => {
 
   return (
     <React.Fragment>
-      <NavBar currentUser={localStorage.getItem("email")} />
       <h1 className="App-header">UnResolved Cases</h1>
 
       <div className="container text-center bg-list">

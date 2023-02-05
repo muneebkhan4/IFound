@@ -71,7 +71,6 @@ const LostList = () => {
 
   return (
     <React.Fragment>
-      <NavBar currentUser={localStorage.getItem("email")} />
       <h1 className="App-header">Lost List</h1>
 
       <div className="container text-center bg-list">

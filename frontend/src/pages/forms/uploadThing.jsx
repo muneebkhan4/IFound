@@ -163,7 +163,6 @@ const UploadThing = () => {
   // return
   return (
     <React.Fragment>
-      <NavBar currentUser={localStorage.getItem("email")} />
       <div className="row">
         <div
           className="col-3 mt-5 center"

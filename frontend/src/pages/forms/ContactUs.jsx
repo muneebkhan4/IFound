@@ -30,7 +30,6 @@ class Contactus extends Component {
     // Set the height of the to the current screen height
     return (
       <React.Fragment>
-        <NavBar currentUser={localStorage.getItem("email")} />
         <div style={{ minHeight: screenHeight }}>
           <div className="row">
             <div
