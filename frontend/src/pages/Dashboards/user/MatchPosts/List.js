@@ -4,8 +4,7 @@ import classNames from "classnames";
 
 import "./List.style.scss";
 
-export default function List({ items, currentView, onToggleCurrentView }) {
-  const isDetailedView = currentView === "grid";
+export default function List({ items, currentView }) {
 
   // Helper function that allows finding first element in the view port
   const findFirstElementInViewPort = elements =>
@@ -39,34 +38,25 @@ export default function List({ items, currentView, onToggleCurrentView }) {
   return (
     <div>
       <div className="fixed-nav">
-        <h3>Showing items as a {currentView}</h3>
-        <Form.Check
-          checked={isDetailedView}
-          onChange={onToggleCurrentView}
-          type="switch"
-          id="show-details"
-          label="Show details"
-        />
+        <h3>Matched Cases </h3>
       </div>
 
       <div
-        className={classNames("list", { "list-grid": isDetailedView })}
+        className={classNames("list", { "list-grid": "grid" })}
         ref={containerRef}
       >
         {items.map(item => (
           <div className="list-item" data-item="true" key={item.title}>
-            {isDetailedView && (
-              <img
-              width="150" height="300"
-                src={item.img}
-                alt={item.title}
-                className="list-item-image"
-              />
-            )}
+            <img
+              width="150"
+              height="300"
+              src={item.img}
+              alt={item.title}
+              className="list-item-image"
+            />
             <h3>{item.title}</h3>
-            {isDetailedView && (
-              <p className="list-item-description">{item.description}</p>
-            )}
+            <p className="list-item-description">{item.description}</p>
+
           </div>
         ))}
       </div>
