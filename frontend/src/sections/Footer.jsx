@@ -8,7 +8,7 @@ function Footer(props) {
       <div className="footer">
         <Card
           style={{
-            background: "lightblue",
+            background: "dark",
             marginTop: 20,
           }}
         >

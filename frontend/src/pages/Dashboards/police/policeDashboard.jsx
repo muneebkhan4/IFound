@@ -60,7 +60,7 @@ const PoliceDashboard = () => {
             <Details />
           </div>
 
-          <div className="col bg-list">
+          <div className="col bg-list" style={{ height: "fit-content" }}>
             <div className="row">
               <div className="col">
                 <DashboardButton

@@ -5,6 +5,9 @@ import NavBar from "../../sections/NavBar";
 import axios from "axios";
 
 const UploadPerson = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // handle submit button event
   const handleUploadPersonSubmit = async (e) => {
     e.preventDefault();
@@ -121,7 +124,7 @@ const UploadPerson = () => {
     }));
 
   // form data
-  const location = useLocation();
+
   const { givenPostType, title } = location.state;
 
   var [credentials, setCredentials] = useState({
@@ -135,14 +138,14 @@ const UploadPerson = () => {
   var [previewFile, setpreviewFile] = useState("");
   var [message, setMessage] = useState("");
   const [progressbar, setProgressbar] = useState("");
-
-  const navigate = useNavigate();
+  const screenHeight = window.innerHeight;
+  // Set the height of the to the current screen height
 
   // return
   return (
     <React.Fragment>
       <NavBar currentUser={localStorage.getItem("email")} />
-      <div className="row">
+      <div className="row" style={{ minHeight: screenHeight }}>
         <div
           className="col-3 mt-5 center"
           style={{ width: "40%", height: "100%" }}
@@ -154,8 +157,11 @@ const UploadPerson = () => {
             height="500"
           />
         </div>
-        <div className="col-4 center">
-          <div className="bg-light mt-2" style={{ width: "22rem" }}>
+        <div className="col-4 center" style={{ borderRadius: 2 }}>
+          <div
+            className="bg-light"
+            style={{ width: "22rem", borderRadius: "1rem" }}
+          >
             <h1 className="App-header">{title}</h1>
             <form onSubmit={(e) => handleUploadPersonSubmit(e)}>
               <Input
