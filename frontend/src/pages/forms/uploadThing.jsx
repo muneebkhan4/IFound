@@ -160,9 +160,13 @@ const UploadThing = () => {
 
   const colors = ["Color", "Black", "White", "Blue", "Red", "Green"];
 
+  const screenHeight = window.innerHeight;
+  // Set the height of the to the current screen height
+
   // return
   return (
     <React.Fragment>
+
       <div className="row">
         <div
           className="col-3 mt-5 center"
@@ -176,7 +180,10 @@ const UploadThing = () => {
           />
         </div>
         <div className="col-4 center">
-          <div className="bg-light mt-2" style={{ width: "22rem" }}>
+          <div
+            className="bg-light mt-2"
+            style={{ width: "22rem", borderRadius: "1rem" }}
+          >
             <h1 className="App-header">{title}</h1>
             <form onSubmit={(e) => handleUploadThingSubmit(e)}>
               <Input

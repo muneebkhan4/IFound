@@ -59,15 +59,21 @@ function AdminDashboard() {
             <Details />
           </div>
 
-          <div className="col bg-list">
+          <div className="col bg-list" style={{ height: "fit-content" }}>
             <div className="row">
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Add User"
                   navTo="/signup"
                 ></DashboardButton>
               </div>
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Remove User"
                   navTo="/signup"
@@ -76,14 +82,20 @@ function AdminDashboard() {
               </div>
             </div>
             <div className="row">
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Post Found Thing"
                   navTo="/upload-thing"
                   PostType="FoundThing"
                 ></DashboardButton>
               </div>
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Post Found Person/ Child"
                   navTo="/upload-person"
@@ -92,14 +104,20 @@ function AdminDashboard() {
               </div>
             </div>
             <div className="row">
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Post Missing Thing"
                   navTo="/upload-thing"
                   PostType="MissingThing"
                 ></DashboardButton>
               </div>
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Post Missing Person/ Child"
                   navTo="/upload-person"
@@ -108,14 +126,20 @@ function AdminDashboard() {
               </div>
             </div>
             <div className="row">
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Reported Posts"
                   navTo="/unresolved-cases"
                   value={2}
                 ></DashboardButton>
               </div>
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="View Reports"
                   navTo="/resolved-cases"

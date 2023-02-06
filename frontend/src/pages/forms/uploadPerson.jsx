@@ -149,7 +149,7 @@ const UploadPerson = ({PostType,ApiUrl}) => {
     }));
 
   // form data
-  const location = useLocation();
+
   const { givenPostType, title } = location.state;
 
   var [credentials, setCredentials] = useState({
@@ -165,8 +165,8 @@ const UploadPerson = ({PostType,ApiUrl}) => {
   var [previewFile, setpreviewFile] = useState("");
   var [message, setMessage] = useState("");
   const [progressbar, setProgressbar] = useState("");
-
-  const navigate = useNavigate();
+  const screenHeight = window.innerHeight;
+  // Set the height of the to the current screen height
 
 
   // return
@@ -184,8 +184,11 @@ const UploadPerson = ({PostType,ApiUrl}) => {
             height="500"
           />
         </div>
-        <div className="col-4 center">
-          <div className="bg-light mt-2" style={{ width: "22rem" }}>
+        <div className="col-4 center" style={{ borderRadius: 2 }}>
+          <div
+            className="bg-light"
+            style={{ width: "22rem", borderRadius: "1rem" }}
+          >
             <h1 className="App-header">{title}</h1>
             <form onSubmit={(e) => handleUploadPersonSubmit(e)}>
               <Input

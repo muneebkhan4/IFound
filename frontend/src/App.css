@@ -88,8 +88,10 @@
 }
 
 .DashboardButton {
-  width: 18rem;
-  height: 10rem;
+  width: fit-content;
+  height: fit-content;
+  min-width: 200px;
+  min-height: 120px;
   border-radius: 5px 25px;
   background: "lightblue";
 }
@@ -121,4 +123,5 @@
   /* position: fixed; */
   margin-bottom: 0;
   width: 100%;
+  color: rgb(5, 125, 164);
 }
