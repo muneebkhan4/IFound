@@ -27,6 +27,7 @@ function UserDashboard() {
             },
           }
         );
+        console.log("Server Returned",userType);
         if (userType.data === "user") setValidate("true");
         else if (userType.data === "police") navigate("/police-dashboard");
         else if (userType.data === "admin") navigate("/admin-dashboard");
@@ -44,7 +45,6 @@ function UserDashboard() {
   return (
     validate === "true" && (
       <React.Fragment>
-        <Navbar currentUser={localStorage.getItem("email")} />
         <h1 className="App-header"> User Dashboard</h1>
         <div className="row">
           <div className="col ">
@@ -80,7 +80,7 @@ function UserDashboard() {
               >
                 <DashboardButton
                   title="Post Missing Person/ Child"
-                  navTo="/upload-person"
+                  navTo="/uploadLostPerson"
                   PostType="MissingPerson"
                 ></DashboardButton>
               </div>
@@ -102,7 +102,7 @@ function UserDashboard() {
               >
                 <DashboardButton
                   title="Post Found Person/ Child"
-                  navTo="/upload-person"
+                  navTo="/uploadFoundPerson"
                   PostType="FoundPerson"
                 ></DashboardButton>
               </div>
@@ -113,8 +113,8 @@ function UserDashboard() {
                 style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
               >
                 <DashboardButton
-                  title="UnResolved Cases"
-                  navTo="/unresolved-cases"
+                  title="Current Cases"
+                  navTo="/current-cases"
                   value={2}
                 ></DashboardButton>
               </div>

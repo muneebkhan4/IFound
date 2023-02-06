@@ -58,7 +58,6 @@ const Login = () => {
       {localStorage.getItem("email") && (
         <Navigate to="/user-dashboard" replace={true} />
       )}
-      <NavBar currentUser={localStorage.getItem("email")} />
 
       <div style={{ minHeight: screenHeight }}>
         <div className="row">

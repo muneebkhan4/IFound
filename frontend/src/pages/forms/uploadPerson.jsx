@@ -1,12 +1,16 @@
 import { useLocation, useNavigate } from "react-router-dom";
+// import Dropdown from 'react-bootstrap/Dropdown';
+// import DropdownButton from 'react-bootstrap/DropdownButton';
 import React, { useState, Component } from "react";
 import Input from "../../components/Input";
 import NavBar from "../../sections/NavBar";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+import { GenderType, RelationType } from '../../Enums/Enums';
+import Dropdown from "./dropdown";
 
-const UploadPerson = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+
+const UploadPerson = ({PostType,ApiUrl}) => {
 
   // handle submit button event
   const handleUploadPersonSubmit = async (e) => {
@@ -41,25 +45,43 @@ const UploadPerson = () => {
     //   return;
     // }
     // Create an object of formData
+    // "Base64Image,Description,Location, Age,Name,
+    console.log(PostType);
     const formData = new FormData();
 
     // Attaching the data to the form
-    formData.append("name", credentials.name);
-    formData.append("age", credentials.age);
-    formData.append("city", credentials.city);
-    formData.append("details", credentials.detail);
-    formData.append("postType", credentials.postType);
-    formData.append("file", selectedFile, selectedFile.name);
-    // authentication token
+    formData.append("Name", credentials.name);
+    formData.append("Age", credentials.age);
+    formData.append("Location", credentials.city);
+    formData.append("Description", credentials.detail);
+    formData.append("TargetType", PostType);
+    formData.append("Image", selectedFile, selectedFile.name);
+    formData.append("Gender", credentials.genderType);
+    formData.append("Relation", credentials.relationType);
+    
     const token = localStorage.getItem("x_auth_token");
+    var {_id} = jwt_decode(token);
+    console.log("_id: ",_id);
+    const {data:currentUser}=await axios.get("http://www.localhost:1000/api/users/"+_id);
+    formData.append("UserId", currentUser["userID"]);
+
+    
+
+    // authentication token
+    // const token = localStorage.getItem("x_auth_token");
+    // console.log("Token:  ",token);
+
     // Request made to the backend api
     // Send formData object
 
     // Send formData object
+    
+    // console.log("Token:  ", token,decoded);
 
     try {
+      
       const { data } = await axios.post(
-        "http://localhost:1000/api/publish-person-post",
+        ApiUrl,
         formData,
         {
           headers: {
@@ -67,8 +89,8 @@ const UploadPerson = () => {
           },
         }
       );
-      const response = data;
-      if (response === "saved") {
+      if(data.statusCode==200)
+      {
         setMessage("saved");
         console.log(message);
         let nav = "/notFound";
@@ -88,9 +110,12 @@ const UploadPerson = () => {
             navigate: nav,
           },
         });
-      } else {
-        const message = response;
-        setMessage(message);
+      }
+      else if(data.statusCode==400)
+      {
+      
+        // const message = response;
+        // setMessage(message);
       }
       setCredentials({
         name: "",
@@ -132,6 +157,8 @@ const UploadPerson = () => {
     age: "",
     detail: "",
     city: "",
+    genderType: "",
+    relationType: "",
     postType: givenPostType, // setting the postType
   });
   var [selectedFile, setSelectedFile] = useState("");
@@ -141,11 +168,11 @@ const UploadPerson = () => {
   const screenHeight = window.innerHeight;
   // Set the height of the to the current screen height
 
+
   // return
   return (
     <React.Fragment>
-      <NavBar currentUser={localStorage.getItem("email")} />
-      <div className="row" style={{ minHeight: screenHeight }}>
+      <div className="row">
         <div
           className="col-3 mt-5 center"
           style={{ width: "40%", height: "100%" }}
@@ -202,6 +229,8 @@ const UploadPerson = () => {
                 value={credentials.detail}
                 handleChange={(e) => handleChange(e)}
               />
+              <Dropdown name="genderType" options={Object.keys(GenderType)} handleChange={handleChange} opacity={10}></Dropdown>
+              <Dropdown name="relationType" options={Object.keys(RelationType)} handleChange={handleChange} opacity={10}></Dropdown>
               <Input
                 id="imageUpload"
                 type="file"

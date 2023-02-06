@@ -64,7 +64,6 @@ class Signup extends Component {
     return (
       <React.Fragment>
         {this.state.success && <Navigate to="/login" replace={true} />}
-        <NavBar currentUser={localStorage.getItem("email")} />
         <div style={{ minHeight: screenHeight }}>
           <div className="row">
             <div

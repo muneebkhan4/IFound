@@ -4,6 +4,9 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const passwordComplexity = require("joi-password-complexity");
 
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+
+
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -27,7 +30,41 @@ const userSchema = new mongoose.Schema({
   userType: {
     type: String,
   },
+  phone_no:{
+    type: String,
+    // required: true,
+    minlength: 10,
+    maxlength: 20,
+  },
+  city:{
+    type: String,
+    required: false,
+    minlength: 2,
+    maxlength: 150,
+  },
+  state:{
+    type: String,
+    minlength:10,
+    maxlength:150
+  },
+  cnic:{
+    type: String,
+    required: false,
+    minlength: 9,
+    maxlength: 20,
+  },
+  gender:{
+    type: String,
+    // required: true,
+  },
+  userID:{
+    type:Number
+  },
 });
+userSchema.plugin(AutoIncrement, {inc_field: 'userID'});
+
+
+
 // basically its a key value pair generateAuthToken become name of the function (act as key)
 // and its value is the function
 userSchema.methods.generateAuthToken = function () {
@@ -39,6 +76,21 @@ userSchema.methods.generateAuthToken = function () {
 };
 
 const User = mongoose.model("User", userSchema);
+
+// let newItem1= new User({
+//   name:"Zubair Ahmed",
+//   email:"Usmanabeer@gmail.com",
+//   password:"UsmanKhan565",
+//   phone_no:"030631596145",
+//   gender:'Male',
+//   state:"IDKasdasasdasd"
+// });
+// newItem1.save();
+
+// console.log(newItem1.userID);
+
+
+
 
 function validateUser(user) {
   const schema = Joi.object({

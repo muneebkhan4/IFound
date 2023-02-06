@@ -30,4 +30,8 @@ router.post("/", async (req, res) => {
   res.header("x_auth_token", token).send(_.pick(user, ["email"])); // avoid sending userId, asigned by database
 });
 
+
+
+
+
 module.exports = router;

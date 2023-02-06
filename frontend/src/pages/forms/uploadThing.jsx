@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, Component } from "react";
+import axios from "axios";
 import Input from "../../components/Input";
 import NavBar from "../../sections/NavBar";
 import Dropdown from "./dropdown";
-import axios from "axios";
 
 const UploadThing = () => {
   const navigate = useNavigate();
@@ -166,8 +166,8 @@ const UploadThing = () => {
   // return
   return (
     <React.Fragment>
-      <NavBar currentUser={localStorage.getItem("email")} />
-      <div className="row" style={{ minHeight: screenHeight }}>
+
+      <div className="row">
         <div
           className="col-3 mt-5 center"
           style={{ width: "40%", height: "100%" }}
