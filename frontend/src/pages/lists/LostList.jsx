@@ -6,6 +6,8 @@ import NavBar from "../../sections/NavBar";
 const LostList = () => {
   const [PersonPosts, setPersonPosts] = useState();
   const [ThingPosts, setThingPosts] = useState();
+  const screenHeight = window.innerHeight;
+  // Set the height of the current screen height
 
   useEffect(() => {
     const getPersonPostData = async () => {
@@ -24,7 +26,7 @@ const LostList = () => {
         );
         console.log(".Net Server ", data);
 
-        const arr = data.map(element => {
+        const arr = data.map((element) => {
           const name = element.targetPersonDto.name;
           const age = element.targetPersonDto.age;
           const city = element.targetPersonDto.location;
@@ -61,8 +63,6 @@ const LostList = () => {
       }
     };
 
-
-
     getPersonPostData();
     getThingPostData();
   }, []);
@@ -71,39 +71,54 @@ const LostList = () => {
 
   return (
     <React.Fragment>
-      <h1 className="App-header">Lost List</h1>
+      {localStorage.getItem("x_auth_token") && (
+        <div>
+          <h1 className="App-header">Lost List</h1>
 
-      <div className="container text-center bg-list">
-        <h1 className="App-header">Person Cases</h1>
-        {!PersonPosts && (
-          <div className="spinner-grow fonts" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        )}
-        <div className="row">
-          {PersonPosts &&
-            PersonPosts.map((post) => (
-              <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
-                <PersonPost image={post.image} data={post} />
+          <div className="container text-center bg-list">
+            <h1 className="App-header">Person Cases</h1>
+            {!PersonPosts && (
+              <div className="spinner-grow fonts" role="status">
+                <span className="visually-hidden">Loading...</span>
               </div>
-            ))}
-        </div>
+            )}
+            <div className="row">
+              {PersonPosts &&
+                PersonPosts.map((post) => (
+                  <div
+                    key={Math.floor(Math.random() * 10000 + 1)}
+                    className="col"
+                  >
+                    <PersonPost image={post.image} data={post} />
+                  </div>
+                ))}
+            </div>
 
-        <h1 className="App-header">Things Cases</h1>
-        {!ThingPosts && (
-          <div className="spinner-grow fonts" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        )}
-        <div className="row">
-          {ThingPosts &&
-            ThingPosts.map((post) => (
-              <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
-                <ThingPost image={post.image} data={post.data} />
+            <h1 className="App-header">Things Cases</h1>
+            {!ThingPosts && (
+              <div className="spinner-grow fonts" role="status">
+                <span className="visually-hidden">Loading...</span>
               </div>
-            ))}
+            )}
+            <div className="row">
+              {ThingPosts &&
+                ThingPosts.map((post) => (
+                  <div
+                    key={Math.floor(Math.random() * 10000 + 1)}
+                    className="col"
+                  >
+                    <ThingPost image={post.image} data={post.data} />
+                  </div>
+                ))}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+      {!localStorage.getItem("x_auth_token") && (
+        <div className="center" style={{ minHeight: screenHeight }}>
+          <h3 className="fonts">Log In to see the Lost List</h3>
+        </div>
+      )}
     </React.Fragment>
   );
 };

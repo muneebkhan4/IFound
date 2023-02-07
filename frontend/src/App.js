@@ -23,7 +23,7 @@ import Footer from "./sections/Footer";
 import ThingDetail from "./pages/details/ThingDetails";
 import { TargetType } from "./Enums/Enums";
 import ActiveCase from "./pages/Dashboards/user/activeCase";
-import CurrentCase from "./pages/Dashboards/user/currentCase";
+import CurrentCase from "./pages/Dashboards/user/activeCase";
 import NavBar from "./sections/NavBar";
 
 function AppRoutes() {
@@ -39,8 +39,24 @@ function AppRoutes() {
         <Route path="/login" element={<LogIn />}></Route>
         <Route path="/signup" element={<SignUpForm />}></Route>
         <Route path="/upload-person" element={<UploadPerson />}></Route>
-        <Route path="/uploadFoundPerson" element={<UploadPerson PostType={TargetType.LOST} ApiUrl={"https://localhost:44364/api/home/createFoundPersonForm"} />}></Route>
-        <Route path="/uploadLostPerson" element={<UploadPerson PostType={TargetType.FOUND} ApiUrl={"https://localhost:44364/api/home/createLostPersonForm"} />}></Route>
+        <Route
+          path="/uploadFoundPerson"
+          element={
+            <UploadPerson
+              PostType={TargetType.LOST}
+              ApiUrl={"https://localhost:44364/api/home/createFoundPersonForm"}
+            />
+          }
+        ></Route>
+        <Route
+          path="/uploadLostPerson"
+          element={
+            <UploadPerson
+              PostType={TargetType.FOUND}
+              ApiUrl={"https://localhost:44364/api/home/createLostPersonForm"}
+            />
+          }
+        ></Route>
         <Route path="/Person-Details" element={<PersonDetail />}></Route>
         <Route path="/Thing-Details" element={<ThingDetail />}></Route>
         <Route path="/upload-thing" element={<UploadThing />}></Route>
@@ -61,7 +77,6 @@ function AppRoutes() {
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </React.Fragment>
-
   );
 }
 
