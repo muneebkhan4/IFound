@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import "./List.style.scss";
 
-export default function List({ items, currentView }) {
+export default function List({ items, currentView, heading }) {
 
   // Helper function that allows finding first element in the view port
   const findFirstElementInViewPort = elements =>
@@ -37,8 +37,8 @@ export default function List({ items, currentView }) {
 
   return (
     <div>
-      <div className="fixed-nav">
-        <h3>Matched Cases </h3>
+      <div >
+        <h1 className="App-header">{heading}</h1>
       </div>
 
       <div

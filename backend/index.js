@@ -38,15 +38,15 @@ if (!config.get("JwtPrivateKey")) {
 
 // const mongoose = require('mongoose')
 
-const url = `mongodb://uahmad565:uahmad565@ac-6p7zp25-shard-00-00.ns5xulq.mongodb.net:27017,ac-6p7zp25-shard-00-01.ns5xulq.mongodb.net:27017,ac-6p7zp25-shard-00-02.ns5xulq.mongodb.net:27017/?ssl=true&replicaSet=atlas-rrwik5-shard-0&authSource=admin&retryWrites=true&w=majority`;
+const url = `mongodb://uahmad565:usman565@ac-6p7zp25-shard-00-00.ns5xulq.mongodb.net:27017,ac-6p7zp25-shard-00-01.ns5xulq.mongodb.net:27017,ac-6p7zp25-shard-00-02.ns5xulq.mongodb.net:27017/?ssl=true&replicaSet=atlas-rrwik5-shard-0&authSource=admin&retryWrites=true&w=majority`;
 
 
 // connecting to database (MongoDB)
 mongoose
-  .connect("mongodb://localhost/IFound")
+  .connect(url)
   // .connect(
   //   "mongodb://muneeb:muneeb@cluster0-shard-00-00.v3vpd.mongodb.net:27017,cluster0-shard-00-01.v3vpd.mongodb.net:27017,cluster0-shard-00-02.v3vpd.mongodb.net:27017/?ssl=true&replicaSet=atlas-h6u2e8-shard-0&authSource=admin&retryWrites=true&w=majority"
-  // )
+  // )+
   // for deployment MongoDB Altas
 
   .then(() => console.log("connection to mongo db successful..."))
