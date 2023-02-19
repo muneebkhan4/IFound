@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PersonPost from "../../components/PersonPost";
 import ThingPost from "../../components/ThingPost";
-import NavBar from "../../sections/NavBar";
 const FoundList = () => {
   const [PersonPosts, setPersonPosts] = useState();
   const [ThingPosts, setThingPosts] = useState();
