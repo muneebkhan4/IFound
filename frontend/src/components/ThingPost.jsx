@@ -15,6 +15,7 @@ const ThingPost = (props) => {
             marginTop: "0.15rem",
             borderRadius: "1.5rem",
             width: "14rem",
+            height: "14rem",
           }}
         />
         <div className="card-body" style={{ marginTop: "1rem" }}>

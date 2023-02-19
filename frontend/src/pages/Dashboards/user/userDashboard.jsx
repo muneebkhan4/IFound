@@ -8,6 +8,8 @@ import axios from "axios";
 function UserDashboard() {
   const navigate = useNavigate();
   const [validate, setValidate] = useState("");
+  const screenHeight = window.innerHeight;
+  // Set the height of the current screen height
   useEffect(() => {
     const validate = async () => {
       // authentication token
@@ -60,16 +62,22 @@ function UserDashboard() {
             <Details />
           </div>
 
-          <div className="col bg-list">
+          <div className="col bg-list" style={{ height: "fit-content" }}>
             <div className="row">
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Post Missing Thing"
                   PostType="MissingThing"
                   navTo="/upload-thing"
                 ></DashboardButton>
               </div>
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Post Missing Person/ Child"
                   navTo="/uploadLostPerson"
@@ -78,14 +86,20 @@ function UserDashboard() {
               </div>
             </div>
             <div className="row">
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Post Found Thing"
                   PostType="FoundThing"
                   navTo="/upload-thing"
                 ></DashboardButton>
               </div>
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Post Found Person/ Child"
                   navTo="/uploadFoundPerson"
@@ -94,14 +108,20 @@ function UserDashboard() {
               </div>
             </div>
             <div className="row">
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Current Cases"
                   navTo="/current-cases"
                   value={2}
                 ></DashboardButton>
               </div>
-              <div className="col">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
                 <DashboardButton
                   title="Resolved Cases"
                   navTo="/resolved-cases"
