@@ -10,6 +10,9 @@ function Footer(props) {
           style={{
             background: "dark",
             marginTop: 20,
+            bottom: "0",
+            position: "fixed",
+            width: "100%"
           }}
         >
           <div className="row" style={{ marginTop: 10, marginLeft: 10 }}>
