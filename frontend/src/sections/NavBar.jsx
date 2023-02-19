@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link, Navigate } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { Button } from "rsuite";
 import "../styles/navbar.css";
 
@@ -8,12 +8,12 @@ const NavBar = () => {
 
   let [credentials, setCredentials] = useState({ email: null, password: "", token: null });
 
-  useEffect(() => {
-    const email = localStorage.getItem("email");
-    const name = localStorage.getItem("name");
-    const token = localStorage.getItem("x_auth_token");
-    setCredentials({ email, name, token });
-  });
+  // useEffect(() => {
+  //   const email = localStorage.getItem("email");
+  //   const name = localStorage.getItem("name");
+  //   const token = localStorage.getItem("x_auth_token");
+  //   setCredentials({ email, name, token });
+  // });
 
   const handleSignIn = () => {
     const email = localStorage.getItem("email");

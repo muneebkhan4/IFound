@@ -1,18 +1,18 @@
 import { useLocation, useNavigate } from "react-router-dom";
 // import Dropdown from 'react-bootstrap/Dropdown';
 // import DropdownButton from 'react-bootstrap/DropdownButton';
-import React, { useState, Component } from "react";
+import React, { useState } from "react";
 import Input from "../../components/Input";
-import NavBar from "../../sections/NavBar";
 import axios from "axios";
 
 import jwt_decode from "jwt-decode";
 import { GenderType, RelationType } from "../../Enums/Enums";
 import Dropdown from "./dropdown";
+import { Navigate } from "react-router-dom";
+
 
 const UploadPerson = ({ PostType, ApiUrl }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
+
   // handle submit button event
   const handleUploadPersonSubmit = async (e) => {
     e.preventDefault();
@@ -55,18 +55,19 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
     formData.append("Age", credentials.age);
     formData.append("Location", credentials.city);
     formData.append("Description", credentials.detail);
-    formData.append("TargetType", PostType);
+    formData.append("TargetType", credentials.postType);
     formData.append("Image", selectedFile, selectedFile.name);
     formData.append("Gender", credentials.genderType);
     formData.append("Relation", credentials.relationType);
 
+
     const token = localStorage.getItem("x_auth_token");
     var { _id } = jwt_decode(token);
     console.log("_id: ", _id);
-    const { data: currentUser } = await axios.get(
-      "http://www.localhost:1000/api/users/" + _id
-    );
+    const { data: currentUser } = await axios.get("http://www.localhost:1000/api/users/" + _id);
     formData.append("UserId", currentUser["userID"]);
+
+
 
     // authentication token
     // const token = localStorage.getItem("x_auth_token");
@@ -80,32 +81,30 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
     // console.log("Token:  ", token,decoded);
 
     try {
-      const { data } = await axios.post(ApiUrl, formData, {
-        headers: {
-          x_auth_token: token,
-        },
-      });
-      if (data.statusCode == 200) {
+
+      const { data } = await axios.post(
+        ApiUrl,
+        formData,
+        {
+          headers: {
+            x_auth_token: token,
+          },
+        }
+      );
+      if (data.statusCode === 200) {
         setMessage("saved");
         console.log(message);
-        let nav = "/notFound";
-        if (
-          credentials.postType == "PoliceMissingPerson" ||
-          credentials.postType == "PoliceFoundPerson"
-        )
-          nav = "/police-dashboard";
-        else if (
-          credentials.postType == "FoundPerson" ||
-          credentials.postType == "MissingPerson"
-        )
-          nav = "/user-dashboard";
-        navigate("/LoadingPage", {
+
+        let nav = "/user-dashboard";
+        Navigate("/LoadingPage", {
           state: {
             message: "Post added Successfully. ",
             navigate: nav,
           },
         });
-      } else if (data.statusCode == 400) {
+      }
+      else if (data.statusCode == 400) {
+
         // const message = response;
         // setMessage(message);
       }
@@ -115,6 +114,9 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
         color: "color",
         city: "city",
         detail: "",
+        genderType: GenderType.Male,
+        relationType: RelationType.Brother,
+        postType: PostType,
       });
       const image = "";
       setSelectedFile(image); // clearing form
@@ -141,17 +143,16 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
     }));
 
   // form data
-
-  const { givenPostType, title } = location.state;
+  const location = useLocation();
 
   var [credentials, setCredentials] = useState({
     name: "",
     age: "",
     detail: "",
     city: "",
-    genderType: "",
-    relationType: "",
-    postType: givenPostType, // setting the postType
+    genderType: GenderType.Male,
+    relationType: RelationType.Brother,
+    postType: PostType, // setting the postType
   });
   var [selectedFile, setSelectedFile] = useState("");
   var [previewFile, setpreviewFile] = useState("");
@@ -175,12 +176,9 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
             height="500"
           />
         </div>
-        <div className="col-4 center" style={{ borderRadius: 2 }}>
-          <div
-            className="bg-light"
-            style={{ width: "22rem", borderRadius: "1rem" }}
-          >
-            <h1 className="App-header">{title}</h1>
+        <div className="col-4 center">
+          <div className="bg-light mt-2" style={{ width: "22rem" }}>
+            <h1 className="App-header">Form</h1>
             <form onSubmit={(e) => handleUploadPersonSubmit(e)}>
               <Input
                 autofocus={true}
@@ -247,14 +245,14 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
                   style={{ width: "5rem", height: "5rem", marginLeft: "10rem" }}
                 ></img>
               )}
-              {message != "saved" && (
+              {/* {message != "saved" && (
                 <p style={{ color: "red", marginBottom: "1rem" }}>{message}</p>
               )}
               {message === "saved" && (
                 <p style={{ color: "green", marginBottom: "1rem" }}>
                   Post Added Successfully
                 </p>
-              )}
+              )} */}
               {progressbar && (
                 <div className="spinner-grow fonts" role="status">
                   <span className="visually-hidden">Loading...</span>
