@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PersonPost from "../../components/PersonPost";
 import ThingPost from "../../components/ThingPost";
-import NavBar from "../../sections/NavBar";
+import SearchEvent from "../../components/SearchEvent";
+import { DatePicker } from "rsuite";
+import './LostList.css';
+
 const LostList = () => {
   const [PersonPosts, setPersonPosts] = useState();
   const [ThingPosts, setThingPosts] = useState();
@@ -55,7 +58,7 @@ const LostList = () => {
           }
         );
         console.log(data);
-        setThingPosts(data);
+        setThingPosts([]);
       } catch (err) {
         if (err) console.log(err.response.data);
       }
@@ -67,14 +70,29 @@ const LostList = () => {
     getThingPostData();
   }, []);
 
+  const changeDateEvent = (data) => {
+    console.log("Date has been changed: ", data);
+  }
+
   console.log("NodeServer:", PersonPosts);
 
   return (
     <React.Fragment>
-      <h1 className="App-header">Lost List</h1>
-
+      {/* <h1 className="App-header">Lost List</h1> */}
+      <div className="FilterStyle">
+        <SearchEvent></SearchEvent>
+        <div>
+          <label>From</label>
+          <DatePicker onChange={changeDateEvent} format="yyyy-MM-dd" />
+        </div>
+        <div>
+          <label>To</label>
+          <DatePicker onChange={changeDateEvent} format="yyyy-MM-dd" />
+        </div>
+        
+      </div>
       <div className="container text-center bg-list">
-        <h1 className="App-header">Person Cases</h1>
+        {/* <h1 className="App-header">Person Cases</h1> */}
         {!PersonPosts && (
           <div className="spinner-grow fonts" role="status">
             <span className="visually-hidden">Loading...</span>
