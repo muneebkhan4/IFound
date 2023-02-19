@@ -1,7 +1,6 @@
 import React, { useState, Component, createRef } from "react";
 import { Navigate } from "react-router-dom";
 import Input from "../../components/Input";
-import NavBar from "../../sections/NavBar";
 import axios from "axios";
 
 class Signup extends Component {
