@@ -28,12 +28,15 @@ router.get("/", auth, async (req, res) => {
       "color",
       "city",
       "details",
+      "phone",
+      "address",
       "date",
       "postType",
     ]);
     filtered.push({ data: obj, image: images[i++] });
   });
 
+  console.log(filtered);
   // filtered contains {data{"name", "age", "city", "details", "postType", "date"},"image:{}"}
 
   return res.status(200).send(filtered);

@@ -27,6 +27,17 @@ const postSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 25,
   },
+  phone: {
+    type: String,
+    required: true,
+    length: 13,
+  },
+  address: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 200,
+  },
   details: {
     type: String,
     required: true,
@@ -58,6 +69,8 @@ function validatePost(PostThing) {
     category: Joi.string().required(),
     color: Joi.string().min(3).max(50).required(),
     city: Joi.string().min(3).max(50).required(),
+    phone: Joi.string().min(13).max(13).required(),
+    address: Joi.string().min(5).max(200).required(),
     details: Joi.string().min(5).max(500).required(),
     postType: Joi.string().required(),
     //userId: Joi.string().required(),

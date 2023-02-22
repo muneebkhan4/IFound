@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PersonPost from "../../../components/PersonPost";
-import ThingPost from "./../../../components/ThingPost";
+import ThingPost from "../../../components/ThingPost";
 
 const UnResolvedCases = () => {
   const [PersonPosts, setPersonPosts] = useState();
@@ -54,7 +54,7 @@ const UnResolvedCases = () => {
 
   return (
     <React.Fragment>
-      <h1 className="App-header">UnResolved Cases</h1>
+      <h1 className="App-header">Matched Cases</h1>
 
       <div className="container text-center bg-list">
         <h1 className="App-header">Person Cases</h1>

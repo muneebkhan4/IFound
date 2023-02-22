@@ -7,8 +7,8 @@ const router = express.Router();
 const { Image } = require("../models/image");
 const { PostThing, validate } = require("../models/thingPost");
 const fs = require("fs");
-const jwt_decode = require('jwt-decode');
-const {User}=require('../models/user');
+const jwt_decode = require("jwt-decode");
+const { User } = require("../models/user");
 const auth = require("../middleware/auth");
 
 const upload = require("../middleware/upload");
@@ -16,15 +16,11 @@ const upload = require("../middleware/upload");
 // add auth middle ware for seucrity and token validation check
 router.post("/", [auth, upload.single("file")], async (req, res) => {
   // req.file is the name of your file in the form above, here 'uploaded_file'
-  
-  const token= req.header("x_auth_token");
-  var {_id} = jwt_decode(token);
 
+  const token = req.header("x_auth_token");
+  var { _id } = jwt_decode(token);
   const { error } = validate(req.body);
-  console.log("validation error",error);
   if (error) return res.status(400).send(error.details[0].message);
-
-  console.log("_id ",_id);
 
   // image not compulsory
   // if (req.file === undefined) return res.send("you must select an image.");
@@ -35,14 +31,15 @@ router.post("/", [auth, upload.single("file")], async (req, res) => {
       "category",
       "color",
       "city",
+      "phone",
+      "address",
       "details",
       "postType",
     ])
   ); // handled the case if malicious user try to request more arguments
 
   post.date = new Date();
-  post.userId=_id;
-  console.log("post",post);
+  post.userId = _id;
   post.imageId = null;
 
   if (req.file) {

@@ -16,13 +16,13 @@ import PremiumUserDashboard from "./pages/Dashboards/premium_user/premiumUserDas
 import PoliceDashboard from "./pages/Dashboards/police/policeDashboard";
 import AdminDashboard from "./pages/Dashboards/admin/adminDashboard";
 import ResolvedCases from "./pages/Dashboards/user/reolvedCases";
-import UnResolvedCases from "./pages/Dashboards/user/unResolvedCases";
+import MatchedCases from "./pages/Dashboards/user/matchedCases";
 import LoadingPage from "./pages/forms/LoadingPage";
 import Footer from "./sections/Footer";
 import ThingDetail from "./pages/details/ThingDetails";
 import { TargetType } from "./Enums/Enums";
 import NavBar from "./sections/NavBar";
-import Auth from "./test/Auth"
+import Auth from "./test/Auth";
 import CarouselsPrac from "./test/carouselPrac";
 
 function AppRoutes() {
@@ -62,9 +62,10 @@ function AppRoutes() {
         <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
         <Route path="/user-dashboard" element={<UserDashboard />}></Route>
         <Route path="/resolved-cases" element={<ResolvedCases />}></Route>
-        <Route path="/unresolved-cases" element={<UnResolvedCases />}></Route>
-        <Route path="/Auths" element={<Auth />}></Route>
-        <Route path="/caro" element={<CarouselsPrac />}></Route>        
+        <Route path="/matched-cases" element={<MatchedCases />}></Route>
+        <Route path="/active" element={<ActiveCase />}></Route>
+        <Route path="/current-cases" element={<CurrentCase />}></Route>
+
         <Route path="/notFound" element={<NotFound />}></Route>
         <Route
           path="/premium-user-dashboard"

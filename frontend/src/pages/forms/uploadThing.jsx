@@ -4,6 +4,9 @@ import axios from "axios";
 import Input from "../../components/Input";
 import Dropdown from "./dropdown";
 
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+
 const UploadThing = () => {
   const navigate = useNavigate();
 
@@ -34,6 +37,20 @@ const UploadThing = () => {
       setmessage(message);
       return;
     }
+    if (!phone || phone.length != 13) {
+      const message = "Please enter valid phone number.";
+      setmessage(message);
+      return;
+    }
+    if (
+      !credentials.address ||
+      credentials.address.length < 5 ||
+      credentials.address.length > 200
+    ) {
+      const message = "Please enter valid address.";
+      setmessage(message);
+      return;
+    }
     if (!credentials.detail) {
       const message =
         "Details cannot be Empty. Please enter few lines of details.";
@@ -50,6 +67,8 @@ const UploadThing = () => {
     formData.append("city", credentials.city);
     formData.append("color", credentials.color);
     formData.append("details", credentials.detail);
+    formData.append("phone", phone);
+    formData.append("address", credentials.address);
     formData.append("postType", credentials.postType);
     if (selectedFile) {
       formData.append("file", selectedFile, selectedFile.name);
@@ -132,9 +151,11 @@ const UploadThing = () => {
     category: "Category",
     color: "Color",
     city: "City",
+    address: "",
     detail: "",
     postType: givenPostType, // setting the postType
   });
+  const [phone, setphone] = useState();
   var [selectedFile, setSelectedFile] = useState("");
   var [previewFile, setpreviewFile] = useState("");
   var [message, setmessage] = useState("");
@@ -165,7 +186,6 @@ const UploadThing = () => {
   // return
   return (
     <React.Fragment>
-
       <div className="row">
         <div
           className="col-3 mt-5 center"
@@ -218,6 +238,22 @@ const UploadThing = () => {
                 options={cities}
                 handleChange={(e) => handleChange(e)}
                 opacity={credentials.city === "City" ? 0.7 : 1}
+              />
+              <div style={{ marginBottom: 20, marginLeft: -30 }}>
+                <PhoneInput
+                  placeholder="Enter phone number"
+                  value={phone}
+                  onChange={setphone}
+                />
+              </div>
+              <Input
+                autofocus={false}
+                label="Address"
+                type="text"
+                placeholder="address"
+                name="address"
+                value={credentials.address}
+                handleChange={(e) => handleChange(e)}
               />
               <Input
                 autofocus={false}
