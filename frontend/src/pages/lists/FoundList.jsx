@@ -73,7 +73,7 @@ const FoundList = () => {
   return (
     <React.Fragment>
       {localStorage.getItem("x_auth_token") && (
-        <div>
+        <div style={{minHeight:"80vh"}}>
           <h1 className="App-header">Found List</h1>
           <div className="container text-center bg-list">
             <h1 className="App-header">Person Cases</h1>

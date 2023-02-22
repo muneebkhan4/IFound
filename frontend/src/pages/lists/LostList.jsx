@@ -79,47 +79,49 @@ const LostList = () => {
   return (
     <React.Fragment>
       {/* <h1 className="App-header">Lost List</h1> */}
-      <div className="FilterStyle">
-        <SearchEvent></SearchEvent>
-        <div>
-          <label>From</label>
-          <DatePicker onChange={changeDateEvent} format="yyyy-MM-dd" />
-        </div>
-        <div>
-          <label>To</label>
-          <DatePicker onChange={changeDateEvent} format="yyyy-MM-dd" />
-        </div>
-        
-      </div>
-      <div className="container text-center bg-list">
-        {/* <h1 className="App-header">Person Cases</h1> */}
-        {!PersonPosts && (
-          <div className="spinner-grow fonts" role="status">
-            <span className="visually-hidden">Loading...</span>
+      <div className="MainContent">
+        <div className="FilterStyle">
+          <SearchEvent></SearchEvent>
+          <div>
+            <label>From</label>
+            <DatePicker onChange={changeDateEvent} format="yyyy-MM-dd" />
           </div>
-        )}
-        <div className="row">
-          {PersonPosts &&
-            PersonPosts.map((post) => (
-              <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
-                <PersonPost image={post.image} data={post} />
-              </div>
-            ))}
-        </div>
+          <div>
+            <label>To</label>
+            <DatePicker onChange={changeDateEvent} format="yyyy-MM-dd" />
+          </div>
 
-        <h1 className="App-header">Things Cases</h1>
-        {!ThingPosts && (
-          <div className="spinner-grow fonts" role="status">
-            <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="container text-center bg-list">
+          {/* <h1 className="App-header">Person Cases</h1> */}
+          {!PersonPosts && (
+            <div className="spinner-grow fonts" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          )}
+          <div className="row">
+            {PersonPosts &&
+              PersonPosts.map((post) => (
+                <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
+                  <PersonPost image={post.image} data={post} />
+                </div>
+              ))}
           </div>
-        )}
-        <div className="row">
-          {ThingPosts &&
-            ThingPosts.map((post) => (
-              <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
-                <ThingPost image={post.image} data={post.data} />
-              </div>
-            ))}
+
+          <h1 className="App-header">Things Cases</h1>
+          {!ThingPosts && (
+            <div className="spinner-grow fonts" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          )}
+          <div className="row">
+            {ThingPosts &&
+              ThingPosts.map((post) => (
+                <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
+                  <ThingPost image={post.image} data={post.data} />
+                </div>
+              ))}
+          </div>
         </div>
       </div>
     </React.Fragment>
