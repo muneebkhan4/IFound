@@ -4,6 +4,7 @@ import PersonPost from "../../components/PersonPost";
 import ThingPost from "../../components/ThingPost";
 import SearchEvent from "../../components/SearchEvent";
 import { DatePicker } from "rsuite";
+import NavBar from "../../sections/NavBar";
 import './LostList.css';
 
 const LostList = () => {
@@ -78,6 +79,7 @@ const LostList = () => {
 
   return (
     <React.Fragment>
+      <NavBar currentUser={localStorage.getItem("email")} />
       {/* <h1 className="App-header">Lost List</h1> */}
       <div className="MainContent">
         <div className="FilterStyle">

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PersonPost from "../../components/PersonPost";
 import ThingPost from "../../components/ThingPost";
+import NavBar from "../../sections/NavBar";
+
 const FoundList = () => {
   const [PersonPosts, setPersonPosts] = useState();
   const [ThingPosts, setThingPosts] = useState();
@@ -72,6 +74,7 @@ const FoundList = () => {
 
   return (
     <React.Fragment>
+      <NavBar currentUser={localStorage.getItem("email")} />
       {localStorage.getItem("x_auth_token") && (
         <div style={{minHeight:"80vh"}}>
           <h1 className="App-header">Found List</h1>
