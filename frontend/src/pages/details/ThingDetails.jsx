@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import NavBar from "../../sections/NavBar";
+
 const ThingDetail = () => {
   const location = useLocation();
   const { data, image } = location.state;

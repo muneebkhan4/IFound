@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardButton from "../../../components/DashboardButton";
 import Details from "../../details/Details";
-import Navbar from "../../../sections/NavBar";
 import axios from "axios";
 
 function AdminDashboard() {

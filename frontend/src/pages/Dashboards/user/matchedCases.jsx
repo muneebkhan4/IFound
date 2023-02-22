@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import NavBar from "../../../sections/NavBar";
 import PersonPost from "../../../components/PersonPost";
 import ThingPost from "../../../components/ThingPost";
 

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import NavBar from "../../../sections/NavBar";
-import PersonPost from "../../../components/PersonPost";
 import axios from "axios";
 
 const ResolvedCases = () => {
-  const location = useLocation();
+  // const location = useLocation();
   const [PersonPosts, setPersonPosts] = useState();
 
   useEffect(() => {

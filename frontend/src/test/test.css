@@ -1,0 +1,38 @@
+.split {
+    /* height: 100%; */
+    /* width: 50%; */
+    position: fixed;
+    height: 100%;
+    /* z-index: 1; */
+    /* top: 0; */
+    overflow-x: hidden;
+    /* padding-top: 20px; */
+  }
+  
+  /* Control the left side */
+  .left {
+    left: 0;
+    width: 55%;
+    background-color: #d09e9e;
+  }
+  
+  /* Control the right side */
+  .right {
+    width: 45%;
+    right: 0;
+    background-color: rgb(221, 214, 223);
+    align-Content: center;
+    min-Height: 640px;
+    background: #f9f5f5;
+    /* justify-content: center; */
+    align-items: center;
+  }
+  
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }

@@ -1,7 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
-import React, { Component } from "react";
-import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
+import React from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import FoundList from "./pages/lists/FoundList";
 import NotFound from "./pages/common/NotFound";
 import Home from "./pages/common/Home";
@@ -22,9 +21,9 @@ import LoadingPage from "./pages/forms/LoadingPage";
 import Footer from "./sections/Footer";
 import ThingDetail from "./pages/details/ThingDetails";
 import { TargetType } from "./Enums/Enums";
-import ActiveCase from "./pages/Dashboards/user/activeCase";
-import CurrentCase from "./pages/Dashboards/user/activeCase";
 import NavBar from "./sections/NavBar";
+import Auth from "./test/Auth";
+import CarouselsPrac from "./test/carouselPrac";
 
 function AppRoutes() {
   return (
