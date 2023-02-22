@@ -9,7 +9,7 @@ import jwt_decode from "jwt-decode";
 import { GenderType, RelationType } from "../../Enums/Enums";
 import Dropdown from "./dropdown";
 import { Navigate } from "react-router-dom";
-
+import NavBar from "../../sections/NavBar"
 
 const UploadPerson = ({ PostType, ApiUrl }) => {
 
@@ -159,12 +159,15 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
   var [message, setMessage] = useState("");
   const [progressbar, setProgressbar] = useState("");
   const screenHeight = window.innerHeight;
+;
   // Set the height of the to the current screen height
+
 
   // return
   return (
     <React.Fragment>
-      <div className="row">
+      <NavBar currentUser={localStorage.getItem("email")} />
+      <div className="row" style={{minHeight:"80vh"}}>
         <div
           className="col-3 mt-5 center"
           style={{ width: "40%", height: "100%" }}

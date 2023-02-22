@@ -28,7 +28,6 @@ import CarouselsPrac from "./test/carouselPrac";
 function AppRoutes() {
   return (
     <React.Fragment>
-      <NavBar currentUser={localStorage.getItem("email")} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/Home" element={<Home />}></Route>

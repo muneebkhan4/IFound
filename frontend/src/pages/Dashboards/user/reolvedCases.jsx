@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import NavBar from "../../../sections/NavBar";
 
 const ResolvedCases = () => {
   // const location = useLocation();
@@ -33,6 +34,7 @@ const ResolvedCases = () => {
 
   return (
     <React.Fragment>
+      <NavBar currentUser={localStorage.getItem("email")} />
       <h1 className="App-header">Resolved Cases</h1>
     </React.Fragment>
   );

@@ -6,6 +6,7 @@ function PersonDetail(props) {
   const { data, image } = location.state;
   return (
     <React.Fragment>
+      <NavBar currentUser={localStorage.getItem("email")} />
       <h1 className="fonts center">Person Post Details</h1>
       <div className="row" style={{ padding: "3rem" }}>
         <div className="col" style={{ padding: "1rem" }}>

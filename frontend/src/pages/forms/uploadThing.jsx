@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Input from "../../components/Input";
 import Dropdown from "./dropdown";
-
+import NavBar from "../../sections/NavBar";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 
@@ -186,7 +186,8 @@ const UploadThing = () => {
   // return
   return (
     <React.Fragment>
-      <div className="row">
+      <NavBar currentUser={localStorage.getItem("email")} />
+      <div className="row" style={{minHeight:"80vh"}}>
         <div
           className="col-3 mt-5 center"
           style={{ width: "40%", height: "100%" }}
