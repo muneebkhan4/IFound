@@ -63,8 +63,6 @@ function AppRoutes() {
         <Route path="/user-dashboard" element={<UserDashboard />}></Route>
         <Route path="/resolved-cases" element={<ResolvedCases />}></Route>
         <Route path="/matched-cases" element={<MatchedCases />}></Route>
-        <Route path="/active" element={<ActiveCase />}></Route>
-        <Route path="/current-cases" element={<CurrentCase />}></Route>
 
         <Route path="/notFound" element={<NotFound />}></Route>
         <Route
