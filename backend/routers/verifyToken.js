@@ -7,9 +7,7 @@ const auth = require("../middleware/auth");
 // add auth middle ware for seucrity and token validation check
 
 router.post("/", auth, async (req, res) => {
-  // console.log(req.user);
-  console.log(req.user.userType);
-  res.status(200).send("user");
+  res.status(200).send(req.user.userType);
 });
 
 module.exports = router;

@@ -30,6 +30,8 @@ router.get("/", auth, async (req, res) => {
       "color",
       "city",
       "details",
+      "phone",
+      "address",
       "date",
       "postType",
     ]);

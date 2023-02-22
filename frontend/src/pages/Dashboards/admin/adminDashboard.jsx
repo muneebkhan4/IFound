@@ -132,7 +132,7 @@ function AdminDashboard() {
               >
                 <DashboardButton
                   title="Reported Posts"
-                  navTo="/unresolved-cases"
+                  navTo="/matched-cases"
                   value={2}
                 ></DashboardButton>
               </div>

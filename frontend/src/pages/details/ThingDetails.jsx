@@ -4,6 +4,7 @@ import NavBar from "../../sections/NavBar";
 const ThingDetail = () => {
   const location = useLocation();
   const { data, image } = location.state;
+  console.log(data);
   return (
     <React.Fragment>
       <h1 className="fonts center">Thing Post Details</h1>
@@ -83,7 +84,7 @@ const ThingDetail = () => {
               <h3>Contact No.:</h3>
             </div>
             <div className="col">
-              <h3>{data.contactNumber}</h3>
+              <h3>{data.phone}</h3>
             </div>
           </div>
 
