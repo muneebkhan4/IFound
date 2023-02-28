@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import Input from "../../components/Input";
+import NavBar from "../../sections/NavBar"
 
 const Login = () => {
   // navigate hook
@@ -54,6 +55,7 @@ const Login = () => {
 
   return (
     <React.Fragment>
+      <NavBar currentUser={localStorage.getItem("email")} />
       {localStorage.getItem("email") && (
         <Navigate to="/user-dashboard" replace={true} />
       )}

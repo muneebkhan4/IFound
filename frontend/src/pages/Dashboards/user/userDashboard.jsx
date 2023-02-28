@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardButton from "../../../components/DashboardButton";
 import Details from "../../details/Details";
 import axios from "axios";
+import NavBar from "../../../sections/NavBar";
 
 function UserDashboard() {
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ function UserDashboard() {
   return (
     validate === "true" && (
       <React.Fragment>
+        <NavBar currentUser={localStorage.getItem("email")} />
         <h1 className="App-header"> User Dashboard</h1>
         <div className="row">
           <div className="col ">

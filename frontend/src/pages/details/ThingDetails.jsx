@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import NavBar from "../../sections/NavBar";
 
 const ThingDetail = () => {
   const location = useLocation();
@@ -7,6 +8,7 @@ const ThingDetail = () => {
   console.log(data);
   return (
     <React.Fragment>
+      <NavBar currentUser={localStorage.getItem("email")} />
       <h1 className="fonts center">Thing Post Details</h1>
       <div className="row" style={{ padding: "3rem" }}>
         <div className="col" style={{ padding: "1rem" }}>

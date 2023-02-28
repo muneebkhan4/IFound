@@ -2,6 +2,7 @@ import React, { useState, Component, createRef } from "react";
 import { Navigate } from "react-router-dom";
 import Input from "../../components/Input";
 import axios from "axios";
+import NavBar from "../../sections/NavBar";
 
 class Signup extends Component {
   constructor(props) {
@@ -62,6 +63,7 @@ class Signup extends Component {
 
     return (
       <React.Fragment>
+        <NavBar currentUser={localStorage.getItem("email")} />
         {this.state.success && <Navigate to="/login" replace={true} />}
         <div style={{ minHeight: screenHeight }}>
           <div className="row">
