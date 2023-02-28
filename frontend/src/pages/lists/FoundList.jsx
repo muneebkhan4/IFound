@@ -28,13 +28,13 @@ const FoundList = () => {
               },
             }
           );
-          const arr = data.map(element => {
+          const arr = data.map((element) => {
             const name = element.targetPersonDto.name;
             const age = element.targetPersonDto.age;
             const city = element.targetPersonDto.location;
             const details = element.targetPersonDto.description;
             const image = element.imageDto.base64String;
-  
+
             return { name, age, city, details, image };
           });
           console.log("Filtered Data ", arr);
@@ -76,7 +76,7 @@ const FoundList = () => {
     <React.Fragment>
       <NavBar currentUser={localStorage.getItem("email")} />
       {localStorage.getItem("x_auth_token") && (
-        <div style={{minHeight:"80vh"}}>
+        <div style={{ minHeight: screenHeight }}>
           <h1 className="App-header">Found List</h1>
           <div className="container text-center bg-list">
             <h1 className="App-header">Person Cases</h1>
