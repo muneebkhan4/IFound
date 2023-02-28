@@ -20,26 +20,27 @@ const FoundList = () => {
 
       if (token) {
         try {
+          // "https://localhost:44364/api/home/getCurrentFoundPosts",
           const { data } = await axios.get(
-            "https://localhost:44364/api/home/getCurrentFoundPosts",
+            "http://localhost:1000/api/allFoundPersonPosts",
             {
               headers: {
                 x_auth_token: token,
               },
             }
           );
-          const arr = data.map((element) => {
-            const name = element.targetPersonDto.name;
-            const age = element.targetPersonDto.age;
-            const city = element.targetPersonDto.location;
-            const details = element.targetPersonDto.description;
-            const image = element.imageDto.base64String;
+          // const arr = data.map((element) => {
+          //   const name = element.targetPersonDto.name;
+          //   const age = element.targetPersonDto.age;
+          //   const city = element.targetPersonDto.location;
+          //   const details = element.targetPersonDto.description;
+          //   const image = element.imageDto.base64String;
 
-            return { name, age, city, details, image };
-          });
-          console.log("Filtered Data ", arr);
-          console.log(arr);
-          setPersonPosts(arr);
+          //   return { name, age, city, details, image };
+          // });
+          // console.log("Filtered Data ", arr);
+          // console.log(arr);
+          setPersonPosts(data);
         } catch (err) {
           if (err) console.log(err.response.data);
         }
@@ -92,7 +93,7 @@ const FoundList = () => {
                     key={Math.floor(Math.random() * 10000 + 1)}
                     className="col"
                   >
-                    <PersonPost image={post.image} data={post} />
+                    <PersonPost image={post.image} data={post.data} />
                   </div>
                 ))}
             </div>
