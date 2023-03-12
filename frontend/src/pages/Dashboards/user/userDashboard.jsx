@@ -27,7 +27,7 @@ function UserDashboard() {
             },
           }
         );
-        console.log("Server Returned",userType);
+        // console.log("Server Returned userType: ",userType);
         if (userType.data === "user") setValidate("true");
         else if (userType.data === "police") navigate("/police-dashboard");
         else if (userType.data === "admin") navigate("/admin-dashboard");
@@ -114,8 +114,8 @@ function UserDashboard() {
                 style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
               >
                 <DashboardButton
-                  title="Current Cases"
-                  navTo="/current-cases"
+                  title="Match Lost Cases"
+                  navTo="/lostMatchCases"
                   value={2}
                 ></DashboardButton>
               </div>
@@ -124,8 +124,8 @@ function UserDashboard() {
                 style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
               >
                 <DashboardButton
-                  title="Resolved Cases"
-                  navTo="/resolved-cases"
+                  title="Match Found Cases"
+                  navTo="/foundMatchCases"
                   value={5}
                 ></DashboardButton>
               </div>

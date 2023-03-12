@@ -6,11 +6,9 @@ function Footer(props) {
   return (
     <React.Fragment>
       <div className="footer">
-        <Card
+        <Card className="w-100 mt-1"
           style={{
             background: "dark",
-            marginTop: 20,
-            width: "100%"
           }}
         >
           <div className="row" style={{ marginTop: 10, marginLeft: 10 }}>

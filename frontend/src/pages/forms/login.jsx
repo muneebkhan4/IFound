@@ -38,7 +38,8 @@ const Login = () => {
   const validate = async () => {
     try {
       const { data, headers } = await axios.post(
-        "http://localhost:1000/api/auth",
+        
+        `${process.env.REACT_APP_NODE_API}api/auth`,
         credentials
       );
       localStorage.setItem("email", data.email);
