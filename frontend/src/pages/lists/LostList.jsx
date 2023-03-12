@@ -11,7 +11,7 @@ import './LostList.css';
 const LostList = () => {
   const [ThingPosts, setThingPosts] = useState();
   // To hold the actual data
-
+  
   useEffect(() => {
 
     const getThingPostData = async () => {
@@ -42,6 +42,7 @@ const LostList = () => {
     console.log("Date has been changed: ", data);
   }
 
+  const screenHeight = window.innerHeight;
   return (
     <React.Fragment>
       <NavBar currentUser={localStorage.getItem("email")} />

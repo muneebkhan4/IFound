@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PersonPost from "../../../components/PersonPost";
 import ThingPost from "../../../components/ThingPost";
+import NavBar from "../../.././sections/NavBar";
 
 const UnResolvedCases = () => {
   const [PersonPosts, setPersonPosts] = useState();
@@ -54,6 +55,8 @@ const UnResolvedCases = () => {
 
   return (
     <React.Fragment>
+      <NavBar currentUser={localStorage.getItem("email")} />
+
       <h1 className="App-header">Matched Cases</h1>
 
       <div className="container text-center bg-list">
