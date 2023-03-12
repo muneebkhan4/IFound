@@ -122,7 +122,7 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
       setSelectedFile(image); // clearing form
       setMessage(message);
     } catch (err) {
-      const message = err.response.data;
+      const message = err.response?.data;
       setMessage(message);
     }
   };
