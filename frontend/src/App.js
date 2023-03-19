@@ -9,7 +9,7 @@ import Contactus from "./pages/forms/ContactUs";
 import LogIn from "./pages/forms/login";
 import SignUpForm from "./pages/forms/Signup";
 import UploadPerson from "./pages/forms/uploadPerson";
-import TestForm from "./pages/forms/testForm";
+//import TestForm from "./pages/forms/testForm";
 
 import PersonDetail from "./pages/details/PersonDetail";
 import UploadThing from "./pages/forms/uploadThing";
