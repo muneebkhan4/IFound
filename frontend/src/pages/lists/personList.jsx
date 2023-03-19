@@ -41,7 +41,9 @@ const PersonList = ({ url,recordsPerPage }) => {
         };
         getPersonPostData();
     }, [url]);
-
+    const screenHeight = window.innerHeight;
+    // Set the height of the current screen height
+  
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
     const currentRecords = PersonPosts.slice(indexOfFirstRecord, indexOfLastRecord);
@@ -49,7 +51,7 @@ const PersonList = ({ url,recordsPerPage }) => {
     return (
         <React.Fragment>
             <div className="container text-center bg-list">
-                <div className="row min-vh-100">
+                <div className="row min-vh-100" style={{minHeight:screenHeight}}>
                     {
                         loading
                             ?
