@@ -36,10 +36,11 @@ const UnResolvedCases = () => {
       // Send formData object
       try {
         const { data } = await axios.get(
-          "http://localhost:1000/api/getThingPosts",
+          "http://localhost:1000/api/getMatchedThingPosts",
           {
             headers: {
               x_auth_token: token,
+              answer: 42,
             },
           }
         );
@@ -60,7 +61,7 @@ const UnResolvedCases = () => {
       <h1 className="App-header">Matched Cases</h1>
 
       <div className="container text-center bg-list">
-        <h1 className="App-header">Person Cases</h1>
+        {/* <h1 className="App-header">Person Cases</h1>
         {!PersonPosts && (
           <div className="spinner-grow fonts" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -79,13 +80,22 @@ const UnResolvedCases = () => {
                 />
               </div>
             ))}
-        </div>
+        </div> */}
 
         <h1 className="App-header">Things Cases</h1>
         {!ThingPosts && (
           <div className="spinner-grow fonts" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
+        )}
+        {ThingPosts && (
+          <ThingPost
+            name={ThingPosts[0].data.name}
+            age={ThingPosts[0].data.city}
+            city={ThingPosts[0].data.color}
+            image={ThingPosts[0].image}
+            data={ThingPosts[0].data}
+          />
         )}
         <div className="row">
           {ThingPosts &&
