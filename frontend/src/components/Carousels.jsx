@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Carousel from "react-simply-carousel";
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
 
 export default function Carousels({ activePosts, setCurrentActiveCase }) {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -20,7 +20,7 @@ export default function Carousels({ activePosts, setCurrentActiveCase }) {
         activeSlideProps={{
           style: {
             background: "#d8d8dd",
-          }
+          },
         }}
         onAfterChange={setCurrentActiveCase}
         onRequestChange={setActiveSlide}
@@ -30,8 +30,8 @@ export default function Carousels({ activePosts, setCurrentActiveCase }) {
             width: 60,
             height: 60,
             minWidth: 60,
-            alignSelf: "center"
-          }
+            alignSelf: "center",
+          },
         }}
         backwardBtnProps={{
           children: "<",
@@ -39,8 +39,8 @@ export default function Carousels({ activePosts, setCurrentActiveCase }) {
             width: 60,
             height: 60,
             minWidth: 60,
-            alignSelf: "center"
-          }
+            alignSelf: "center",
+          },
         }}
         dotsNav={{
           show: true,
@@ -49,66 +49,79 @@ export default function Carousels({ activePosts, setCurrentActiveCase }) {
               height: 16,
               width: 16,
               borderRadius: "50%",
-              border: 0
-            }
-          }
-          ,
+              border: 0,
+            },
+          },
           activeItemBtnProps: {
             style: {
               height: 16,
               width: 16,
               borderRadius: "50%",
               border: 0,
-              background: "black"
-            }
-          }
+              background: "black",
+            },
+          },
         }}
         itemsToShow={1}
         speed={400}
       >
-
-        {activePosts && activePosts.map((item, index) => (
-          <div
-            style={{
-              display:"flex",
-              
-              border: "0px solid white",
-              textAlign: "center",
-
-            }}
-            key={index}
-          >
-            <img
-              src={"data:image/jpg;base64," + item.image}
-              alt="image"
-              className="card-img-top"
+        {activePosts &&
+          activePosts.map((item, index) => (
+            <div
               style={{
-                marginTop: "0.15rem",
-                borderRadius: "1rem",
-                width: "14rem",
-              }}
-            />
-            <Table striped bordered hover size="sm">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <td>Zubair Ahmad</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>Phone</th>
-                  <td>03076331854</td>
-                </tr>
-                <tr>
-                  <th>Place</th>
-                  <td>Market</td>
-                </tr>
-              </tbody>
-            </Table>
-          </div>
-        ))}
+                display: "flex",
 
+                border: "0px solid white",
+                textAlign: "center",
+              }}
+              key={index}
+            >
+              {item.image && (
+                <img
+                  src={"data:image/jpg;base64," + item.image}
+                  alt=""
+                  className="card-img-top"
+                  style={{
+                    marginTop: "0.15rem",
+                    borderRadius: "1rem",
+                    width: "14rem",
+                  }}
+                />
+              )}
+              {!item.image && (
+                <img
+                  src={
+                    "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
+                  }
+                  alt=""
+                  className="card-img-top"
+                  style={{
+                    marginTop: "0.15rem",
+                    borderRadius: "1rem",
+                    width: "14rem",
+                  }}
+                />
+              )}
+              <Table striped bordered hover size="sm">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <td>{item.name}</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Phone</th>
+                    <td>03076331854</td>
+                  </tr>
+                  <tr>
+                    <th>Place</th>
+                    <td>Market</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
+          ))}
       </Carousel>
     </div>
   );

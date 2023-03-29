@@ -13,7 +13,6 @@ const FoundList = () => {
   // Set the height of the current screen height
 
   useEffect(() => {
-
     const getThingPostData = async () => {
       // authentication token
       const token = localStorage.getItem("x_auth_token");
@@ -67,16 +66,13 @@ const FoundList = () => {
               ))}
           </div>
         </div>
-      )
-      }
-      {
-        !localStorage.getItem("x_auth_token") && (
-          <div className="center" style={{ minHeight: screenHeight }}>
-            <h3 className="fonts">Log In to see the Found List</h3>
-          </div>
-        )
-      }
-    </React.Fragment >
+      )}
+      {!localStorage.getItem("x_auth_token") && (
+        <div className="center" style={{ minHeight: screenHeight }}>
+          <h3 className="fonts">Log In to see the Found List</h3>
+        </div>
+      )}
+    </React.Fragment>
   );
 };
 
