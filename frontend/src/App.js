@@ -19,6 +19,8 @@ import PoliceDashboard from "./pages/Dashboards/police/policeDashboard";
 import AdminDashboard from "./pages/Dashboards/admin/adminDashboard";
 import ResolvedCases from "./pages/Dashboards/user/reolvedCases";
 import MatchedCases from "./pages/Dashboards/user/matchedCases";
+import MatchThingCases from "./pages/Dashboards/user/MatchThingPosts/MatchThingCases";
+
 import LoadingPage from "./pages/forms/LoadingPage";
 import Footer from "./sections/Footer";
 import ThingDetail from "./pages/details/ThingDetails";
@@ -64,8 +66,26 @@ function AppRoutes() {
         <Route path="/user-dashboard" element={<UserDashboard />}></Route>
         <Route path="/resolved-cases" element={<ResolvedCases />}></Route>
         <Route path="/matched-cases" element={<MatchedCases />}></Route>
-        <Route path="/lostMatchCases" element={<MatchCases postType={TargetType.LOST}/>}></Route>
-        <Route path="/foundMatchCases" element={<MatchCases postType={TargetType.FOUND}/>}></Route>
+        <Route
+          path="/lostMatchCases"
+          element={<MatchCases postType={TargetType.LOST} />}
+        ></Route>
+
+        <Route
+          path="/foundMatchCases"
+          element={<MatchCases postType={TargetType.FOUND} />}
+        ></Route>
+
+        <Route
+          path="/thinglostMatchCases"
+          element={<MatchThingCases postType={TargetType.LOST} />}
+        ></Route>
+
+        <Route
+          path="/thingfoundMatchCases"
+          element={<MatchThingCases postType={TargetType.FOUND} />}
+        ></Route>
+
         <Route path="/notFound" element={<NotFound />}></Route>
         <Route
           path="/premium-user-dashboard"

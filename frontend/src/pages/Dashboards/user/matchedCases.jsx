@@ -61,7 +61,7 @@ const UnResolvedCases = () => {
       <h1 className="App-header">Matched Cases</h1>
 
       <div className="container text-center bg-list">
-        {/* <h1 className="App-header">Person Cases</h1>
+        <h1 className="App-header">Person Cases</h1>
         {!PersonPosts && (
           <div className="spinner-grow fonts" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -80,7 +80,7 @@ const UnResolvedCases = () => {
                 />
               </div>
             ))}
-        </div> */}
+        </div>
 
         <h1 className="App-header">Things Cases</h1>
         {!ThingPosts && (

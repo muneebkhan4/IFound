@@ -130,6 +130,29 @@ function UserDashboard() {
                 ></DashboardButton>
               </div>
             </div>
+
+            <div className="row">
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
+                <DashboardButton
+                  title="Match Thing Lost Cases"
+                  navTo="/thinglostMatchCases"
+                  value={2}
+                ></DashboardButton>
+              </div>
+              <div
+                className="col"
+                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+              >
+                <DashboardButton
+                  title="Match Thing Found Cases"
+                  navTo="/thingfoundMatchCases"
+                  value={5}
+                ></DashboardButton>
+              </div>
+            </div>
           </div>
         </div>
       </React.Fragment>
