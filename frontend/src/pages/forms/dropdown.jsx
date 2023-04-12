@@ -8,7 +8,7 @@ const Dropdown = ({ name, options, handleChange, opacity }) => {
   const myOpacity = parseFloat(opacity);
   return (
     <select
-      className="form-control mb-3"
+      className=" mb-3"
       style={{ width: "15rem", opacity: myOpacity }}
       onChange={handleChange}
       name={name}

@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Carousels from "../../../../components/Carousels"
-import ListCard from "../../../../components/ListComponents/ListCard";
-import { Button } from "rsuite";
 import jwt_decode from "jwt-decode";
-import Badge from 'react-bootstrap/Badge';
 import NavBar from "../../../../sections/NavBar";
-import Spinner from "react-bootstrap/esm/Spinner";
+import AddTable from "./addTable";
 
 export default function MatchCases({ postType }) {
   const [Loading, setLoading] = useState(false);
@@ -39,12 +35,16 @@ export default function MatchCases({ postType }) {
               }
             );
           const arr = data.map(element => {
+            const postId=element.postPersonId;
             const name = element.targetPersonDto.name;
             const age = element.targetPersonDto.age;
             const city = element.targetPersonDto.location;
             const details = element.targetPersonDto.description;
             const image = element.imageDto.base64String;
-            return { name, age, city, details, image };
+            const date = element.postDate;
+            const gender = element.targetPersonDto.gender;
+            const postType=element.targetPersonDto.targetId;
+            return { postId,name, age, city, details, image, date, gender,postType };
           });
           console.log("Filtered Data ", arr);
           setActiveCases(arr);
@@ -65,7 +65,7 @@ export default function MatchCases({ postType }) {
     debugger;
     setLoading(true);
     console.log(Loading);
-    
+
     const token = localStorage.getItem("x_auth_token");
     const formData = new FormData();
     formData.append("encoded", ActiveCases[ActiveCaseIndex].image);
@@ -101,40 +101,8 @@ export default function MatchCases({ postType }) {
   return (
     <React.Fragment>
       <NavBar currentUser={localStorage.getItem("email")} />
-      <div>
-        <h3 style={{backgroundColor: "currentColor"}}><Badge bg="secondary">My Active Cases</Badge></h3>
-        <div style={{ backgroundColor: "currentColor" }}>
-          <Carousels activePosts={ActiveCases} setCurrentActiveCase={setCurrentActiveCase} />
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <Button
-              className="btn btn-primary m-4 "
-              color="blue"
-              appearance="primary"
-              onClick={handleSearchPost}
-            >
-              Match
-            </Button>
-          </div>
-        </div>
-        {
-          Loading ?
-            (< section style={{ display: "flex", backgroundColor: "white", minHeight: "60vh" }}>
-              {
-                <div className="d-flex  m-auto flex-column align-items-center">
-                  <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </Spinner>
-                  <h1>Matching</h1>
-                </div>
-              }
-            </section>
-            ) :
-            (< section id="listPerson" className="d-flex mt-1" style={{backgroundColor: "white", minHeight: "60vh" }}>
-              {
-                SearchedPosts?.length > 0 ? <ListCard PersonPosts={SearchedPosts} /> : <h3 style={{ margin: "auto" }}>No Match Found</h3>
-              }
-            </section>)
-        }
+      <div style={{minHeight:"80vh"}}>
+        <AddTable activeCases={ActiveCases}></AddTable>
       </div>
     </React.Fragment >
   );

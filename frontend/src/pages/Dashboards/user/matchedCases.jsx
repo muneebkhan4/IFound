@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import PersonPost from "../../../components/PersonPost";
+import PersonPost from "../../../components/DesignComponents/PersonPost";
 import ThingPost from "../../../components/ThingPost";
 import NavBar from "../../.././sections/NavBar";
 
@@ -71,6 +71,7 @@ const UnResolvedCases = () => {
             PersonPosts.map((post) => (
               <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
                 <PersonPost
+                  postId={post.data.postId}
                   name={post.data.name}
                   age={post.data.age}
                   city={post.data.city}

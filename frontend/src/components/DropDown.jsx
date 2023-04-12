@@ -3,30 +3,25 @@ import React, { Component } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
 export default class DropDown extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: "React"
-    };
-  }
 
-  change = eventkey => {
-    // a.persist();
-    alert(`you chosen: ${eventkey}`);
+  change = (eventkey) => {
+    const {dropDownChange}=this.props;
+    dropDownChange(eventkey);    
   };
 
   render() {
+    const {label}=this.props;
+    const {list}=this.props;
     return (
       <div>
         <Dropdown onSelect={this.change}>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
-            Dropdown Button
+          <Dropdown.Toggle id="dropdown-basic">
+            {label}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item eventKey="baudratestate1200">1200</Dropdown.Item>
-            <Dropdown.Item eventKey="baudratestate2400">2400</Dropdown.Item>
-            <Dropdown.Item eventKey="baudratestate4800">4800</Dropdown.Item>
-            <Dropdown.Item eventKey="baudratestate9600">9600</Dropdown.Item>
+            {list.map((l, i) => {
+              return (<Dropdown.Item key={i} eventKey={l}>{l}</Dropdown.Item>)
+            })}
           </Dropdown.Menu>
         </Dropdown>
       </div>

@@ -1,0 +1,31 @@
+.visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+
+.searchArea{
+    width: 18rem;
+    min-width: 18rem;
+}
+
+
+.ab5c51c3 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1;
+    cursor: pointer;
+    max-height: 320px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 0 6px 0 rgba(0,0,0,.12), 0 6px 6px 0 rgba(0,0,0,.24);
+    box-shadow: 0 0 6px 0 rgba(0,0,0,.12), 0 6px 6px 0 rgba(0,0,0,.24);
+}

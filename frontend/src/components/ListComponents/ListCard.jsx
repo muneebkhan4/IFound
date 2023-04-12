@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import PersonPost from "../../components/PersonPost";
+import PersonPost from "../DesignComponents/PersonPost";
 
 import './ListCard.css';
 

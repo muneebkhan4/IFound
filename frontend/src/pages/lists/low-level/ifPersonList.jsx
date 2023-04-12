@@ -1,49 +1,15 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import PersonPost from "../../components/PersonPost";
+import React, { useState } from "react";
+import PersonPost from "../../../components/DesignComponents/PersonPost";
 import Spinner from "react-bootstrap/esm/Spinner";
-import Pagination from "../../components/Pagination";
-import "../../styles/IFoundLoading.scss";
+import Pagination from "../../../components/Pagination";
+import "../../../styles/IFoundLoading.scss";
 
-const PersonList = ({ url,recordsPerPage }) => {
-    const [PersonPosts, setPersonPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1); 
+const IfPersonList = ({ recordsPerPage, PersonPosts, loading }) => {
+    const [currentPage, setCurrentPage] = useState(1);
 
-    useEffect(() => {
-        const getPersonPostData = async () => {
-            // authentication token
-            const token = localStorage.getItem("x_auth_token");
-            // Request made to the backend api
-            // Send formData object
-            try {
-                const { data } = await axios.get(
-                    url,
-                    {
-                        headers: { x_auth_token: token, },
-                    }
-                );
-                const arr = data.map(element => {
-                    const name = element.targetPersonDto.name;
-                    const age = element.targetPersonDto.age;
-                    const city = element.targetPersonDto.location;
-                    const details = element.targetPersonDto.description;
-                    const image = element.imageDto.base64String;
-
-                    return { name, age, city, details, image };
-                });
-                // console.log("Filtered Data ", arr);
-                setPersonPosts(arr);
-                setLoading(false);
-            } catch (err) {
-                if (err) console.log(err.response.data);
-            }
-        };
-        getPersonPostData();
-    }, [url]);
     const screenHeight = window.innerHeight;
     // Set the height of the current screen height
-  
+
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
     const currentRecords = PersonPosts.slice(indexOfFirstRecord, indexOfLastRecord);
@@ -51,7 +17,7 @@ const PersonList = ({ url,recordsPerPage }) => {
     return (
         <React.Fragment>
             <div className="container text-center bg-list">
-                <div className="row min-vh-100" style={{minHeight:screenHeight}}>
+                <div className="row min-vh-100" style={{ minHeight: screenHeight }}>
                     {
                         loading
                             ?
@@ -82,4 +48,4 @@ const PersonList = ({ url,recordsPerPage }) => {
     );
 };
 
-export default PersonList;
+export default IfPersonList;

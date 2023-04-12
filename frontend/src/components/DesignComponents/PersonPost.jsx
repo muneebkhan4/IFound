@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 function PersonPost(props) {
+  debugger;
   return (
     <React.Fragment >
       <div className="custom-post-card" style={{ marginBottom: "1rem" }}>
@@ -24,8 +25,7 @@ function PersonPost(props) {
           <NavLink
             className="nav-link m-4"
             style={{ marginTop: "1rem", marginBottom: "0.25rem" }}
-            to={{ pathname: "/Person-Details" }}
-            state={{ data: props.data, image: props.image }}
+            to={{ pathname: `/Person-Details/${props.data.postId}` }}
           >
             View Details
           </NavLink>

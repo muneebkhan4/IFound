@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import PhoneInput from "react-phone-number-input";
 // import Dropdown from 'react-bootstrap/Dropdown';
 // import DropdownButton from 'react-bootstrap/DropdownButton';
 import React, { useState } from "react";
@@ -8,14 +9,16 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { GenderType, RelationType } from "../../Enums/Enums";
 import Dropdown from "./dropdown";
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import NavBar from "../../sections/NavBar"
+import { cities } from "../../static/static";
 
 const UploadPerson = ({ PostType, ApiUrl }) => {
-
+  const navigate = useNavigate();
   // handle submit button event
   const handleUploadPersonSubmit = async (e) => {
     e.preventDefault();
+    debugger;
     // checking fileds data before sending request
 
     // if (!credentials.name) {
@@ -40,14 +43,17 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
     //   setMessage(message);
     //   return;
     // }
-    // if (!selectedFile) {
-    //   const message = "Please attach one Picture.";
-    //   setMessage(message);
-    //   return;
-    // }
+    if (!selectedFile) {
+      setError({
+        message: "Please attach one Picture.",
+        hasError: true
+      });
+      return;
+    }
     // Create an object of formData
     // "Base64Image,Description,Location, Age,Name,
-    console.log(PostType);
+    debugger;
+    console.log("Selected File: ", selectedFile);
     const formData = new FormData();
 
     // Attaching the data to the form
@@ -59,13 +65,24 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
     formData.append("Image", selectedFile, selectedFile.name);
     formData.append("Gender", credentials.genderType);
     formData.append("Relation", credentials.relationType);
+    formData.append("Phone", credentials.phone);
+
 
 
     const token = localStorage.getItem("x_auth_token");
     var { _id } = jwt_decode(token);
     console.log("_id: ", _id);
-    const { data: currentUser } = await axios.get("http://www.localhost:1000/api/users/" + _id);
-    formData.append("UserId", currentUser["userID"]);
+    try {
+      const { data: currentUser } = await axios.get("http://www.localhost:1000/api/users/" + _id);
+      formData.append("UserId", currentUser["userID"]);
+      
+    } catch (err) {
+      setError({
+        hasError: true,
+        message: "Internal Server Error"
+      });
+      return;
+    }
 
 
 
@@ -82,7 +99,7 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
 
     try {
 
-      const { data } = await axios.post(
+      const responseObj = await axios.post(
         ApiUrl,
         formData,
         {
@@ -91,39 +108,53 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
           },
         }
       );
-      if (data.statusCode === 200) {
+      if (responseObj.status === 500) {
+        setError({
+          hasError: true,
+          message: "Internal Server Error"
+        });
+      }
+      else if (responseObj.status === 200) {
         setMessage("saved");
         console.log(message);
 
         let nav = "/user-dashboard";
-        Navigate("/LoadingPage", {
+
+        navigate("/LoadingPage", {
           state: {
             message: "Post added Successfully. ",
             navigate: nav,
           },
         });
       }
-      else if (data.statusCode == 400) {
-
-        // const message = response;
-        // setMessage(message);
-      }
-      setCredentials({
-        name: "",
-        category: "category",
-        color: "color",
-        city: "city",
-        detail: "",
-        genderType: GenderType.Male,
-        relationType: RelationType.Brother,
-        postType: PostType,
-      });
-      const image = "";
-      setSelectedFile(image); // clearing form
-      setMessage(message);
+      // setCredentials({
+      //   name: "",
+      //   category: "category",
+      //   color: "color",
+      //   city: "city",
+      //   detail: "",
+      //   genderType: GenderType.Male,
+      //   relationType: RelationType.Brother,
+      //   postType: PostType,
+      // });
+      // const image = "";
+      // setSelectedFile(image); // clearing form
+      // setMessage(message);
     } catch (err) {
-      const message = err.response?.data;
-      setMessage(message);
+      if (err.response.data.errors) {
+        const message = Object.values(err.response.data.errors)[0];
+        setError({
+          hasError: true,
+          message: message
+        });
+      }
+      else {
+        const message = err.response.data;
+        setError({
+          hasError: true,
+          message: message
+        });
+      }
     }
   };
 
@@ -150,16 +181,21 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
     age: "",
     detail: "",
     city: "",
-    genderType: GenderType.Male,
-    relationType: RelationType.Brother,
+    genderType: Object.values(GenderType)[0],
+    relationType: Object.values(GenderType)[1],
     postType: PostType, // setting the postType
+    phone:""
   });
   var [selectedFile, setSelectedFile] = useState("");
   var [previewFile, setpreviewFile] = useState("");
   var [message, setMessage] = useState("");
+  const [error, setError] = useState({
+    hasError: false,
+    message: ""
+  });
   const [progressbar, setProgressbar] = useState("");
   const screenHeight = window.innerHeight;
-;
+  ;
   // Set the height of the to the current screen height
 
 
@@ -167,7 +203,7 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
   return (
     <React.Fragment>
       <NavBar currentUser={localStorage.getItem("email")} />
-      <div className="row" style={{minHeight:"80vh"}}>
+      <div className="row" style={{ minHeight: "80vh" }}>
         <div
           className="col-3 mt-5 center"
           style={{ width: "40%", height: "100%" }}
@@ -203,7 +239,18 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
                 min="1"
                 max="5"
               />
-              <Input
+              <div style={{ marginBottom: 20, marginLeft: -30 }}>
+                <PhoneInput
+                  placeholder="Enter phone number"
+                  name="phone"
+                  value={credentials.phone}
+                  onChange={(e) => setCredentials((prevState) => ({
+                    ...prevState,
+                    phone: e,
+                  })) }
+                />
+              </div>
+              {/* <Input
                 autofocus={false}
                 label="City"
                 type="text"
@@ -211,6 +258,12 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
                 name="city"
                 value={credentials.city}
                 handleChange={(e) => handleChange(e)}
+              /> */}
+              <Dropdown
+                name="city"
+                options={cities}
+                handleChange={handleChange}
+                opacity={10}
               />
               <Input
                 autofocus={false}
@@ -248,14 +301,12 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
                   style={{ width: "5rem", height: "5rem", marginLeft: "10rem" }}
                 ></img>
               )}
-              {/* {message != "saved" && (
-                <p style={{ color: "red", marginBottom: "1rem" }}>{message}</p>
-              )}
-              {message === "saved" && (
-                <p style={{ color: "green", marginBottom: "1rem" }}>
-                  Post Added Successfully
-                </p>
-              )} */}
+              {
+                error.hasError && (<div class="mt-2 alert alert-danger alert-dismissible fade show">
+                  <strong>Error!</strong> {error.message}
+                </div>)
+              }
+
               {progressbar && (
                 <div className="spinner-grow fonts" role="status">
                   <span className="visually-hidden">Loading...</span>
