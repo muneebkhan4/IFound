@@ -77,6 +77,21 @@ function AppRoutes() {
             toast={{ setToastMessage, setShow }}
           />}>
         </Route>
+
+        <Route path="/thing-Found-List" element={
+          <PersonPage
+            url={`${process.env.REACT_APP_DOT_NET_API}api/home/getCurrentFoundPosts`}
+            toast={{ setToastMessage, setShow }}
+          />}>
+        </Route>
+        <Route path="/thing-Lost-List" element={
+          <PersonPage
+            url={`${process.env.REACT_APP_DOT_NET_API}api/home/getCurrentLostPosts`}
+            toast={{ setToastMessage, setShow }}
+          />}>
+        </Route>
+
+
         <Route path="/Contact-Us" element={<Contactus />}></Route>
         <Route path="/login" element={<LogIn />}></Route>
         <Route path="/signup" element={<SignUpForm />}></Route>

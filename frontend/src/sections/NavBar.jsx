@@ -24,7 +24,7 @@ function NavBar(props) {
   return (
     <div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
-        <ul id="hello" style={{paddingLeft: "0rem"}} onClick={showSidebar}>
+        <ul id="hello" style={{ paddingLeft: "0rem" }} onClick={showSidebar}>
           <li className="navbar-toggle">
             <Link to="#" className="menu-bars">
               <AiIcons.AiOutlineClose />
@@ -63,17 +63,24 @@ function NavBar(props) {
           </div>
 
 
-            <div className="navbar-nav">
-              <NavLink className="nav-link m-4" to="/Found-List">
-                Found List
-              </NavLink>
-              <NavLink className="nav-link m-4" to="/Lost-List">
-                Lost List
-              </NavLink>
-              <NavLink className="nav-link m-4" to="/Contact-Us">
-                Contact Us
-              </NavLink>
-            </div>
+          <div className="navbar-nav">
+            <NavLink className="nav-link m-4" to="/Lost-List">
+              Person Lost List
+            </NavLink>
+            <NavLink className="nav-link m-4" to="/Found-List">
+              Person Found List
+            </NavLink>
+            <NavLink className="nav-link m-4" to="/thing-Lost-List">
+              Thing Lost List
+            </NavLink>
+            <NavLink className="nav-link m-4" to="/thing-Found-List">
+              Thing Found List
+            </NavLink>
+
+            <NavLink className="nav-link m-4" to="/Contact-Us">
+              Contact Us
+            </NavLink>
+          </div>
 
           {props.currentUser && (
             <NavLink className="nav-link m-4" to="/Login">
