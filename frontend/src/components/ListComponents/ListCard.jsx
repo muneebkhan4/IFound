@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PersonPost from "../DesignComponents/PersonPost";
 
 import './ListCard.css';
@@ -18,8 +18,7 @@ const ListCard = ({PersonPosts}) => {
             {PersonPosts &&
               PersonPosts.map((post) => (
                 <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
-                  {post.confidence && <div>Matched Confidence {post.confidence} </div>}
-                  <PersonPost image={post.image} data={post} />
+                  <PersonPost image={post.image} data={post} confidence={post.confidence}/>
                 </div>
               ))}
           </div>

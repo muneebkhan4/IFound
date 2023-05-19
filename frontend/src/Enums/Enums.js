@@ -25,6 +25,12 @@ export const RelationType =
     Brother:1,
     Sister:2,
     Child:3,
-    Other:4
+    // Other:4
     // Nephew:4
+};
+
+export const ActiveCasesMenu =
+{
+    Delete:1,
+    MarkResolve:2
 };

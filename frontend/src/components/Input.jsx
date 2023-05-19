@@ -9,7 +9,10 @@ function Input({
   handleChange,
   autofocus,
   ref,
+  style
 }) {
+  style=style?style:{ width: "15rem" };
+
   return (
     <div className="form-floating mb-3">
       <input
@@ -23,7 +26,7 @@ function Input({
         onChange={handleChange}
         min="1"
         max="150"
-        style={{ width: "15rem" }}
+        style={style}
         ref={ref}
       />
       <label htmlFor={label}>{name}</label>

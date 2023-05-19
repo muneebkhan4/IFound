@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { useNavigate } from 'react-router-dom';
 import NavBar from "../../../../sections/NavBar";
 import AddTable from "./addTable";
+import ShowToast from "../../../../components/PopUps/showToast";
+import { Button } from "rsuite";
+import { DeleteActivePost } from "../../../../services/ActiveCasesService";
+import Footer from "../../../../sections/Footer";
 
-export default function MatchCases({ postType }) {
-  const [Loading, setLoading] = useState(false);
+export default function MatchCases({ postType, toast }) {
   const [ActiveCases, setActiveCases] = useState();
-  const [SearchedPosts, setSearchedPosts] = useState();
-  const [ActiveCaseIndex, setActiveCaseIndex] = useState();
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getPersonPostData = async () => {
-      // authentication token
-      setSearchedPosts([]);
-      setActiveCaseIndex(-1);
+
       const token = localStorage.getItem("x_auth_token");
 
       try {
         var { _id } = jwt_decode(token);
         console.log("_id: ", _id);
-        const { data: currentUser } = await axios.get("http://www.localhost:1000/api/users/" + _id);
+        const { data: currentUser } = await axios.get(`${process.env.REACT_APP_NODE_API}api/users/${_id}`);
         if (currentUser && _id) {
           const { data } = await axios
-            .get("https://localhost:44364/api/home/activeCases",
+            .get(`${process.env.REACT_APP_DOT_NET_API}api/home/activeCases`,
               {
                 params: {
                   targetType: postType, id: currentUser["userID"]
@@ -35,7 +35,7 @@ export default function MatchCases({ postType }) {
               }
             );
           const arr = data.map(element => {
-            const postId=element.postPersonId;
+            const postId = element.postPersonId;
             const name = element.targetPersonDto.name;
             const age = element.targetPersonDto.age;
             const city = element.targetPersonDto.location;
@@ -43,8 +43,8 @@ export default function MatchCases({ postType }) {
             const image = element.imageDto.base64String;
             const date = element.postDate;
             const gender = element.targetPersonDto.gender;
-            const postType=element.targetPersonDto.targetId;
-            return { postId,name, age, city, details, image, date, gender,postType };
+            const postType = element.targetPersonDto.targetId;
+            return { postId, name, age, city, details, image, date, gender, postType };
           });
           console.log("Filtered Data ", arr);
           setActiveCases(arr);
@@ -57,53 +57,45 @@ export default function MatchCases({ postType }) {
       }
     }
     getPersonPostData();
-  }, [])
+  }, [ActiveCases])
 
-  const handleSearchPost = async () => {
-    if (ActiveCaseIndex == -1)
-      return;
-    debugger;
-    setLoading(true);
-    console.log(Loading);
 
-    const token = localStorage.getItem("x_auth_token");
-    const formData = new FormData();
-    formData.append("encoded", ActiveCases[ActiveCaseIndex].image);
-    formData.append("targetType", postType);
-    debugger;
-    const { data } = await axios
-      .post("https://localhost:44364/api/home/searchLostPerson", formData,
-        {
-          headers: {
-            x_auth_token: token,
-          },
-        }
-      );
-    // console.log("Searched Entries: ", data);
-    const arr = data.map(element => {
-      const name = element.targetPersonDto.name;
-      const age = element.targetPersonDto.age;
-      const city = element.targetPersonDto.location;
-      const details = element.targetPersonDto.description;
-      const image = element.imageDto.base64String;
-      const confidence = element.confidence;
-      return { name, age, city, details, image, confidence };
+  const handleDeleteActivePost = (postId) => {
+    // Handle option change event
+    DeleteActivePost(postId).then(_response => {
+      // console.log(':', response.data);
+      const newActiveCases = ActiveCases.filter(post => post.postId !== postId);
+      setActiveCases(newActiveCases);
+      toast.setToastMessage({ headerText: "Active Case", bodyText: "DELETE request successful" });
+      toast.setShow(true);
+    }).catch(error => {
+      console.error('DELETE request failed:', error);
+      toast.setToastMessage({ headerText: "Active Case", bodyText: "DELETE request failed" });
+      toast.setShow(true);
     });
-    setSearchedPosts(arr);
-    setLoading(false);
+
   }
 
-  const setCurrentActiveCase = (e) => {
-    setActiveCaseIndex(e);
-    // console.log("Current Slide is changed to: ", e);
+  const onPostManageClick = (data) => {
+    debugger;
+    console.log("event: ", data);
+    navigate(`/searchPost/${data.postId}/${data.postType}`);
   }
 
   return (
     <React.Fragment>
       <NavBar currentUser={localStorage.getItem("email")} />
-      <div style={{minHeight:"80vh"}}>
-        <AddTable activeCases={ActiveCases}></AddTable>
+      <div style={{ minHeight: "80vh" }}>
+        <AddTable activeCases={ActiveCases}
+          setActiveCases={setActiveCases}
+          toast={toast}
+          handleDeleteActivePost={handleDeleteActivePost}
+          onPostManageClick={onPostManageClick}
+          />
+        {/* <Button onClick={() => setShow(true)} >Hit Toast</Button> */}
+
       </div>
+      <Footer />
     </React.Fragment >
   );
 }

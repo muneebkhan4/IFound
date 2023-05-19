@@ -17,7 +17,7 @@ function AdminDashboard() {
       let userType;
       try {
         userType = await axios.post(
-          "http://localhost:1000/verifyToken",
+          `${process.env.REACT_APP_NODE_API}verifyToken`,
           userType,
           {
             headers: {

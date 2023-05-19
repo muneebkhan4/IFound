@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Pagination = ({ nPages, currentPage, setCurrentPage,className }) => {
+const Pagination = ({ nPages, currentPage, setCurrentPage, className }) => {
     const pageNumbers = [...Array(nPages + 1).keys()].slice(1)
 
     const nextPage = () => {
@@ -11,38 +11,36 @@ const Pagination = ({ nPages, currentPage, setCurrentPage,className }) => {
     }
     return (
         <React.Fragment>
-            <nav className={className} >
-                <ul className='pagination justify-content-center'>
-                    <li className="page-item">
-                        <a className="page-link"
-                            onClick={prevPage}
+            <ul className='pagination justify-content-center'>
+                <li className="page-item">
+                    <a className="page-link"
+                        onClick={prevPage}
+                        href='#'>
+
+                        Previous
+                    </a>
+                </li>
+                {pageNumbers.map(pgNumber => (
+                    <li key={pgNumber}
+                        className={`page-item ${currentPage == pgNumber ? 'active' : ''} `} >
+
+                        <a onClick={() => setCurrentPage(pgNumber)}
+                            className='page-link'
                             href='#'>
 
-                            Previous
+                            {pgNumber}
                         </a>
                     </li>
-                    {pageNumbers.map(pgNumber => (
-                        <li key={pgNumber}
-                            className={`page-item ${currentPage == pgNumber ? 'active' : ''} `} >
+                ))}
+                <li className="page-item">
+                    <a className="page-link"
+                        onClick={nextPage}
+                        href='#'>
 
-                            <a onClick={() => setCurrentPage(pgNumber)}
-                                className='page-link'
-                                href='#'>
-
-                                {pgNumber}
-                            </a>
-                        </li>
-                    ))}
-                    <li className="page-item">
-                        <a className="page-link"
-                            onClick={nextPage}
-                            href='#'>
-
-                            Next
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+                        Next
+                    </a>
+                </li>
+            </ul>
         </React.Fragment>
 
     )

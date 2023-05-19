@@ -1,9 +1,10 @@
 import React from "react";
-import { HomeCarousel, ReportImgs, ReviewImgs } from "../../Images/image.js";
+import { HomeCarousel, ReportImgs, ReviewImgs, FlowGif } from "../../Images/image.js";
 import { Row, Col, Container, Card, Carousel } from 'react-bootstrap';
 import NavBar from "../../sections/NavBar";
 import { COLORS } from '../../styles/globalColors.js';
 import './Home.css';
+import Footer from "../../sections/Footer.jsx";
 
 
 const Home = () => {
@@ -16,15 +17,52 @@ const Home = () => {
         {
             img: HomeCarousel[0],
             alt: "Matching",
-            title: "Find Lost People",
+            title: "",
             txt: "",
         },
         {
             img: HomeCarousel[1],
             alt: "Second Slide",
-            title: "Match Face",
+            title: "",
             txt: ""
-        }
+        },
+        {
+            img: HomeCarousel[2],
+            alt: "Second Slide",
+            title: "",
+            txt: ""
+        },
+        {
+            img: HomeCarousel[3],
+            alt: "Second Slide",
+            title: "",
+            txt: ""
+        },
+        {
+            img: HomeCarousel[4],
+            alt: "Second Slide",
+            title: "",
+            txt: ""
+        },
+        {
+            img: HomeCarousel[5],
+            alt: "Second Slide",
+            title: "",
+            txt: ""
+        },
+        {
+            img: HomeCarousel[6],
+            alt: "Second Slide",
+            title: "",
+            txt: ""
+        },
+        {
+            img: HomeCarousel[7],
+            alt: "Second Slide",
+            title: "",
+            txt: ""
+        },
+
     ]
 
     const statsArr = [
@@ -75,16 +113,20 @@ const Home = () => {
     return (
         <React.Fragment>
             <NavBar currentUser={localStorage.getItem("email")} />
-            <Container style={{ backgroundColor: "white" }}>
-                <Row >
-                    <Carousel>
+            <Container className="rounded" style={{ backgroundColor: "white" }}>
+                <Row className="border-top mt-2">
+                    <Carousel interval={1000}>
                         {homeCarousel.map((value, index) => (
                             <Carousel.Item key={index}>
-                                <img
-                                    className="d-block w-100"
-                                    src={value.img}
-                                    alt={value.alt}
-                                />
+                                <div className=" m-auto" style={{width:"50vh"}}>
+                                    <img
+                                        className="d-block w-100"
+                                        src={value.img}
+                                        alt={value.alt}
+                                        style={{ height: "400px",width:"10px" }}
+                                    />
+                                </div>
+
                                 <Carousel.Caption>
                                     <h1>{value.title}</h1>
                                     <p>{value.txt}</p>
@@ -92,6 +134,11 @@ const Home = () => {
                             </Carousel.Item>
                         ))}
                     </Carousel>
+
+                </Row>
+                <Row>
+                    <div className="fw-bd m-1 border-top"></div>
+
                 </Row>
                 <Row className="mt-3 mb-3">
                     {
@@ -111,6 +158,17 @@ const Home = () => {
                             </Col>
                         ))
                     }
+                </Row>
+                <Row>
+                    <div className="d-flex align-items-center justify-content-center">
+                        <img src={FlowGif[0]} class=""
+                            style={
+                                {
+                                    width: "",
+                                    height: "",
+                                }
+                            } alt="Cinque Terre"></img>
+                    </div>
                 </Row>
                 <Row className="mt-3 mb-3">
                     <div className="bg-dark bg-opacity-25 container-fluid">
@@ -185,6 +243,8 @@ const Home = () => {
                     </div>
                 </Row>
             </Container>
+            <Footer />
+
         </React.Fragment>
     )
 }

@@ -38,14 +38,14 @@ if (!config.get("JwtPrivateKey")) {
 
 // const mongoose = require('mongoose')
 
-// const url = `mongodb://uahmad565:usman565@ac-6p7zp25-shard-00-00.ns5xulq.mongodb.net:27017,ac-6p7zp25-shard-00-01.ns5xulq.mongodb.net:27017,ac-6p7zp25-shard-00-02.ns5xulq.mongodb.net:27017/?ssl=true&replicaSet=atlas-rrwik5-shard-0&authSource=admin&retryWrites=true&w=majority`;
+const url = `mongodb://uahmad565:usman565@ac-6p7zp25-shard-00-00.ns5xulq.mongodb.net:27017,ac-6p7zp25-shard-00-01.ns5xulq.mongodb.net:27017,ac-6p7zp25-shard-00-02.ns5xulq.mongodb.net:27017/?ssl=true&replicaSet=atlas-rrwik5-shard-0&authSource=admin&retryWrites=true&w=majority`;
 
 // "mongodb://muneeb:muneeb@cluster0-shard-00-00.v3vpd.mongodb.net:27017,cluster0-shard-00-01.v3vpd.mongodb.net:27017,cluster0-shard-00-02.v3vpd.mongodb.net:27017/?ssl=true&replicaSet=atlas-h6u2e8-shard-0&authSource=admin&retryWrites=true&w=majority"
 
 // connecting to database (MongoDB)
 mongoose
-  // .connect(url)
-  .connect("mongodb://localhost/IFound") // for deployment MongoDB Altas
+  .connect(url)
+  // .connect("mongodb://localhost/IFound") // for deployment MongoDB Altas
   .then(() => console.log("connection to mongo db successful..."))
   .catch((err) => console.log("Error in connecting to mongo db...", err));
 
@@ -83,6 +83,29 @@ app.get("/api/users/:id", async (req, res) => {
       return res.status(200).send(user);
     }
   });
+});
+
+app.get("/api/postUploadedBy/:id", async (req, res) => {
+  const currentUserId = +req.params.id;
+
+  if (!currentUserId)
+    return res
+      .status(400)
+      .send("Bad ReuqestError! UserId Provided Is Not Correct");
+
+  const user=await User.findOne({ userID: currentUserId }).exec();
+  if(!user)
+  {
+    return res
+    .status(500)
+    .send("Internal Server Error! UserId Provided Is Not Correct");
+  }
+  else
+  {
+    console.log(user);
+    return res.status(200).send(user);
+  }
+ 
 });
 
 app.get("/image", async (req, res) => {

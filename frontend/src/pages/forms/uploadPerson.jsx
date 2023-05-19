@@ -61,7 +61,7 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
     formData.append("Age", credentials.age);
     formData.append("Location", credentials.city);
     formData.append("Description", credentials.detail);
-    formData.append("TargetType", credentials.postType);
+    formData.append("TargetType", PostType);
     formData.append("Image", selectedFile, selectedFile.name);
     formData.append("Gender", credentials.genderType);
     formData.append("Relation", credentials.relationType);

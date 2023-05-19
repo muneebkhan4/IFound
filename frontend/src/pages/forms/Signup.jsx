@@ -1,5 +1,9 @@
 import React, { useState, Component, createRef } from "react";
 import { Navigate } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { auth, db, storage } from "../../firebase";
 import Input from "../../components/Input";
 import axios from "axios";
 import NavBar from "../../sections/NavBar";
@@ -7,23 +11,59 @@ import NavBar from "../../sections/NavBar";
 class Signup extends Component {
   constructor(props) {
     super(props);
+    debugger;
     this.state = {
-      credentials: { name: "", email: "", password: "" },
+      credentials: { name: "", email: "", password: "", userType: "user" },
       error: "",
       success: "",
       progressbar: "",
       messageShow: "",
     };
   }
+
   handleChange = (e) => {
     const credentials = { ...this.state.credentials };
     credentials[e.currentTarget.name] = e.currentTarget.value;
     this.setState({ credentials });
   };
+
+  registerUserFirebase = async ({ displayName, email, password }) => {
+    debugger;
+    try {
+      //Create user
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      //Create a unique image name
+      const date = new Date().getTime();
+      const storageRef = ref(storage, `${displayName + date}`);
+
+      try {
+        //Update profile
+        await updateProfile(res.user, {
+          displayName,
+        });
+        //create user on firestore
+        await setDoc(doc(db, "users", res.user.uid), {
+          uid: res.user.uid,
+          displayName,
+          email,
+        });
+
+        //create empty user chats on firestore
+        await setDoc(doc(db, "userChats", res.user.uid), {});
+      } catch (err) {
+        console.log(err);
+      }
+    } catch (err) {
+      console.log(err);
+
+    }
+  };
+
   handleSignupSubmit = (e) => {
     e.preventDefault();
     console.log(
-      `submitted \nName: ${this.state.credentials.name}\nPassword: ${this.state.credentials.password}\Email: ${this.state.credentials.email}`
+      `submitted \nName: ${this.state.credentials.name}\nPassword: ${this.state.credentials.password}\nEmail: ${this.state.credentials.email}\nUserType:${this.state.credentials.userType}`
     );
     this.validate();
   };
@@ -32,7 +72,7 @@ class Signup extends Component {
     const { credentials } = this.state;
     try {
       const { data } = await axios.post(
-        "http://localhost:1000/api/users",
+        `${process.env.REACT_APP_NODE_API}api/users`,
         credentials
       );
       const success = true;
@@ -40,6 +80,8 @@ class Signup extends Component {
       this.setState({
         messageShow: "User added successfully. Navigating to Login Screen...",
       });
+      debugger;
+      this.registerUserFirebase({ displayName:this.state.credentials.email, email:this.state.credentials.email, password:this.state.credentials.password })
       setTimeout(() => {
         this.setState({ progressbar: "" });
         this.setState({ success });
@@ -51,6 +93,8 @@ class Signup extends Component {
   }
 
   render() {
+    debugger;
+  
     const { name } = this.state.credentials;
     const { password } = this.state.credentials;
     const { email } = this.state.credentials;

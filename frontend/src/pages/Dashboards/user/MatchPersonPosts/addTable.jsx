@@ -1,11 +1,13 @@
-import React from "react";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { Col, Button, ButtonGroup } from "react-bootstrap";
-import { Row, Dropdown } from "react-bootstrap";
-import './addTable.jsx';
-import { Container } from "rsuite";
+import React from "react";
+import axios from "axios";
+import { Col, Button, ButtonGroup, Row, Dropdown, Container } from "react-bootstrap";
+// import { Container } from "rsuite";
 import { COLORS } from "../../../../styles/globalColors.js";
+import LocationIcon from "../../../../components/Svgs/locationIcon.jsx";
+import { ActiveCasesMenu } from "../../../../Enums/Enums.js";
+import './addTable.jsx';
+
 
 const actionButtons = ["Active", "Resolved"];
 
@@ -25,22 +27,16 @@ const CustomToggleButton = React.forwardRef(({ children, onClick }, ref) => {
 });
 
 //Controlled Component
-function AddTable({ activeCases }) {
-    const navigate = useNavigate();
-
+function AddTable({ activeCases, toast, handleDeleteActivePost, onPostManageClick, detailLength,handleContactModal }) {
+    console.log(toast);
     console.log("add table cases: ", activeCases);
     const [activeButton, setActiveButton] = useState(1);
+    const maxLength = detailLength ? detailLength : 150;
+    // const maxLength=150;
 
     const handleButtonClick = (value) => {
         setActiveButton(value);
     };
-
-
-    const onPostManageClick = (data) => {
-        debugger;
-        console.log("event: ", data);
-        navigate(`/searchPost/${data.postId}/${data.postType}`);
-    }
 
     return (
         <div style={{ maxWidth: "1000px", margin: "auto" }}>
@@ -61,46 +57,62 @@ function AddTable({ activeCases }) {
             <div >
                 {
                     activeCases && activeCases.map((activePost, index) => (
-                        <Container>
-                            <Row className="bg-white justify-content-md-center m-1 border border-secondary" key={index}>
-                                <Col xs lg="2">
+                        <Container >
+                            <Row className="bg-white justify-content-md-center m-1 border border-secondary p-2" key={index}>
+                                <Col xs lg="2" className="d-flex align-items-center justify-content-center">
                                     <p style={{ backgroundColor: COLORS.ifColumnColor }} className="fs-5">{new Date(activePost.date).toDateString()}</p>
                                 </Col>
-                                <Col>
+                                <Col xs lg="1" className="d-flex align-items-center justify-content-center">
+                                    <img src={"data:image/jpg;base64," + activePost.image} style={{ width: "70px", height: "100px" }} />
+                                </Col>
+                                <Col xs lg="1" className="d-flex align-items-center justify-content-center">
+                                    <div>
+                                        <LocationIcon height={"20px"} width={"20px"}></LocationIcon>
+                                        <strong>{activePost.city}</strong>
+                                    </div>
+                                </Col>
+                                <Col xs lg="5">
                                     <Row>
                                         <Col md="auto"><div>
-                                            {activePost.name}
+                                            {activePost.name} <strong> {activePost?.confidence?.toFixed(2)}%</strong>
                                         </div></Col>
-                                        <Col xs lg="2">
-                                            <strong>{activePost.city}</strong>
-                                        </Col>
 
                                     </Row>
                                     <Row className="p-1">
-                                        <Col className="border-top"><strong>{activePost.details}</strong></Col>
-                                        <Col className="d-flex">
-                                            <Button onClick={() => onPostManageClick(activePost)} variant="outline-secondary" size="sm">Manage</Button>{' '}
-                                            <Dropdown>
-                                                <Dropdown.Toggle as={CustomToggleButton}>
-                                                </Dropdown.Toggle>
-                                                <Dropdown.Menu>
-                                                    <Dropdown.Item>Delete</Dropdown.Item>
-                                                    <Dropdown.Item>Mark Resolve</Dropdown.Item>
-                                                </Dropdown.Menu>
-                                            </Dropdown>
-                                        </Col>
+                                        <Col className="border-top">
+                                            <strong>
+                                                {activePost.details.slice(0, maxLength) + (activePost.details.length > maxLength ? "..." : "")}
+                                            </strong></Col>
                                     </Row>
                                 </Col>
+                                <Col className="d-flex align-items-center justify-content-center">
+                                    {onPostManageClick && <Button onClick={() => onPostManageClick(activePost)} variant="outline-secondary" size="sm">Manage</Button>}
+                                    {handleDeleteActivePost &&
+                                        <Dropdown>
+                                            <Dropdown.Toggle as={CustomToggleButton}>
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu >
+                                                <Dropdown.Item eventKey={activePost.postId} onClick={() => handleDeleteActivePost(activePost.postId)}>Delete</Dropdown.Item>
+                                                <Dropdown.Item eventKey={ActiveCasesMenu.MarkResolve}>Mark Resolve</Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    }
 
+                                    {handleContactModal && <div >
+                                        <Button onClick={() => handleContactModal(activePost)} variant="outline-secondary" size="sm">Contact</Button>
+
+                                    </div>}
+                                </Col>
                             </Row>
-                        </Container>
-                    )
+                        </Container>)
                     )
                 }
+                
             </div>
-
         </div >
+
     );
 }
+
 
 export default AddTable;

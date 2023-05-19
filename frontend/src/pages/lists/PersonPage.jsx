@@ -11,9 +11,11 @@ import './personPage.css';
 import { COLORS } from "../../styles/globalColors";
 import { GenderType } from "../../Enums/Enums";
 import { cities } from "../../static/static";
+import { DeleteActivePost } from "../../services/ActiveCasesService";
+import Footer from "../../sections/Footer";
 
 
-const PersonPage = ({ url }) => {
+const PersonPage = ({ url,toast }) => {
   const [filterInput, setFilterInput] = useState({
     rangeInput: {
       min: "",
@@ -26,15 +28,15 @@ const PersonPage = ({ url }) => {
   });
   const [ThingPosts, setThingPosts] = useState();
 
-  const [searchList, setSearchList] = useState({
-    query: '',
-    list: []
-  });
   const [loading, setLoading] = useState(true);
   // const [PersonPosts, setPersonPosts] = useState([]);
   const [posts, setPosts] = useState({
     personPosts: [],
     filteredPosts: []
+  })
+
+  const [permissions,setPermissions]=useState({
+    deletePermission:false
   })
 
   useEffect(() => {
@@ -67,10 +69,6 @@ const PersonPage = ({ url }) => {
         // console.log("Filtered Data ", arr);
         setPosts({ filteredPosts: arr, personPosts: arr });
 
-        setSearchList({
-          query: "",
-          list: arr
-        });
         setLoading(false);
       } catch (err) {
         if (err) console.log(err.response.data);
@@ -97,9 +95,50 @@ const PersonPage = ({ url }) => {
         if (err) console.log(err.response.data);
       }
     };
+
+    const validate = async () => {
+      const token = localStorage.getItem("x_auth_token");
+      let userType;
+      try {
+        userType = await axios.post(
+          `${process.env.REACT_APP_NODE_API}verifyToken`,
+          userType,
+          {
+            headers: {
+              x_auth_token: token,
+            },
+          }
+        );
+        debugger;
+        if(userType?.data==="admin")
+          setPermissions({deletePermission:true})
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+
     getPersonPostData();
     getThingPostData();
+    validate();
   }, [url]);
+
+
+  const handleDeleteActivePost=(postId)=>{
+    debugger;
+    // Handle option change event
+    DeleteActivePost(postId).then(_response => {
+      // console.log(':', response.data);
+      const filteredPosts = posts.filteredPosts.filter(post => post.postId !== postId);
+      setPosts({ ...posts, filteredPosts });
+      toast.setToastMessage({ headerText: "Active Case", bodyText: "DELETE request successful" });
+      toast.setShow(true);
+    }).catch(error => {
+      console.error('DELETE request failed:', error);
+      toast.setToastMessage({ headerText: "Active Case", bodyText: "DELETE request failed" });
+      toast.setShow(true);
+    });
+  }
 
   const handleDateChange = (date) => {
     setFilterInput({ ...filterInput, selectedDate: date });
@@ -223,7 +262,9 @@ const PersonPage = ({ url }) => {
         <IfPersonList
           PersonPosts={posts.filteredPosts}
           loading={loading}
-          recordsPerPage={2}
+          recordsPerPage={4}
+          deletePermission={permissions.deletePermission}
+          handleDeleteActivePost={handleDeleteActivePost}
         />
 
         <h1 className="App-header">Things Cases</h1>
@@ -241,6 +282,8 @@ const PersonPage = ({ url }) => {
             ))}
         </div>
       </div>
+      <Footer />
+
     </React.Fragment>
   );
 };

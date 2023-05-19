@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NavBar from "../../sections/NavBar";
 import IfPostDetail from "../../components/DesignComponents/ifPostDetail";
+import { GetUserByLocalID } from "../../services/UserService";
 
 function PersonDetail() {
   const { id } = useParams();
@@ -23,20 +24,32 @@ function PersonDetail() {
             },
           }
         );
-        const newObj = {
-          "postId": data.postPersonId,
-          "name": data.targetPersonDto.name,
-          "age": data.targetPersonDto.age,
-          "city": data.targetPersonDto.location,
-          "details": data.targetPersonDto.description,
-          "image": data.imageDto.base64String,
-          "date": data.postDate,
-          "gender": data.targetPersonDto.gender,
-          "targetType": data.targetPersonDto.targetId,
-          "phone": data.phone
-        }
 
-        setPost(newObj);
+
+        let founderName = '';
+
+        const { userID } = data;
+        GetUserByLocalID(userID).then(response => {
+          const { data: currentUser } = response;
+          founderName = currentUser.name;
+          const newObj = {
+            "postId": data.postPersonId,
+            "name": data.targetPersonDto.name,
+            "age": data.targetPersonDto.age,
+            "city": data.targetPersonDto.location,
+            "details": data.targetPersonDto.description,
+            "image": data.imageDto.base64String,
+            "date": data.postDate,
+            "gender": data.targetPersonDto.gender,
+            "targetType": data.targetPersonDto.targetId,
+            "phone": data.phone,
+            "founderName": founderName
+          }
+          setPost(newObj);
+        }).catch(err => {
+
+        });
+
       } catch (err) {
         if (err) console.log(err.response.data);
       }

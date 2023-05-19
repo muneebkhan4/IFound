@@ -4,9 +4,12 @@ import axios from "axios";
 import NavBar from "../../../../sections/NavBar";
 import IfPostDetail from "../../../../components/DesignComponents/ifPostDetail";
 import ListCard from "../../../../components/ListComponents/ListCard";
+import ContactDetailPopup from "../../../../components/PopUps/contactDetailPopUp";
 import { Button } from "rsuite";
 import Spinner from "react-bootstrap/esm/Spinner";
-
+import AddTable from "../MatchPersonPosts/addTable";
+import { GetCurrentPost } from "../../../../services/GetPostService";
+import { GetUserByLocalID } from "../../../../services/UserService";
 
 const SearchPost = () => {
 
@@ -18,48 +21,55 @@ const SearchPost = () => {
     const [SearchedPosts, setSearchedPosts] = useState();
     const [ActiveCaseIndex, setActiveCaseIndex] = useState();
 
+    const [contactModal,setContactModal]=React.useState({
+        details:"",
+        phone:"",
+        founderName:"",
+        ownerEmail:"",
+        show:false,
+    });
+
     useEffect(() => {
 
         const getPost = async () => {
-            const token = localStorage.getItem("x_auth_token");
-
-            try {
-                const { data } = await axios.get(
-                    `${process.env.REACT_APP_DOT_NET_API}api/Home/GetCurrentPostPerson`,
-                    {
-                        params: {
-                            postId: id,
-                            postType: postType
-                        },
-                        headers: {
-                            x_auth_token: token,
-                        },
+            GetCurrentPost(id, postType).then(response => {
+                const { data: currentPost } = response;
+                const { userID } = currentPost;
+                GetUserByLocalID(userID).then(response => {
+                    const { data: currentUser } = response;
+                    const newObj = {
+                        "postId": currentPost.postPersonId,
+                        "name": currentPost.targetPersonDto.name,
+                        "age": currentPost.targetPersonDto.age,
+                        "city": currentPost.targetPersonDto.location,
+                        "details": currentPost.targetPersonDto.description,
+                        "image": currentPost.imageDto.base64String,
+                        "date": currentPost.postDate,
+                        "gender": currentPost.targetPersonDto.gender,
+                        "targetType": currentPost.targetPersonDto.targetId,
+                        "phone": currentPost.phone,
+                        "founderName": currentUser.name
                     }
-                );
+                    setPost(newObj);
+                }).catch(err => {
 
-                const newObj = {
-                    "postId": data.postPersonId,
-                    "name": data.targetPersonDto.name,
-                    "age": data.targetPersonDto.age,
-                    "city": data.targetPersonDto.location,
-                    "details": data.targetPersonDto.description,
-                    "image": data.imageDto.base64String,
-                    "date": data.postDate,
-                    "gender": data.targetPersonDto.gender,
-                    "targetType": data.targetPersonDto.targetId,
-                    "phone": data.phone
-                }
-                debugger;
-                console.log(newObj);
-                setPost(newObj);
-            } catch (err) {
-                if (err) console.log(err.response.data);
-            }
+                })
+
+
+                //const newActiveCases = ActiveCases.filter(post => post.postId !== postId);
+                //setActiveCases(newActiveCases);
+                //toast.setToastMessage({ headerText: "Active Case", bodyText: "DELETE request successful" });
+                //toast.setShow(true);
+            }).catch(error => {
+                console.error('DELETE request failed:', error);
+                // toast.setToastMessage({ headerText: "Active Case", bodyText: "DELETE request failed" });
+                // toast.setShow(true);
+            });
+
         };
 
         getPost();
     }, []);
-
 
     const handleSearchPost = async () => {
         if (ActiveCaseIndex == -1)
@@ -70,10 +80,9 @@ const SearchPost = () => {
 
         const token = localStorage.getItem("x_auth_token");
         const formData = new FormData();
-        debugger;
         formData.append("encoded", post.image);
         formData.append("targetType", postType);
-        const { data } = await axios
+        const { data: matchedPosts } = await axios
             .post("https://localhost:44364/api/home/searchLostPerson", formData,
                 {
                     headers: {
@@ -81,19 +90,36 @@ const SearchPost = () => {
                     },
                 }
             );
-        // console.log("Searched Entries: ", data);
-        const arr = data.map(element => {
+        console.log("Searched Entries: ", matchedPosts);
+        debugger;
+        const arr = [];
+        for (let element of matchedPosts) {
             const name = element.targetPersonDto.name;
             const age = element.targetPersonDto.age;
             const city = element.targetPersonDto.location;
             const details = element.targetPersonDto.description;
             const image = element.imageDto.base64String;
             const confidence = element.confidence;
-            const phone=element.phone;
-            return { phone,name, age, city, details, image, confidence };
-        });
+            const phone = element.phone;
+            const userID = element.userID;
+            const { data: currentUser } = await GetUserByLocalID(element.userID);
+            const founderName = currentUser.name;
+            const ownerEmail = currentUser.email;
+            arr.push({ phone, name, age, city, details, image, confidence, userID, founderName, ownerEmail });
+        }
         setSearchedPosts(arr);
         setLoading(false);
+    }
+    
+    const handleContactModal=(activePost)=>{
+        setContactModal({
+            ...contactModal,
+            details:activePost.details,
+            phone:activePost.phone,
+            founderName:activePost.founderName,
+            ownerEmail:activePost.ownerEmail,
+            show:true
+        });
     }
 
     return (
@@ -125,7 +151,21 @@ const SearchPost = () => {
                     ) :
                     (< section id="listPerson" className="d-flex mt-1" style={{ backgroundColor: "white", minHeight: "60vh" }}>
                         {
-                            SearchedPosts?.length > 0 ? <ListCard PersonPosts={SearchedPosts} /> : <h3 style={{ margin: "auto" }}>No Match Found</h3>
+                            SearchedPosts?.length > 0 ?
+                                (
+                                    <React.Fragment>
+                                        <AddTable activeCases={SearchedPosts} detailLength={1000}
+                                            handleContactModal={handleContactModal} />
+                                        <ContactDetailPopup
+                                            show={contactModal.show}
+                                            onHide={()=>setContactModal({...contactModal,show:false})}
+                                            details={contactModal.details}
+                                            phone={contactModal.phone}
+                                            founderName={contactModal.founderName}
+                                            ownerEmail={contactModal.ownerEmail}
+                                        />
+                                    </React.Fragment>
+                                ): <h3 style={{ margin: "auto" }}>No Match Found</h3>
                         }
                     </section>)
             }

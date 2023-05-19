@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
+import { useNavigate } from 'react-router-dom';
 import Carousel from "react-simply-carousel";
 import Table from 'react-bootstrap/Table';
+import { Button, Card, Row } from "react-bootstrap";
+import { COLORS } from "../styles/globalColors";
+
 
 export default function Carousels({ activePosts, setCurrentActiveCase }) {
+  const navigate = useNavigate();
   const [activeSlide, setActiveSlide] = useState(0);
-  // console.log("activePosts Props: ", activePosts);
+  console.log("activePosts Props: ", activePosts);
+
+  const onPostManageClick=(data)=>{
+    debugger;
+    console.log("event: ",data);
+    navigate(`/Person-Details/${data.postId}`);
+  }
 
   return (
     <div>
@@ -20,6 +31,8 @@ export default function Carousels({ activePosts, setCurrentActiveCase }) {
         activeSlideProps={{
           style: {
             background: "#d8d8dd",
+            width: "100%",
+            height: "100%"
           }
         }}
         onAfterChange={setCurrentActiveCase}
@@ -67,46 +80,30 @@ export default function Carousels({ activePosts, setCurrentActiveCase }) {
         speed={400}
       >
 
-        {activePosts && activePosts.map((item, index) => (
-          <div
-            style={{
-              display:"flex",
-              
-              border: "0px solid white",
-              textAlign: "center",
+        {activePosts && activePosts.map((post, index) => (
 
-            }}
-            key={index}
-          >
-            <img
-              src={"data:image/jpg;base64," + item.image}
-              alt="image"
-              className="card-img-top"
-              style={{
-                marginTop: "0.15rem",
-                borderRadius: "1rem",
-                width: "14rem",
-              }}
-            />
-            <Table striped bordered hover size="sm">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <td>Zubair Ahmad</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>Phone</th>
-                  <td>03076331854</td>
-                </tr>
-                <tr>
-                  <th>Place</th>
-                  <td>Market</td>
-                </tr>
-              </tbody>
-            </Table>
-          </div>
+          <Card key={index} style={{ minWidth: "30vh", height: "40vh" }}>
+            <Card.Img variant="top" src={"data:image/jpg;base64," + post.image} style={{ height: "28vh" }} />
+            <Card.Body style={{ backgroundColor: COLORS.ifGrey, }}>
+              <Card.Title><strong>{post.name}</strong></Card.Title>
+              <Card.Text>
+                <Row><strong>{post.city}</strong></Row>
+                <Row>
+                  <div>
+                    {new Date(post.date).toDateString()}
+                  </div>
+                </Row>
+                <Row >
+                  <div className="d-flex justify-content-center">
+                    <Button onClick={()=>onPostManageClick(post)} variant="outline-secondary" size="sm">Manage</Button>{' '}
+                  </div>
+                </Row>
+
+              </Card.Text>
+
+
+            </Card.Body>
+          </Card>
         ))}
 
       </Carousel>

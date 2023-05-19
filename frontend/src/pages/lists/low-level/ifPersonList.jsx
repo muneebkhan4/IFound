@@ -4,7 +4,7 @@ import Spinner from "react-bootstrap/esm/Spinner";
 import Pagination from "../../../components/Pagination";
 import "../../../styles/IFoundLoading.scss";
 
-const IfPersonList = ({ recordsPerPage, PersonPosts, loading }) => {
+const IfPersonList = ({ recordsPerPage, PersonPosts, loading,deletePermission,handleDeleteActivePost }) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const screenHeight = window.innerHeight;
@@ -17,7 +17,7 @@ const IfPersonList = ({ recordsPerPage, PersonPosts, loading }) => {
     return (
         <React.Fragment>
             <div className="container text-center bg-list">
-                <div className="row min-vh-100" style={{ minHeight: screenHeight }}>
+                <div className="row min-vh-90" >
                     {
                         loading
                             ?
@@ -32,7 +32,7 @@ const IfPersonList = ({ recordsPerPage, PersonPosts, loading }) => {
                                 {currentRecords &&
                                     currentRecords.map((post) => (
                                         <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
-                                            <PersonPost image={post.image} data={post} />
+                                            <PersonPost image={post.image} data={post} deletePermission={deletePermission} handleDeleteActivePost={handleDeleteActivePost}/>
                                         </div>
                                     ))}
                                 <Pagination className="m-3"

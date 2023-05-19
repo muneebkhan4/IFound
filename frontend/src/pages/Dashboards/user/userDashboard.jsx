@@ -3,7 +3,17 @@ import { useNavigate } from "react-router-dom";
 import DashboardButton from "../../../components/DashboardButton";
 import Details from "../../details/Details";
 import axios from "axios";
+
 import NavBar from "../../../sections/NavBar";
+import { Button, Card } from "react-bootstrap";
+import image from '../../../Images/Reports/report2.jpg';
+import Footer from "../../../sections/Footer";
+import { Container, Row, Col } from "react-bootstrap";
+import PieChart from "../Report/pieChart";
+import { VerticalBar } from "../Report/VerticalBar";
+import PostCountReport from "../Report/postCountReport";
+import IfDoughnut from "../Report/ifDoughnut";
+
 
 function UserDashboard() {
   const navigate = useNavigate();
@@ -14,6 +24,7 @@ function UserDashboard() {
     const validate = async () => {
       // authentication token
       const token = localStorage.getItem("x_auth_token");
+      console.log(token);
       // Request made to the backend api
       // Send formData object
       let userType;
@@ -40,13 +51,54 @@ function UserDashboard() {
     };
 
     validate();
-  });
+  }, []);
 
   return (
     validate === "true" && (
       <React.Fragment>
         <NavBar currentUser={localStorage.getItem("email")} />
-        <h1 className="App-header"> User Dashboard</h1>
+        <Container style={{marginTop:"2rem"}}>
+          <div>
+            <PostCountReport heading={"Person Statistic"} />
+          </div>
+
+          <div className="mt-2 mb-2">
+            <Row >
+              <Card style={{ width: '70%' }} >
+                <VerticalBar />
+              </Card>
+              <Card style={{ width: '30%' }}>
+
+                <IfDoughnut />
+              </Card>
+
+            </Row>
+          </div>
+
+        </Container>
+        <Container style={{marginTop:"3rem"}}>
+          <div>
+            <PostCountReport heading={"Object Statistic"} />
+          </div>
+
+          <div className="mt-2 mb-2">
+            <Row >
+              <Card style={{ width: '70%' }} >
+                <VerticalBar />
+              </Card>
+              <Card style={{ width: '30%' }}>
+
+                <IfDoughnut />
+              </Card>
+
+            </Row>
+          </div>
+
+        </Container>
+
+        <Footer />
+
+        {/* <h1 className="App-header"> User Dashboard</h1>
         <div className="row">
           <div className="col ">
             <img
@@ -79,11 +131,7 @@ function UserDashboard() {
                 className="col"
                 style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
               >
-                <DashboardButton
-                  title="Post Missing Person/ Child"
-                  navTo="/uploadLostPerson"
-                  PostType="MissingPerson"
-                ></DashboardButton>
+
               </div>
             </div>
             <div className="row">
@@ -97,42 +145,11 @@ function UserDashboard() {
                   navTo="/upload-thing"
                 ></DashboardButton>
               </div>
-              <div
-                className="col"
-                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
-              >
-                <DashboardButton
-                  title="Post Found Person/ Child"
-                  navTo="/uploadFoundPerson"
-                  PostType="FoundPerson"
-                ></DashboardButton>
-              </div>
-            </div>
-            <div className="row">
-              <div
-                className="col"
-                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
-              >
-                <DashboardButton
-                  title="Match Lost Cases"
-                  navTo="/lostMatchCases"
-                  value={2}
-                ></DashboardButton>
-              </div>
-              <div
-                className="col"
-                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
-              >
-                <DashboardButton
-                  title="Match Found Cases"
-                  navTo="/foundMatchCases"
-                  value={5}
-                ></DashboardButton>
-              </div>
+
             </div>
           </div>
-        </div>
-      </React.Fragment>
+        </div> */}
+      </React.Fragment >
     )
   );
 }

@@ -67,7 +67,7 @@ const IfPostDetail = ({postDetail }) => {
           </div>
           <div className="row">
             <div className="col">
-              <h3>Founder Name:</h3>
+              <h3>Uploaded By:</h3>
             </div>
             <div className="col">
               {founderName && <h3>{founderName}</h3>}
@@ -88,7 +88,7 @@ const IfPostDetail = ({postDetail }) => {
               <h3>Details:</h3>
             </div>
             <div className="col">
-              <h3>{details}</h3>
+              <p>{details}</p>
             </div>
           </div>
         </div>

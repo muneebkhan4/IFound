@@ -1,5 +1,6 @@
 import "./App.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import NotFound from "./pages/common/NotFound";
 import Home from "./pages/common/Home";
@@ -23,25 +24,57 @@ import Footer from "./sections/Footer";
 import ThingDetail from "./pages/details/ThingDetails";
 import { TargetType } from "./Enums/Enums";
 // import NavBar from "./sections/NavBar";
-// import Auth from "./test/Auth";
+import Auth from "./test/Auth";
 import MatchCases from "./pages/Dashboards/user/MatchPersonPosts/MatchCases";
 // import ListCard from "./components/ListComponents/ListCard";
 import SearchPost from "./pages/Dashboards/user/SearchPost/searchPost";
+import ShowToast from "./components/PopUps/showToast";
+
 
 function AppRoutes() {
+  const [show, setShow] = useState(false);
+  const [toastMessage, setToastMessage] = useState({
+    headerText: "",
+    bodyText: ""
+  });
+
+
+
   return (
     <React.Fragment>
+
+      {/* <div id="signInButton">
+        <GoogleLogin
+          clientId={clientId}
+          buttonText="Sign in with Google"
+          onSuccess={onSuccess}
+          onFailure={onFailure}
+          cookiePolicy={'single_host_origin'}
+          isSignedIn={true}
+        />
+      </div>
+      <div id="signOutButton">
+        <GoogleLogout
+          clientId={clientId}
+          buttonText={"Logout"}
+          onLogoutSuccess={onSuccessLogout}
+        />
+      </div> */}
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/auths" element={<Auth />}></Route>
+
         <Route path="/Home" element={<Home />}></Route>
         <Route path="/Found-List" element={
           <PersonPage
             url={`${process.env.REACT_APP_DOT_NET_API}api/home/getCurrentFoundPosts`}
+            toast={{ setToastMessage, setShow }}
           />}>
         </Route>
         <Route path="/Lost-List" element={
           <PersonPage
             url={`${process.env.REACT_APP_DOT_NET_API}api/home/getCurrentLostPosts`}
+            toast={{ setToastMessage, setShow }}
           />}>
         </Route>
         <Route path="/Contact-Us" element={<Contactus />}></Route>
@@ -51,7 +84,7 @@ function AppRoutes() {
           path="/uploadFoundPerson"
           element={
             <UploadPerson
-              PostType={TargetType.LOST}
+              PostType={TargetType.FOUND}
               ApiUrl={"https://localhost:44364/api/home/createFoundPersonForm"}
             />
           }
@@ -60,21 +93,21 @@ function AppRoutes() {
           path="/uploadLostPerson"
           element={
             <UploadPerson
-              PostType={TargetType.FOUND}
+              PostType={TargetType.LOST}
               ApiUrl={"https://localhost:44364/api/home/createLostPersonForm"}
             />
           }
         ></Route>
         <Route path="/Person-Details/:id" element={<PersonDetail />}></Route>
-        <Route path="/searchPost/:id/:postType" element={<SearchPost/>}></Route>
+        <Route path="/searchPost/:id/:postType" element={<SearchPost />}></Route>
         <Route path="/Thing-Details" element={<ThingDetail />}></Route>
         <Route path="/upload-thing" element={<UploadThing />}></Route>
         <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
-        <Route path="/user-dashboard" element={<UserDashboard />}></Route>
+        <Route path="/user-dashboard" element={<UserDashboard  />}></Route>
         <Route path="/resolved-cases" element={<ResolvedCases />}></Route>
         <Route path="/matched-cases" element={<MatchedCases />}></Route>
-        <Route path="/lostMatchCases" element={<MatchCases postType={TargetType.LOST} />}></Route>
-        <Route path="/foundMatchCases" element={<MatchCases postType={TargetType.FOUND} />}></Route>
+        <Route path="/lostMatchCases" element={<MatchCases postType={TargetType.LOST} toast={{ setToastMessage, setShow }} />}></Route>
+        <Route path="/foundMatchCases" element={<MatchCases postType={TargetType.FOUND} toast={{ setToastMessage, setShow }} />}></Route>
         <Route path="/notFound" element={<NotFound />}></Route>
         <Route
           path="/premium-user-dashboard"
@@ -84,11 +117,17 @@ function AppRoutes() {
         <Route path="/LoadingPage" element={<LoadingPage />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
+      <ShowToast setShow={setShow} show={show} headerText={toastMessage.headerText} bodyText={toastMessage.bodyText} />
     </React.Fragment>
   );
 }
 
 function App() {
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    setToken(localStorage.getItem("x_auth_token"));
+  }, []);
+
   return (
     <React.Fragment>
       <AppRoutes />
@@ -97,10 +136,12 @@ function App() {
 }
 
 function Wrapper() {
+  
+
   return (
     <BrowserRouter>
       <App />
-      <Footer />
+
     </BrowserRouter>
   );
 }
