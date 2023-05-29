@@ -29,6 +29,7 @@ import MatchCases from "./pages/Dashboards/user/MatchPersonPosts/MatchCases";
 // import ListCard from "./components/ListComponents/ListCard";
 import SearchPost from "./pages/Dashboards/user/SearchPost/searchPost";
 import ShowToast from "./components/PopUps/showToast";
+import ThingPage from "./pages/lists/ThingPage";
 
 
 function AppRoutes() {
@@ -79,14 +80,14 @@ function AppRoutes() {
         </Route>
 
         <Route path="/thing-Found-List" element={
-          <PersonPage
-            url={`${process.env.REACT_APP_DOT_NET_API}api/home/getCurrentFoundPosts`}
+          <ThingPage
+            url={`${process.env.REACT_APP_NODE_API}api/allFoundThingPosts`}
             toast={{ setToastMessage, setShow }}
           />}>
         </Route>
         <Route path="/thing-Lost-List" element={
-          <PersonPage
-            url={`${process.env.REACT_APP_DOT_NET_API}api/home/getCurrentLostPosts`}
+          <ThingPage
+            url={`${process.env.REACT_APP_NODE_API}api/allMissingThingPosts`}
             toast={{ setToastMessage, setShow }}
           />}>
         </Route>

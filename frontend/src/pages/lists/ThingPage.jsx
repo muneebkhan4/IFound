@@ -40,8 +40,10 @@ const ThingPage = ({ url,toast }) => {
   })
 
   useEffect(() => {
-    const getPersonPostData = async () => {
+    
+    const getThingPostData = async () => {
       // authentication token
+      debugger;
       const token = localStorage.getItem("x_auth_token");
       // Request made to the backend api
       // Send formData object
@@ -49,48 +51,13 @@ const ThingPage = ({ url,toast }) => {
         const { data } = await axios.get(
           url,
           {
-            headers: { x_auth_token: token, },
-          }
-        );
-        console.log(data);
-        const arr = data.map(element => {
-          const postId=element.postPersonId;
-          const name = element.targetPersonDto.name;
-          const age = element.targetPersonDto.age;
-          const city = element.targetPersonDto.location;
-          const details = element.targetPersonDto.description;
-          const image = element.imageDto.base64String;
-          const date = element.postDate;
-          const gender = element.targetPersonDto.gender;
-          const targetType=element.targetPersonDto.targetId;
-
-          return { targetType,postId,name, age, city, details, image, date, gender };
-        });
-        // console.log("Filtered Data ", arr);
-        setPosts({ filteredPosts: arr, personPosts: arr });
-
-        setLoading(false);
-      } catch (err) {
-        if (err) console.log(err.response.data);
-      }
-    };
-
-    const getThingPostData = async () => {
-      // authentication token
-      const token = localStorage.getItem("x_auth_token");
-      // Request made to the backend api
-      // Send formData object
-      try {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_NODE_API}api/allMissingThingPosts`,
-          {
             headers: {
               x_auth_token: token,
             },
           }
         );
         console.log(data);
-        setThingPosts([]);
+        setThingPosts(data);
       } catch (err) {
         if (err) console.log(err.response.data);
       }
@@ -117,11 +84,9 @@ const ThingPage = ({ url,toast }) => {
       }
     };
 
-
-    getPersonPostData();
     getThingPostData();
     validate();
-  }, [url]);
+  }, []);
 
 
   const handleDeleteActivePost=(postId)=>{
@@ -259,13 +224,7 @@ const ThingPage = ({ url,toast }) => {
             <DatePicker onChange={handleDateChange} format="yyyy-MM-dd" />
           </div>
         </div>
-        {/* <IfPersonList
-          PersonPosts={posts.filteredPosts}
-          loading={loading}
-          recordsPerPage={4}
-          deletePermission={permissions.deletePermission}
-          handleDeleteActivePost={handleDeleteActivePost}
-        /> */}
+
 
         <h1 className="App-header">Things Cases</h1>
         {!ThingPosts && (

@@ -267,20 +267,6 @@ const PersonPage = ({ url,toast }) => {
           handleDeleteActivePost={handleDeleteActivePost}
         />
 
-        <h1 className="App-header">Things Cases</h1>
-        {!ThingPosts && (
-          <div className="spinner-grow fonts" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        )}
-        <div className="row">
-          {ThingPosts &&
-            ThingPosts.map((post) => (
-              <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
-                <ThingPost image={post.image} data={post.data} />
-              </div>
-            ))}
-        </div>
       </div>
       <Footer />
 

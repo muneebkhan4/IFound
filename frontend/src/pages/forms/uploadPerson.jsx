@@ -1,20 +1,31 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-number-input";
-// import Dropdown from 'react-bootstrap/Dropdown';
 // import DropdownButton from 'react-bootstrap/DropdownButton';
 import React, { useState } from "react";
 import Input from "../../components/Input";
 import axios from "axios";
 
 import jwt_decode from "jwt-decode";
-import { GenderType, RelationType } from "../../Enums/Enums";
+import { GenderType, RelationType, TargetType } from "../../Enums/Enums";
 import Dropdown from "./dropdown";
 // import { Navigate } from "react-router-dom";
 import NavBar from "../../sections/NavBar"
 import { cities } from "../../static/static";
+import IfFormOption from "./ifFormOption";
 
 const UploadPerson = ({ PostType, ApiUrl }) => {
   const navigate = useNavigate();
+
+  const [selectedOption, setSelectedOption] = useState(TargetType.LOST);
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+    console.log("Selected Option: ", selectedOption);
+    event.target.value == TargetType.LOST ? navigate("/uploadLostPerson") : navigate("/uploadFoundPerson");
+    return;
+  };
+
+
   // handle submit button event
   const handleUploadPersonSubmit = async (e) => {
     e.preventDefault();
@@ -75,7 +86,7 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
     try {
       const { data: currentUser } = await axios.get("http://www.localhost:1000/api/users/" + _id);
       formData.append("UserId", currentUser["userID"]);
-      
+
     } catch (err) {
       setError({
         hasError: true,
@@ -184,7 +195,7 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
     genderType: Object.values(GenderType)[0],
     relationType: Object.values(GenderType)[1],
     postType: PostType, // setting the postType
-    phone:""
+    phone: ""
   });
   var [selectedFile, setSelectedFile] = useState("");
   var [previewFile, setpreviewFile] = useState("");
@@ -216,8 +227,25 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
           />
         </div>
         <div className="col-4 center">
+
           <div className="bg-light mt-2" style={{ width: "22rem" }}>
-            <h1 className="App-header">Form</h1>
+            <div className="d-flex flex-column justify-content-center align-items-center mt-4">
+              <IfFormOption
+                option1={{
+                    value: TargetType.LOST,
+                    label: "Lost Person Form"
+                  }}
+                option2={{
+                    value: TargetType.FOUND,
+                    label: "Found Person Form"
+                  }}
+                handleOptionChange={handleOptionChange}
+                selectedOption={selectedOption}
+              />
+              <div className="App-header mb-2">{PostType == TargetType.FOUND ? <h3>Found Person Form</h3> : <h3>Lost Person Form</h3>}</div>
+
+            </div>
+
             <form onSubmit={(e) => handleUploadPersonSubmit(e)}>
               <Input
                 autofocus={true}
@@ -247,7 +275,7 @@ const UploadPerson = ({ PostType, ApiUrl }) => {
                   onChange={(e) => setCredentials((prevState) => ({
                     ...prevState,
                     phone: e,
-                  })) }
+                  }))}
                 />
               </div>
               {/* <Input

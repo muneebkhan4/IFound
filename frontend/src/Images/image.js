@@ -23,7 +23,8 @@ import home8 from './illustration/8-if.jpg';
 
 //import flow
 import flow from './HomeCarousel/IFOUND.gif';
-
+//Logo
+import ifLogo from'./logos/ifound1.PNG';
 
 export const HomeCarousel = [
     home1,
@@ -51,3 +52,5 @@ export const ReviewImgs = [
     review2,
     review3
 ]
+
+export default ifLogo;
