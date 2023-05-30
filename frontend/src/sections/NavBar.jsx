@@ -17,6 +17,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import { Button, Row } from "rsuite";
+import { TargetType } from "../Enums/Enums";
 
 function NavBar(props) {
 
@@ -42,7 +43,7 @@ function NavBar(props) {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="me-auto">
+              <Nav className="me-auto gap-3">
                 <Nav.Link as={Link} to="/" >Home</Nav.Link>
                 <Nav.Link as={Link} to="/user-dashboard">Dashboard</Nav.Link>
                 <NavDropdown title="Lost" id="collasible-nav-dropdown">
@@ -74,7 +75,7 @@ function NavBar(props) {
 
                   
                   <NavDropdown.Item as={Link} to="/uploadLostPerson">Create Person</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.4">Create Thing</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to= {`/upload-thing/MissingThing`} >Create Thing</NavDropdown.Item>
 
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#action/3.1"> Privacy</NavDropdown.Item>

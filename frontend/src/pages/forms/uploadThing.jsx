@@ -6,9 +6,25 @@ import Dropdown from "./dropdown";
 import NavBar from "../../sections/NavBar";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
+import { TargetType } from "../../Enums/Enums";
+import { useParams } from 'react-router-dom';
+import IfFormOption from "./ifFormOption";
 
 const UploadThing = () => {
   const navigate = useNavigate();
+
+  const [selectedOption, setSelectedOption] = useState("MissingThing");
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+    console.log("Selected Option: ", selectedOption);
+    debugger;
+    let result=event.target.value == "MissingThing" ? navigate("/upload-thing/MissingThing"):""; 
+    result=event.target.value == "FoundThing" ? navigate("/upload-thing/FoundThing"):"" ;
+    // return result;
+  };
+
+
 
   // handle submit button event
   const handleUploadThingSubmit = async (e) => {
@@ -144,8 +160,13 @@ const UploadThing = () => {
   };
 
   // form data
-  const location = useLocation();
-  const { givenPostType, title } = location.state;
+
+  const { postType:givenPostType } = useParams();
+
+  // const location = useLocation();
+  const title=givenPostType=="MissingThing"?"Lost Thing":"Found Thing";
+
+  debugger;
   var [credentials, setCredentials] = useState({
     name: "",
     category: "Category",
@@ -187,7 +208,7 @@ const UploadThing = () => {
   return (
     <React.Fragment>
       <NavBar currentUser={localStorage.getItem("email")} />
-      <div className="row" style={{minHeight:"80vh"}}>
+      <div className="row" style={{ minHeight: "80vh" }}>
         <div
           className="col-3 mt-5 center"
           style={{ width: "40%", height: "100%" }}
@@ -204,7 +225,21 @@ const UploadThing = () => {
             className="bg-light mt-2"
             style={{ width: "22rem", borderRadius: "1rem" }}
           >
-            <h1 className="App-header">{title}</h1>
+            <div className="d-flex flex-column justify-content-center align-items-center mt-4">
+              <IfFormOption
+                option1={{
+                  value: "MissingThing",
+                  label: "Lost Thing Form"
+                }}
+                option2={{
+                  value: "FoundThing",
+                  label: "Found Thing Form"
+                }}
+                handleOptionChange={handleOptionChange}
+                selectedOption={selectedOption}
+              />
+              <h1 className="App-header">{title}</h1>
+            </div>
             <form onSubmit={(e) => handleUploadThingSubmit(e)}>
               <Input
                 autofocus={true}

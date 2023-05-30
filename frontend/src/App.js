@@ -117,9 +117,9 @@ function AppRoutes() {
         <Route path="/Person-Details/:id" element={<PersonDetail />}></Route>
         <Route path="/searchPost/:id/:postType" element={<SearchPost />}></Route>
         <Route path="/Thing-Details" element={<ThingDetail />}></Route>
-        <Route path="/upload-thing" element={<UploadThing />}></Route>
+        <Route path="/upload-thing/:postType" element={<UploadThing />}></Route>
         <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
-        <Route path="/user-dashboard" element={<UserDashboard  />}></Route>
+        <Route path="/user-dashboard" element={<UserDashboard />}></Route>
         <Route path="/resolved-cases" element={<ResolvedCases />}></Route>
         <Route path="/matched-cases" element={<MatchedCases />}></Route>
         <Route path="/lostMatchCases" element={<MatchCases postType={TargetType.LOST} toast={{ setToastMessage, setShow }} />}></Route>
@@ -152,7 +152,7 @@ function App() {
 }
 
 function Wrapper() {
-  
+
 
   return (
     <BrowserRouter>

@@ -12,7 +12,7 @@ const IfFormOption = ({ handleOptionChange,option1,option2,selectedOption }) => 
         id="flexRadioDefault1"
         label={option1.label}
         value={option1.value}
-        checked={selectedOption == TargetType.LOST}
+        checked={selectedOption == option1.value}
         onChange={handleOptionChange}
       />
       <Form.Check
@@ -21,7 +21,7 @@ const IfFormOption = ({ handleOptionChange,option1,option2,selectedOption }) => 
         id="flexRadioDefault2"
         label={option2.label}
         value={option2.value}
-        checked={selectedOption == TargetType.FOUND}
+        checked={selectedOption == option2.value}
         onChange={handleOptionChange}
       />
     </div>
