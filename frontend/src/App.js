@@ -30,7 +30,7 @@ import MatchCases from "./pages/Dashboards/user/MatchPersonPosts/MatchCases";
 import SearchPost from "./pages/Dashboards/user/SearchPost/searchPost";
 import ShowToast from "./components/PopUps/showToast";
 import ThingPage from "./pages/lists/ThingPage";
-
+import MatchThingCases from "./pages/Dashboards/user/MatchThingPosts/MatchThingCases";
 
 function AppRoutes() {
   const [show, setShow] = useState(false);
@@ -118,6 +118,18 @@ function AppRoutes() {
         <Route path="/searchPost/:id/:postType" element={<SearchPost />}></Route>
         <Route path="/Thing-Details" element={<ThingDetail />}></Route>
         <Route path="/upload-thing/:postType" element={<UploadThing />}></Route>
+        
+        <Route
+          path="/thinglostMatchCases"
+          element={<MatchThingCases postType={TargetType.LOST} />}
+        ></Route>
+
+        <Route
+          path="/thingfoundMatchCases"
+          element={<MatchThingCases postType={TargetType.FOUND} />}
+        ></Route>
+		
+        
         <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
         <Route path="/user-dashboard" element={<UserDashboard />}></Route>
         <Route path="/resolved-cases" element={<ResolvedCases />}></Route>
