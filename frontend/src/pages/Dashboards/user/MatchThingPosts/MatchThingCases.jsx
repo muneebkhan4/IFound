@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
+
 import ThingsCarousel from "../../../../components/ThingsCarousel";
 import ListCardThings from "../../../../components/ListComponents/ListCardThings";
 import { Button } from "rsuite";
@@ -9,12 +11,13 @@ import NavBar from "../../../../sections/NavBar";
 import Spinner from "react-bootstrap/esm/Spinner";
 import { TargetType } from "../../../../Enums/Enums";
 
-export default function MatchThingCases({ postType }) {
+export default function MatchThingCases() {
   const [Loading, setLoading] = useState(false);
   const [ActiveCases, setActiveCases] = useState();
   const [SearchedPosts, setSearchedPosts] = useState();
   const [ActiveCaseIndex, setActiveCaseIndex] = useState();
-
+  const {postType}=useParams();
+  debugger;
   const screenHeight = window.innerHeight;
   // Set the height of the current screen height
 
@@ -24,7 +27,7 @@ export default function MatchThingCases({ postType }) {
       setLoading(true);
 
       var api = "";
-      if (postType === TargetType.FOUND)
+      if (postType == TargetType.FOUND)
         api = "http://localhost:1000/api/allFoundThingPosts";
       else api = "http://localhost:1000/api/allMissingThingPosts";
 
@@ -71,7 +74,7 @@ export default function MatchThingCases({ postType }) {
     };
 
     getThingPostData();
-  }, [token]);
+  }, [token,postType]);
 
   const handleSearchPost = async () => {
     if (ActiveCaseIndex === -1) return;

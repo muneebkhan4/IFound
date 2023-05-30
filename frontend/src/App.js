@@ -119,14 +119,14 @@ function AppRoutes() {
         <Route path="/Thing-Details" element={<ThingDetail />}></Route>
         <Route path="/upload-thing/:postType" element={<UploadThing />}></Route>
         
-        <Route
-          path="/thinglostMatchCases"
-          element={<MatchThingCases postType={TargetType.LOST} />}
-        ></Route>
+        {/* <Route
+          path="/thinglostMatchCases/:postType"
+          element={<MatchThingCases />}
+        ></Route> */}
 
         <Route
-          path="/thingfoundMatchCases"
-          element={<MatchThingCases postType={TargetType.FOUND} />}
+          path="/mythingMatchCases/:postType"
+          element={<MatchThingCases />}
         ></Route>
 		
         

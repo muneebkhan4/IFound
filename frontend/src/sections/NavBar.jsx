@@ -10,6 +10,7 @@ import { SidebarData } from "./SidebarData";
 import { IconContext } from "react-icons";
 // import "./NavBar.css";
 import ifLogo from '../Images/image';
+import "./NavBar.css";
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -18,6 +19,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import { Button, Row } from "rsuite";
 import { TargetType } from "../Enums/Enums";
+import DropDown from "../components/DropDown";
 
 function NavBar(props) {
 
@@ -34,34 +36,82 @@ function NavBar(props) {
   return (
     <React.Fragment>
       <div >
+
         <Navbar collapseOnSelect className="h-auto" expand="lg" bg="dark" variant="dark">
-          <Container style={{minHeight:"4rem"}} >
+          <nav style={{ zIndex: "10" }} className={sidebar ? "nav-menu active" : "nav-menu"}>
+            <ul className="pl-0 bg-white"  >
+              <li className="navbar-toggle">
+                <Link onClick={showSidebar} className="menu-bars">
+                  <AiIcons.AiOutlineClose />
+                </Link>
+              </li>
+
+              {SidebarData.map((item, index) => {
+                return (
+                  <li key={index} className={item.cName}>
+                    <Link to={item.path}>
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+              <li className={"nav-text"}>
+                <Link >
+                  {SidebarData[0].icon}
+                  <NavDropdown title="Match Lost Cases" id="collasible-nav-dropdown">
+                    <NavDropdown.Item as={Link} to="/lostMatchCases">Person Cases</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to={`/mythingMatchCases/${TargetType.LOST}`} >Thing Cases</NavDropdown.Item>
+                  </NavDropdown>
+                </Link>
+              </li>
+              <li className={"nav-text"}>
+                <Link >
+                  {SidebarData[0].icon}
+                  <NavDropdown title="Match Found Cases" id="collasible-nav-dropdown">
+                    <NavDropdown.Item as={Link} to="/foundMatchCases">Person Cases</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to={`/mythingMatchCases/${TargetType.FOUND}`} >Thing Cases</NavDropdown.Item>
+                  </NavDropdown>
+                </Link>
+              </li>
+              <li className={"nav-text"}>
+                <Link >
+                  {SidebarData[0].icon}
+                  <NavDropdown title="Create" id="collasible-nav-dropdown">
+                    <NavDropdown.Item as={Link} to="/uploadLostPerson">Create Person</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to={`/upload-thing/MissingThing`} >Create Thing</NavDropdown.Item>
+                  </NavDropdown>
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+          <div>
+            {localStorage.getItem("email") &&
+              (<Link to="#" className="menu-bars">
+                <FaIcons.FaBars onClick={showSidebar} />
+              </Link>)
+            }
+          </div>
+          <Container style={{ minHeight: "4rem" }} >
             <Navbar.Brand as={Link} to="/">
               <img src={ifLogo}
-              style={{height:"2rem",
-              width: "6rem"}}/>
+                style={{
+                  height: "2rem",
+                  width: "6rem"
+                }} />
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto gap-3">
                 <Nav.Link as={Link} to="/" >Home</Nav.Link>
-                <Nav.Link as={Link} to="/user-dashboard">Dashboard</Nav.Link>
-                <NavDropdown title="Lost" id="collasible-nav-dropdown">
+                <NavDropdown title="Find Person" id="collasible-nav-dropdown">
                   <NavDropdown.Item as={Link} to="/Lost-List" >Lost Person List</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/thing-Lost-List">Lost Thing List</NavDropdown.Item>
-                </NavDropdown>
-                <NavDropdown title="Found" id="collasible-nav-dropdown">
                   <NavDropdown.Item as={Link} to="/Found-List">Found Person List</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/thing-Lost-List">Found Thing List</NavDropdown.Item>
                 </NavDropdown>
-                <NavDropdown title="Match" id="collasible-nav-dropdown">
-                  <NavDropdown.Item as={Link} to="/lostMatchCases">Lost Person </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1">Lost Thing </NavDropdown.Item>
-
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item as={Link} to="/foundMatchCases">Found Person</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1">Found Thing </NavDropdown.Item>
-
+                <NavDropdown title="Find Thing" id="collasible-nav-dropdown">
+                  <NavDropdown.Item as={Link} to="/thing-Lost-List">Lost Thing List</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/thing-Found-List">Found Thing List</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
               <Nav>
@@ -69,31 +119,33 @@ function NavBar(props) {
                   <Nav.Link onClick={handleLogout} href="/Login"> Login</Nav.Link>
                 )}
 
-                <NavDropdown title="Profile" id="collasible-nav-dropdown">
-                  {/* <NavDropdown.Item href="#action/3.1">Post Lost Person</NavDropdown.Item>
+                {props.currentUser && (
+                  <NavDropdown title="Profile" id="collasible-nav-dropdown">
+                    {/* <NavDropdown.Item href="#action/3.1">Post Lost Person</NavDropdown.Item>
                   <NavDropdown.Divider /> */}
 
-                  
-                  <NavDropdown.Item as={Link} to="/uploadLostPerson">Create Person</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to= {`/upload-thing/MissingThing`} >Create Thing</NavDropdown.Item>
-
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.1"> Privacy</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1"> Logout</NavDropdown.Item>
-
-                </NavDropdown>
 
 
-                {props.currentUser && (
-                  <Nav.Link onClick={handleLogout} href="/Login">Logout</Nav.Link>
+
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#action/3.1"> Privacy</NavDropdown.Item>
+                    <NavDropdown.Item onClick={handleLogout} href="/Login"> Logout</NavDropdown.Item>
+
+                  </NavDropdown>
                 )}
+
+
+
+                {/* {props.currentUser && (
+                  <Nav.Link onClick={handleLogout} href="/Login">Logout</Nav.Link>
+                )} */}
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
       </div>
 
-    </React.Fragment>
+    </React.Fragment >
 
 
 

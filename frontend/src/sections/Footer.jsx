@@ -6,11 +6,12 @@ import { COLORS } from "../styles/globalColors";
 function Footer(props) {
   return (
     <React.Fragment>
-      <div className="footer" >
+      <div className="footer"  >
         <Card className="w-100 mt-1"
           style={{
             background: "dark",
-            backgroundColor: COLORS.ifDarkBlue
+            backgroundColor: COLORS.ifDarkBlue,
+            zIndex:"11"
           }}
         >
           <div className="row" style={{ marginTop: 10, marginLeft: 10 }}>
