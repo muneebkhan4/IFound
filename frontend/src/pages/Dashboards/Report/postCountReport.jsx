@@ -5,6 +5,11 @@ import { Container, Row, Col } from "react-bootstrap";
 
 function PostCountReport(props) {
         const {heading}=props;
+        const {totalFoundPosts}=props;
+        const {totalLostPosts}=props;
+        const {totalResolved}=props;
+        const {totalUnResolved}=props;
+
     return (
 
         <React.Fragment>
@@ -23,11 +28,11 @@ function PostCountReport(props) {
                                         </svg>
                                     </span>
                                     <div id="lost-count" className="fs-6">
-                                        255
+                                        {totalLostPosts}
                                     </div>
                                 </div>
                                 <p >
-                                    Total {heading} Posts
+                                    Total Lost Posts
                                 </p>
                             </div>
                         </div>
@@ -44,7 +49,7 @@ function PostCountReport(props) {
                                         </svg>
                                     </span>
                                     <div id="found-count" className="fs-6">
-                                        255
+                                        {totalFoundPosts}
                                     </div>
                                 </div>
                                 <p >
@@ -64,7 +69,7 @@ function PostCountReport(props) {
                                         </svg>
                                     </span>
                                     <div id="resolved-count" className="fs-6">
-                                        255
+                                        {totalResolved}
                                     </div>
                                 </div>
                                 <p >
@@ -84,7 +89,7 @@ function PostCountReport(props) {
                                         </svg>
                                     </span>
                                     <div id="unresolved-count" className="fs-6">
-                                        255
+                                        {totalUnResolved}
                                     </div>
                                 </div>
                                 <p >

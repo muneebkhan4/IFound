@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from "../../../../sections/NavBar";
 import AddTable from "./addTable";
 import ShowToast from "../../../../components/PopUps/showToast";
 import { Button } from "rsuite";
-import { DeleteActivePost } from "../../../../services/ActiveCasesService";
+import { DeleteActivePost, UpdatePostStatus } from "../../../../services/ActiveCasesService";
 import Footer from "../../../../sections/Footer";
+import { PostStatus } from "../../../../Enums/Enums";
 
 export default function MatchCases({ postType, toast }) {
   const [ActiveCases, setActiveCases] = useState();
+  const [activeButton, setActiveButton] = useState(1);
+
   const navigate = useNavigate();
+  const { postStatus } = useParams();
 
   useEffect(() => {
     const getPersonPostData = async () => {
@@ -24,7 +28,7 @@ export default function MatchCases({ postType, toast }) {
         const { data: currentUser } = await axios.get(`${process.env.REACT_APP_NODE_API}api/users/${_id}`);
         if (currentUser && _id) {
           const { data } = await axios
-            .get(`${process.env.REACT_APP_DOT_NET_API}api/home/activeCases`,
+            .get(`${process.env.REACT_APP_DOT_NET_API}api/home/activeCases/${postStatus}`,
               {
                 params: {
                   targetType: postType, id: currentUser["userID"]
@@ -57,8 +61,19 @@ export default function MatchCases({ postType, toast }) {
       }
     }
     getPersonPostData();
-  }, [ActiveCases])
+  }, [postType, postStatus])
 
+
+
+  const handleButtonGroupClick = (value) => {
+    setActiveButton(value);
+    if(value==1)
+      navigate(`/lostMatchCases/${PostStatus.Unresolved}`);
+    else if(value==2)
+    navigate(`/lostMatchCases/${PostStatus.Resolved}`);
+
+
+  };
 
   const handleDeleteActivePost = (postId) => {
     // Handle option change event
@@ -73,7 +88,19 @@ export default function MatchCases({ postType, toast }) {
       toast.setToastMessage({ headerText: "Active Case", bodyText: "DELETE request failed" });
       toast.setShow(true);
     });
+  }
 
+  const handleMarkAsResolve = (postId, status) => {
+    debugger;
+    UpdatePostStatus(postId, status).then(_response => {
+      const newActiveCases = ActiveCases.filter(post => post.postId !== postId);
+      setActiveCases(newActiveCases);      
+      toast.setToastMessage({ headerText: "Active Case", bodyText: `Post ${status==1?"Resolved":"" || status==3?"UnResolved":""} Successfully` });
+      toast.setShow(true);
+    }).catch(err => {
+      toast.setToastMessage({ headerText: "Active Case", bodyText: "DELETE request failed\n" + err.message });
+      toast.setShow(true);
+    });
   }
 
   const onPostManageClick = (data) => {
@@ -91,7 +118,10 @@ export default function MatchCases({ postType, toast }) {
           toast={toast}
           handleDeleteActivePost={handleDeleteActivePost}
           onPostManageClick={onPostManageClick}
-          />
+          handleMarkAsResolve={handleMarkAsResolve}
+          activeButton={activeButton}
+          handleButtonClick={handleButtonGroupClick}
+        />
         {/* <Button onClick={() => setShow(true)} >Hit Toast</Button> */}
 
       </div>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardButton from "../../../components/DashboardButton";
 import Details from "../../details/Details";
 import axios from "axios";
-
+import jwt_decode from "jwt-decode";
 import NavBar from "../../../sections/NavBar";
 import { Button, Card } from "react-bootstrap";
 import image from '../../../Images/Reports/report2.jpg';
@@ -13,11 +13,26 @@ import PieChart from "../Report/pieChart";
 import { VerticalBar } from "../Report/VerticalBar";
 import PostCountReport from "../Report/postCountReport";
 import IfDoughnut from "../Report/ifDoughnut";
+import { ActivePostCount, GetDashboardStats, TotalActivePostCount, UnresolvedCasesCount } from "../../../services/ActiveCasesService";
+import { TargetType } from "../../../Enums/Enums";
+import { GetUserLocalID } from "../../../services/UserService";
 
 
 function UserDashboard() {
   const navigate = useNavigate();
   const [validate, setValidate] = useState("");
+  const [personStats, setPersonStats] = useState({
+    "PostCountReport": {
+      "totalLostPosts": 0,
+      "totalFoundPosts": 0,
+      "totalResolved": 0,
+      "totalUnResolved": 0,
+    },
+    "Doughnut": [
+      0, 0, 0, 0
+    ]
+  });
+
   const screenHeight = window.innerHeight;
   // Set the height of the current screen height
   useEffect(() => {
@@ -39,10 +54,55 @@ function UserDashboard() {
           }
         );
         // console.log("Server Returned userType: ",userType);
-        if (userType.data === "user") setValidate("true");
+        if (userType.data === "user") {
+          setValidate("true");
+          var { _id } = jwt_decode(token);
+          GetUserLocalID(_id).then(response => {
+            const { data: currentUser } = response;
+            const userId = currentUser["userID"];
+
+            GetDashboardStats(userId).then(response => {
+              console.log("GetDashboardStats: ", response);
+              const { allActiveFoundPostCount,
+                allActiveLostPostCount,
+                allResolvedPostCount,
+                allUnResolvedPostCount,
+                userActiveFoundCasesCount,
+                userActiveLostCasesCount,
+                userResolvedCasesCount,
+                userUnresolvedCasesCount,
+              } = response.data;
+
+              const doughnutArr = [userActiveLostCasesCount, userActiveFoundCasesCount, userUnresolvedCasesCount, userResolvedCasesCount];
+              const postCountObj = {
+                totalLostPosts: allActiveLostPostCount,
+                totalFoundPosts: allActiveFoundPostCount,
+                totalResolved: allResolvedPostCount,
+                totalUnResolved: 1,
+              }
+              setPersonStats(prevArray => {
+                const newObj = { ...prevArray };
+                newObj.Doughnut = doughnutArr;
+                newObj.PostCountReport = postCountObj;
+                return newObj;
+              });
+            });
+
+          
+
+          }).catch(_err => {
+            console.log("error occuerd", _err);
+          });
+
+
+        }
         else if (userType.data === "police") navigate("/police-dashboard");
         else if (userType.data === "admin") navigate("/admin-dashboard");
         else navigate("/notFound");
+
+
+
+
       } catch (err) {
         if (!userType) {
           navigate("/notFound");
@@ -57,9 +117,15 @@ function UserDashboard() {
     validate === "true" && (
       <React.Fragment>
         <NavBar currentUser={localStorage.getItem("email")} />
-        <Container style={{marginTop:"2rem"}}>
+        <Container style={{ marginTop: "2rem" }}>
           <div>
-            <PostCountReport heading={"Person Statistic"} />
+            <PostCountReport
+              heading={"Person"}
+              totalLostPosts={personStats.PostCountReport.totalLostPosts}
+              totalFoundPosts={personStats.PostCountReport.totalFoundPosts}
+              totalResolved={personStats.PostCountReport.totalResolved}
+              totalUnResolved={personStats.PostCountReport.totalUnResolved}
+            />
           </div>
 
           <div className="mt-2 mb-2">
@@ -69,14 +135,16 @@ function UserDashboard() {
               </Card>
               <Card style={{ width: '30%' }}>
 
-                <IfDoughnut />
+                <IfDoughnut
+                  row={personStats.Doughnut}
+                />
               </Card>
 
             </Row>
           </div>
 
         </Container>
-        <Container style={{marginTop:"3rem"}}>
+        <Container style={{ marginTop: "3rem" }}>
           <div>
             <PostCountReport heading={"Object Statistic"} />
           </div>
@@ -93,62 +161,8 @@ function UserDashboard() {
 
             </Row>
           </div>
-
         </Container>
-
         <Footer />
-
-        {/* <h1 className="App-header"> User Dashboard</h1>
-        <div className="row">
-          <div className="col ">
-            <img
-              src="https://i.postimg.cc/h4H4yPrS/test-img-3.jpg"
-              className="card-img-top"
-              style={{
-                marginTop: "0.25rem",
-                marginLeft: "2.5rem",
-                borderRadius: "1rem",
-                width: "13rem",
-                height: "17rem",
-              }}
-            />
-            <Details />
-          </div>
-
-          <div className="col bg-list" style={{ height: "fit-content" }}>
-            <div className="row">
-              <div
-                className="col"
-                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
-              >
-                <DashboardButton
-                  title="Post Missing Thing"
-                  PostType="MissingThing"
-                  navTo="/upload-thing"
-                ></DashboardButton>
-              </div>
-              <div
-                className="col"
-                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
-              >
-
-              </div>
-            </div>
-            <div className="row">
-              <div
-                className="col"
-                style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
-              >
-                <DashboardButton
-                  title="Post Found Thing"
-                  PostType="FoundThing"
-                  navTo="/upload-thing"
-                ></DashboardButton>
-              </div>
-
-            </div>
-          </div>
-        </div> */}
       </React.Fragment >
     )
   );

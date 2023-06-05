@@ -13,12 +13,10 @@ function ShowToast({position,headerText,bodyText,delay,show,setShow}) {
         aria-live="polite"
         aria-atomic="true"
         className="bg-dark position-relative"
-        // style={{ minHeight: '240px' }}
       >
         <ToastContainer
           className="p-3"
           position={position}
-          style={{ zIndex: 1 }}
         >
           <Toast onClose={() => setShow(false)} show={show} delay={delay} autohide>
             <Toast.Header >

@@ -102,10 +102,11 @@ const SearchPost = () => {
             const confidence = element.confidence;
             const phone = element.phone;
             const userID = element.userID;
+            const date=element.postDate;
             const { data: currentUser } = await GetUserByLocalID(element.userID);
             const founderName = currentUser.name;
             const ownerEmail = currentUser.email;
-            arr.push({ phone, name, age, city, details, image, confidence, userID, founderName, ownerEmail });
+            arr.push({ phone, name, age, city, details, image, confidence, userID, founderName, ownerEmail,date });
         }
         setSearchedPosts(arr);
         setLoading(false);

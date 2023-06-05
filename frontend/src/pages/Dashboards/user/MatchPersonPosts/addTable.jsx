@@ -5,7 +5,7 @@ import { Col, Button, ButtonGroup, Row, Dropdown, Container } from "react-bootst
 // import { Container } from "rsuite";
 import { COLORS } from "../../../../styles/globalColors.js";
 import LocationIcon from "../../../../components/Svgs/locationIcon.jsx";
-import { ActiveCasesMenu } from "../../../../Enums/Enums.js";
+import { ActiveCasesMenu, PostStatus } from "../../../../Enums/Enums.js";
 import './addTable.jsx';
 
 
@@ -27,33 +27,30 @@ const CustomToggleButton = React.forwardRef(({ children, onClick }, ref) => {
 });
 
 //Controlled Component
-function AddTable({ activeCases, toast, handleDeleteActivePost, onPostManageClick, detailLength,handleContactModal }) {
+function AddTable({ activeCases, toast, handleDeleteActivePost, handleMarkAsResolve, onPostManageClick, detailLength, handleContactModal, activeButton, handleButtonClick }) {
     console.log(toast);
     console.log("add table cases: ", activeCases);
-    const [activeButton, setActiveButton] = useState(1);
     const maxLength = detailLength ? detailLength : 150;
     // const maxLength=150;
 
-    const handleButtonClick = (value) => {
-        setActiveButton(value);
-    };
-
     return (
         <div style={{ maxWidth: "1000px", margin: "auto" }}>
-            <ButtonGroup>
-                <Button
-                    onClick={() => handleButtonClick(1)}
-                    active={activeButton == 1} // auto-focus on button1 when it's active
-                >
-                    {actionButtons[0]}
-                </Button>
-                <Button
-                    onClick={() => handleButtonClick(2)}
-                    active={activeButton === 2} // auto-focus on button2 when it's active
-                >
-                    {actionButtons[1]}
-                </Button>
-            </ButtonGroup>
+            {!handleContactModal && (
+                <ButtonGroup>
+                    <Button
+                        onClick={() => handleButtonClick(1)}
+                        active={activeButton == 1} // auto-focus on button1 when it's active
+                    >
+                        {actionButtons[0]}
+                    </Button>
+                    <Button
+                        onClick={() => handleButtonClick(2)}
+                        active={activeButton === 2} // auto-focus on button2 when it's active
+                    >
+                        {actionButtons[1]}
+                    </Button>
+                </ButtonGroup>
+            )}
             <div >
                 {
                     activeCases && activeCases.map((activePost, index) => (
@@ -86,14 +83,16 @@ function AddTable({ activeCases, toast, handleDeleteActivePost, onPostManageClic
                                     </Row>
                                 </Col>
                                 <Col className="d-flex align-items-center justify-content-center">
-                                    {onPostManageClick && <Button onClick={() => onPostManageClick(activePost)} variant="outline-secondary" size="sm">Manage</Button>}
+                                    {activeButton == 1 && onPostManageClick && <Button onClick={() => onPostManageClick(activePost)} variant="outline-secondary" size="sm">Manage</Button>}
                                     {handleDeleteActivePost &&
                                         <Dropdown>
                                             <Dropdown.Toggle as={CustomToggleButton}>
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu >
                                                 <Dropdown.Item eventKey={activePost.postId} onClick={() => handleDeleteActivePost(activePost.postId)}>Delete</Dropdown.Item>
-                                                <Dropdown.Item eventKey={ActiveCasesMenu.MarkResolve}>Mark Resolve</Dropdown.Item>
+                                                {activeButton == 1 && (<Dropdown.Item eventKey={ActiveCasesMenu.MarkResolve} onClick={() => handleMarkAsResolve(activePost.postId, PostStatus.Resolved)}>Mark Resolve</Dropdown.Item>)}
+                                                {activeButton == 2 && (<Dropdown.Item eventKey={ActiveCasesMenu.MarkResolve} onClick={() => handleMarkAsResolve(activePost.postId, PostStatus.Unresolved)}>Mark Unresolve</Dropdown.Item>)}
+
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     }
@@ -107,7 +106,7 @@ function AddTable({ activeCases, toast, handleDeleteActivePost, onPostManageClic
                         </Container>)
                     )
                 }
-                
+
             </div>
         </div >
 

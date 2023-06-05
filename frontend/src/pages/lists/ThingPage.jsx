@@ -70,7 +70,7 @@ const ThingPage = ({ url, toast }) => {
 
     getThingPostData();
     validate();
-  }, []);
+  }, [url]);
 
   const [filteredData, setFilteredData] = useState();
   const [cityFilter, setCityFilter] = useState({
