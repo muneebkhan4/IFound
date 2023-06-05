@@ -22,7 +22,7 @@ import home7 from './illustration/7-if.jpg';
 import home8 from './illustration/8-if.jpg';
 
 //import flow
-import flow from './HomeCarousel/IFOUND.gif';
+import flow from './HomeCarousel/IFOUND.jpeg';
 //Logo
 import ifLogo from'./logos/ifound1.PNG';
 

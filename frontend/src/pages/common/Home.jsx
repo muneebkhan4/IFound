@@ -161,11 +161,11 @@ const Home = () => {
                 </Row>
                 <Row>
                     <div className="d-flex align-items-center justify-content-center">
-                        <img src={FlowGif[0]} class=""
+                        <img src={FlowGif[0]} class="position-relative"
                             style={
                                 {
-                                    width: "",
-                                    height: "",
+                                    width: "auto",
+                                    height: "45rem",
                                 }
                             } alt="Cinque Terre"></img>
                     </div>
