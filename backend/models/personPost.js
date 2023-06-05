@@ -8,7 +8,7 @@ const postSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: 2,
     maxlength: 150,
   },
   age: {
@@ -18,13 +18,13 @@ const postSchema = new mongoose.Schema({
   city: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: 2,
     maxlength: 50,
   },
   details: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: 2,
     maxlength: 500,
   },
   postType: {
@@ -49,10 +49,10 @@ const PersonPost = mongoose.model("PersonPost", postSchema);
 
 function validatePost(PersonPost) {
   const schema = Joi.object({
-    name: Joi.string().min(5).max(150).required(),
+    name: Joi.string().min(2).max(150).required(),
     age: Joi.string().required(),
-    city: Joi.string().min(5).max(50).required(),
-    details: Joi.string().min(5).max(500).required(),
+    city: Joi.string().min(2).max(50).required(),
+    details: Joi.string().min(2).max(500).required(),
     postType: Joi.string().required(),
     //userId: Joi.string().required(),
     //imageId: Joi.string().required(),

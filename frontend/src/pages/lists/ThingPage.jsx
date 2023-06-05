@@ -198,9 +198,14 @@ const ThingPage = ({ url, toast }) => {
 
         <h1 className="App-header">Things Cases</h1>
         {!ThingPosts && (
-          <div className="center spinner-grow fonts" role="status">
-            <span className="center visually-hidden">Loading...</span>
-          </div>
+          <div
+            style={{
+              padding: "50px",
+              margin: "100px 200px 100px 670px",
+            }}
+            className="spinner-grow fonts"
+            role="status"
+          ></div>
         )}
         <div style={{ margin: "30px" }} className="row">
           {filteredData &&

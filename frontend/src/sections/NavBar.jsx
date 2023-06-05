@@ -10,38 +10,43 @@ import { SidebarData } from "./SidebarData";
 import { IconContext } from "react-icons";
 import { FaUserAlt } from "react-icons/fa";
 // import "./NavBar.css";
-import ifLogo from '../Images/image';
+import ifLogo from "../Images/image";
 import "./NavBar.css";
 
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 import { Button, Row } from "rsuite";
 import { PostStatus, TargetType } from "../Enums/Enums";
 import DropDown from "../components/DropDown";
-import NavbarBrand from 'react-bootstrap/NavbarBrand'
+import NavbarBrand from "react-bootstrap/NavbarBrand";
 
 function NavBar(props) {
-
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
 
-
   const handleLogout = () => {
-    debugger
+    debugger;
     localStorage.clear();
-
   };
   return (
     <React.Fragment>
-      <div >
-
-        <Navbar collapseOnSelect className="h-auto" expand="lg" bg="dark" variant="dark">
-          <nav style={{ zIndex: "10" }} className={sidebar ? "nav-menu active" : "nav-menu"}>
-            <ul className="pl-0 bg-white"  >
+      <div>
+        <Navbar
+          collapseOnSelect
+          className="h-auto"
+          expand="lg"
+          bg="dark"
+          variant="dark"
+        >
+          <nav
+            style={{ zIndex: "10" }}
+            className={sidebar ? "nav-menu active" : "nav-menu"}
+          >
+            <ul className="pl-0 bg-white">
               <li className="navbar-toggle">
                 <Link onClick={showSidebar} className="menu-bars">
                   <AiIcons.AiOutlineClose />
@@ -50,7 +55,7 @@ function NavBar(props) {
 
               {SidebarData.map((item, index) => {
                 return (
-                  <li key={index} className={item.cName+" border-bottom"}>
+                  <li key={index} className={item.cName + " border-bottom"}>
                     <Link to={item.path}>
                       {item.icon}
                       <span>{item.title}</span>
@@ -59,29 +64,62 @@ function NavBar(props) {
                 );
               })}
               <li className={"nav-text border-bottom"}>
-                <Link >
+                <Link>
                   {SidebarData[0].icon}
-                  <NavDropdown title="Match Lost Cases" id="collasible-nav-dropdown">
-                    <NavDropdown.Item as={Link} to={`/lostMatchCases/${PostStatus.Unresolved}`}>Person Cases</NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to={`/mythingMatchCases/${TargetType.LOST}`} >Thing Cases</NavDropdown.Item>
+                  <NavDropdown
+                    title="Match Lost Cases"
+                    id="collasible-nav-dropdown"
+                  >
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/lostMatchCases/${PostStatus.Unresolved}`}
+                    >
+                      Person Cases
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/mythingMatchCases/${TargetType.LOST}`}
+                    >
+                      Thing Cases
+                    </NavDropdown.Item>
                   </NavDropdown>
                 </Link>
               </li>
               <li className={"nav-text border-bottom"}>
-                <Link >
+                <Link>
                   {SidebarData[0].icon}
-                  <NavDropdown title="Match Found Cases" id="collasible-nav-dropdown">
-                    <NavDropdown.Item as={Link} to="/foundMatchCases">Person Cases</NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to={`/mythingMatchCases/${TargetType.FOUND}`} >Thing Cases</NavDropdown.Item>
+                  <NavDropdown
+                    title="Match Found Cases"
+                    id="collasible-nav-dropdown"
+                  >
+                    <NavDropdown.Item as={Link} to="/foundMatchCases">
+                      Person Cases
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/mythingMatchCases/${TargetType.FOUND}`}
+                    >
+                      Thing Cases
+                    </NavDropdown.Item>
                   </NavDropdown>
                 </Link>
               </li>
               <li className={"nav-text"}>
-                <Link >
+                <Link>
                   {SidebarData[0].icon}
-                  <NavDropdown title="Create" id="collasible-nav-dropdown">
-                    <NavDropdown.Item as={Link} to="/uploadLostPerson">Create Person</NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to={`/upload-thing/MissingThing`} >Create Thing</NavDropdown.Item>
+                  <NavDropdown
+                    title="Create New Case"
+                    id="collasible-nav-dropdown"
+                  >
+                    <NavDropdown.Item as={Link} to="/uploadLostPerson">
+                      Create Person Case
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/upload-thing/MissingThing`}
+                    >
+                      Create Thing Case
+                    </NavDropdown.Item>
                   </NavDropdown>
                 </Link>
               </li>
@@ -89,41 +127,74 @@ function NavBar(props) {
           </nav>
 
           <div>
-            {localStorage.getItem("email") &&
-              (<Link to="#" className="menu-bars">
+            {localStorage.getItem("email") && (
+              <Link to="#" className="menu-bars">
                 <FaIcons.FaBars onClick={showSidebar} />
-              </Link>)
-            }
+              </Link>
+            )}
           </div>
-          <Container style={{ minHeight: "4rem" }} >
+          <Container style={{ minHeight: "4rem" }}>
             <Navbar.Brand as={Link} to="/">
-              <img src={ifLogo}
+              <img
+                src={ifLogo}
+                alt="logo"
                 style={{
                   height: "2rem",
-                  width: "6rem"
-                }} />
+                  width: "6rem",
+                }}
+              />
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto gap-3">
-                <Nav.Link as={Link} to="/" >Home</Nav.Link>
-                <NavDropdown title="Find Person" id="collasible-nav-dropdown">
-                  <NavDropdown.Item as={Link} to="/Lost-List" >Lost Person List</NavDropdown.Item>
-                  <NavDropdown.Item className="border-top" as={Link} to="/Found-List">Found Person List</NavDropdown.Item>
+                <Nav.Link as={Link} to="/user-dashboard">
+                  Dashboard
+                </Nav.Link>
+                <NavDropdown
+                  title="All Person List"
+                  id="collasible-nav-dropdown"
+                >
+                  <NavDropdown.Item as={Link} to="/Lost-List">
+                    Lost Person List
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    className="border-top"
+                    as={Link}
+                    to="/Found-List"
+                  >
+                    Found Person List
+                  </NavDropdown.Item>
                 </NavDropdown>
-                <NavDropdown title="Find Thing" id="collasible-nav-dropdown">
-                  <NavDropdown.Item  as={Link} to="/thing-Lost-List">Lost Thing List</NavDropdown.Item>
-                  <NavDropdown.Item className="border-top" as={Link} to="/thing-Found-List">Found Thing List</NavDropdown.Item>
+                <NavDropdown
+                  title="All Thing List"
+                  id="collasible-nav-dropdown"
+                >
+                  <NavDropdown.Item as={Link} to="/thing-Lost-List">
+                    Lost Thing List
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    className="border-top"
+                    as={Link}
+                    to="/thing-Found-List"
+                  >
+                    Found Thing List
+                  </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
               <Nav>
                 {!props.currentUser && (
-                  <Nav.Link onClick={handleLogout} href="/Login"> Login</Nav.Link>
+                  <Nav.Link onClick={handleLogout} href="/Login">
+                    {" "}
+                    Login
+                  </Nav.Link>
                 )}
 
                 {props.currentUser && (
-                  <NavDropdown title={<FaUserAlt />} id="collasible-nav-dropdown">
-                    <NavDropdown.Item >
+                  <NavDropdown
+                    title={<FaUserAlt />}
+                    id="collasible-nav-dropdown"
+                  >
+                    <NavDropdown.Item>
                       <div className="d-flex gap-1 align-items-center">
                         <div>
                           <FaUserAlt />
@@ -132,14 +203,24 @@ function NavBar(props) {
                       </div>
                     </NavDropdown.Item>
 
-                    <NavDropdown.Item className="border-top " > Edit Profile</NavDropdown.Item>
-                    <NavDropdown.Item className="border-top"> Privacy</NavDropdown.Item>
-                    <NavDropdown.Item className="border-top" onClick={handleLogout} href="/Login"> Logout</NavDropdown.Item>
-
+                    <NavDropdown.Item className="border-top ">
+                      {" "}
+                      Edit Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item className="border-top">
+                      {" "}
+                      Privacy
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      className="border-top"
+                      onClick={handleLogout}
+                      href="/Login"
+                    >
+                      {" "}
+                      Logout
+                    </NavDropdown.Item>
                   </NavDropdown>
                 )}
-
-
 
                 {/* {props.currentUser && (
                   <Nav.Link onClick={handleLogout} href="/Login">Logout</Nav.Link>
@@ -149,15 +230,7 @@ function NavBar(props) {
           </Container>
         </Navbar>
       </div>
-
-    </React.Fragment >
-
-
-
-
-
-
-
+    </React.Fragment>
 
     // <div>
     //   <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
@@ -179,7 +252,6 @@ function NavBar(props) {
     //       })}
     //     </ul>
 
-
     //   </nav>
     //   <nav className="navbar sticky-top navbar-expand-lg bg-light">
 
@@ -200,10 +272,6 @@ function NavBar(props) {
     //           </h2>
     //         </Link>
     //       </div>
-
-
-
-
 
     //       <div className="navbar-nav">
     //         <NavLink className="nav-link m-4" to="/Lost-List">
@@ -251,7 +319,6 @@ function NavBar(props) {
     //     </div>
     //   </nav>
     // </div>
-
   );
 }
 

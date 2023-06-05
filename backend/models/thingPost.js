@@ -8,7 +8,7 @@ const postSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    minlength: 3,
+    minlength: 2,
     maxlength: 150,
   },
   category: {
@@ -18,30 +18,24 @@ const postSchema = new mongoose.Schema({
   color: {
     type: String,
     required: true,
-    minlength: 3,
+    minlength: 2,
     maxlength: 25,
   },
   city: {
     type: String,
     required: true,
-    minlength: 3,
+    minlength: 2,
     maxlength: 25,
   },
   phone: {
     type: String,
     required: true,
-    length: 13,
-  },
-  address: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 200,
+    length: 11,
   },
   details: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: 2,
     maxlength: 500,
   },
   postType: {
@@ -65,12 +59,11 @@ const PostThing = mongoose.model("ThingPost", postSchema);
 
 function validatePost(PostThing) {
   const schema = Joi.object({
-    name: Joi.string().min(3).max(150).required(),
+    name: Joi.string().min(2).max(150).required(),
     category: Joi.string().required(),
-    color: Joi.string().min(3).max(50).required(),
-    city: Joi.string().min(3).max(50).required(),
-    phone: Joi.string().min(13).max(13).required(),
-    address: Joi.string().min(5).max(200).required(),
+    color: Joi.string().min(2).max(50).required(),
+    city: Joi.string().min(2).max(50).required(),
+    phone: Joi.string().min(11).max(13).required(),
     details: Joi.string().min(5).max(500).required(),
     postType: Joi.string().required(),
     //userId: Joi.string().required(),

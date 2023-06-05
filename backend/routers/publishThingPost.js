@@ -32,7 +32,6 @@ router.post("/", [auth, upload.single("file")], async (req, res) => {
       "color",
       "city",
       "phone",
-      "address",
       "details",
       "postType",
     ])
