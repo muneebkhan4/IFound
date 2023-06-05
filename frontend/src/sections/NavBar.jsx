@@ -8,6 +8,7 @@ import * as AiIcons from "react-icons/ai";
 import { SidebarData } from "./SidebarData";
 // import "../App.css";
 import { IconContext } from "react-icons";
+import { FaUserAlt } from "react-icons/fa";
 // import "./NavBar.css";
 import ifLogo from '../Images/image';
 import "./NavBar.css";
@@ -18,8 +19,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import { Button, Row } from "rsuite";
-import { TargetType } from "../Enums/Enums";
+import { PostStatus, TargetType } from "../Enums/Enums";
 import DropDown from "../components/DropDown";
+import NavbarBrand from 'react-bootstrap/NavbarBrand'
 
 function NavBar(props) {
 
@@ -48,7 +50,7 @@ function NavBar(props) {
 
               {SidebarData.map((item, index) => {
                 return (
-                  <li key={index} className={item.cName}>
+                  <li key={index} className={item.cName+" border-bottom"}>
                     <Link to={item.path}>
                       {item.icon}
                       <span>{item.title}</span>
@@ -56,16 +58,16 @@ function NavBar(props) {
                   </li>
                 );
               })}
-              <li className={"nav-text"}>
+              <li className={"nav-text border-bottom"}>
                 <Link >
                   {SidebarData[0].icon}
                   <NavDropdown title="Match Lost Cases" id="collasible-nav-dropdown">
-                    <NavDropdown.Item as={Link} to="/lostMatchCases">Person Cases</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to={`/lostMatchCases/${PostStatus.Unresolved}`}>Person Cases</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to={`/mythingMatchCases/${TargetType.LOST}`} >Thing Cases</NavDropdown.Item>
                   </NavDropdown>
                 </Link>
               </li>
-              <li className={"nav-text"}>
+              <li className={"nav-text border-bottom"}>
                 <Link >
                   {SidebarData[0].icon}
                   <NavDropdown title="Match Found Cases" id="collasible-nav-dropdown">
@@ -107,11 +109,11 @@ function NavBar(props) {
                 <Nav.Link as={Link} to="/" >Home</Nav.Link>
                 <NavDropdown title="Find Person" id="collasible-nav-dropdown">
                   <NavDropdown.Item as={Link} to="/Lost-List" >Lost Person List</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/Found-List">Found Person List</NavDropdown.Item>
+                  <NavDropdown.Item className="border-top" as={Link} to="/Found-List">Found Person List</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Find Thing" id="collasible-nav-dropdown">
-                  <NavDropdown.Item as={Link} to="/thing-Lost-List">Lost Thing List</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/thing-Found-List">Found Thing List</NavDropdown.Item>
+                  <NavDropdown.Item  as={Link} to="/thing-Lost-List">Lost Thing List</NavDropdown.Item>
+                  <NavDropdown.Item className="border-top" as={Link} to="/thing-Found-List">Found Thing List</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
               <Nav>
@@ -120,16 +122,19 @@ function NavBar(props) {
                 )}
 
                 {props.currentUser && (
-                  <NavDropdown title="Profile" id="collasible-nav-dropdown">
-                    {/* <NavDropdown.Item href="#action/3.1">Post Lost Person</NavDropdown.Item>
-                  <NavDropdown.Divider /> */}
+                  <NavDropdown title={<FaUserAlt />} id="collasible-nav-dropdown">
+                    <NavDropdown.Item >
+                      <div className="d-flex gap-1 align-items-center">
+                        <div>
+                          <FaUserAlt />
+                        </div>
+                        {localStorage.getItem("name")}
+                      </div>
+                    </NavDropdown.Item>
 
-
-
-
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.1"> Privacy</NavDropdown.Item>
-                    <NavDropdown.Item onClick={handleLogout} href="/Login"> Logout</NavDropdown.Item>
+                    <NavDropdown.Item className="border-top " > Edit Profile</NavDropdown.Item>
+                    <NavDropdown.Item className="border-top"> Privacy</NavDropdown.Item>
+                    <NavDropdown.Item className="border-top" onClick={handleLogout} href="/Login"> Logout</NavDropdown.Item>
 
                   </NavDropdown>
                 )}

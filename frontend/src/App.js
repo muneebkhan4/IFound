@@ -101,7 +101,7 @@ function AppRoutes() {
           element={
             <UploadPerson
               PostType={TargetType.FOUND}
-              ApiUrl={"https://localhost:44364/api/home/createFoundPersonForm"}
+              ApiUrl={`${process.env.REACT_APP_DOT_NET_API}api/home/createFoundPersonForm`}
             />
           }
         ></Route>
@@ -110,7 +110,7 @@ function AppRoutes() {
           element={
             <UploadPerson
               PostType={TargetType.LOST}
-              ApiUrl={"https://localhost:44364/api/home/createLostPersonForm"}
+              ApiUrl={`${process.env.REACT_APP_DOT_NET_API}api/home/createLostPersonForm`}
             />
           }
         ></Route>
@@ -118,7 +118,7 @@ function AppRoutes() {
         <Route path="/searchPost/:id/:postType" element={<SearchPost />}></Route>
         <Route path="/Thing-Details" element={<ThingDetail />}></Route>
         <Route path="/upload-thing/:postType" element={<UploadThing />}></Route>
-        
+
         {/* <Route
           path="/thinglostMatchCases/:postType"
           element={<MatchThingCases />}
@@ -128,13 +128,13 @@ function AppRoutes() {
           path="/mythingMatchCases/:postType"
           element={<MatchThingCases />}
         ></Route>
-		
-        
+
+
         <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
         <Route path="/user-dashboard" element={<UserDashboard />}></Route>
         <Route path="/resolved-cases" element={<ResolvedCases />}></Route>
         <Route path="/matched-cases" element={<MatchedCases />}></Route>
-        <Route path="/lostMatchCases" element={<MatchCases postType={TargetType.LOST} toast={{ setToastMessage, setShow }} />}></Route>
+        <Route path="/lostMatchCases/:postStatus" element={<MatchCases postType={TargetType.LOST} toast={{ setToastMessage, setShow }} />}></Route>
         <Route path="/foundMatchCases" element={<MatchCases postType={TargetType.FOUND} toast={{ setToastMessage, setShow }} />}></Route>
         <Route path="/notFound" element={<NotFound />}></Route>
         <Route
@@ -151,11 +151,6 @@ function AppRoutes() {
 }
 
 function App() {
-  const [token, setToken] = useState("");
-  useEffect(() => {
-    setToken(localStorage.getItem("x_auth_token"));
-  }, []);
-
   return (
     <React.Fragment>
       <AppRoutes />
@@ -165,11 +160,9 @@ function App() {
 
 function Wrapper() {
 
-
   return (
     <BrowserRouter>
       <App />
-
     </BrowserRouter>
   );
 }

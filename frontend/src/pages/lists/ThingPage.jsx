@@ -86,7 +86,7 @@ const ThingPage = ({ url,toast }) => {
 
     getThingPostData();
     validate();
-  }, []);
+  }, [url]);
 
 
   const handleDeleteActivePost=(postId)=>{

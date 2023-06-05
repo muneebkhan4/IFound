@@ -5,13 +5,13 @@ import { Doughnut } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
-function IfDoughnut() {
+function IfDoughnut({row}) {
   const data = {
     labels: ['Active Lost', 'Active Found', 'Resolved', 'UnResolved'],
     datasets: [
       {
         label: '# of Votes',
-        data: [12, 19, 3, 5],
+        data: row,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
