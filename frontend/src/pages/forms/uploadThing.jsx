@@ -7,7 +7,7 @@ import NavBar from "../../sections/NavBar";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { TargetType } from "../../Enums/Enums";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import IfFormOption from "./ifFormOption";
 
 const UploadThing = () => {
@@ -16,15 +16,15 @@ const UploadThing = () => {
   const [selectedOption, setSelectedOption] = useState("MissingThing");
 
   const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-    console.log("Selected Option: ", selectedOption);
-    debugger;
-    let result=event.target.value == "MissingThing" ? navigate("/upload-thing/MissingThing"):""; 
-    result=event.target.value == "FoundThing" ? navigate("/upload-thing/FoundThing"):"" ;
-    // return result;
+    console.log(event.target.value);
+    if (event.target.value === "MissingThing") {
+      navigate("/upload-thing/MissingThing");
+      setSelectedOption(event.target.value);
+    } else if (event.target.value === "FoundThing") {
+      navigate("/upload-thing/FoundThing");
+      setSelectedOption(event.target.value);
+    }
   };
-
-
 
   // handle submit button event
   const handleUploadThingSubmit = async (e) => {
@@ -53,7 +53,7 @@ const UploadThing = () => {
       setmessage(message);
       return;
     }
-    if (!phone || phone.length != 13) {
+    if (!phone || phone.length !== 13) {
       const message = "Please enter valid phone number.";
       setmessage(message);
       return;
@@ -85,7 +85,7 @@ const UploadThing = () => {
     formData.append("details", credentials.detail);
     formData.append("phone", phone);
     formData.append("address", credentials.address);
-    formData.append("postType", credentials.postType);
+    formData.append("postType", selectedOption);
     if (selectedFile) {
       formData.append("file", selectedFile, selectedFile.name);
     }
@@ -110,11 +110,11 @@ const UploadThing = () => {
         setmessage("saved");
         console.log(message);
         let nav;
-        if (credentials.postType == "TheftRecoveredThing")
+        if (credentials.postType === "TheftRecoveredThing")
           nav = "/police-dashboard";
         else if (
-          credentials.postType == "MissingThing" ||
-          credentials.postType == "FoundThing"
+          credentials.postType === "MissingThing" ||
+          credentials.postType === "FoundThing"
         )
           nav = "/user-dashboard";
         navigate("/LoadingPage", {
@@ -161,12 +161,12 @@ const UploadThing = () => {
 
   // form data
 
-  const { postType:givenPostType } = useParams();
+  const { postType: givenPostType } = useParams();
 
   // const location = useLocation();
-  const title=givenPostType=="MissingThing"?"Lost Thing":"Found Thing";
+  const title =
+    selectedOption === "MissingThing" ? "Lost Thing" : "Found Thing";
 
-  debugger;
   var [credentials, setCredentials] = useState({
     name: "",
     category: "Category",
@@ -174,7 +174,7 @@ const UploadThing = () => {
     city: "City",
     address: "",
     detail: "",
-    postType: givenPostType, // setting the postType
+    postType: selectedOption, // setting the postType
   });
   const [phone, setphone] = useState();
   var [selectedFile, setSelectedFile] = useState("");
@@ -228,12 +228,12 @@ const UploadThing = () => {
             <div className="d-flex flex-column justify-content-center align-items-center mt-4">
               <IfFormOption
                 option1={{
-                  value: "MissingThing",
-                  label: "Lost Thing Form"
+                  value: "FoundThing",
+                  label: "Found Thing Form",
                 }}
                 option2={{
-                  value: "FoundThing",
-                  label: "Found Thing Form"
+                  value: "MissingThing",
+                  label: "Lost Thing Form",
                 }}
                 handleOptionChange={handleOptionChange}
                 selectedOption={selectedOption}

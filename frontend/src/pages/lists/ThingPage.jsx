@@ -7,57 +7,41 @@ import SearchEvent from "../../components/SearchEvent/SearchEvent";
 import RangeInput from "../../components/RangeInput/rangeInput";
 import DropDown from "../../components/DropDown";
 import NavBar from "../../sections/NavBar";
-import './personPage.css';
+import "./personPage.css";
 import { COLORS } from "../../styles/globalColors";
 import { GenderType } from "../../Enums/Enums";
 import { cities } from "../../static/static";
 import { DeleteActivePost } from "../../services/ActiveCasesService";
+import Select from "react-select";
 import Footer from "../../sections/Footer";
 
-
-const ThingPage = ({ url,toast }) => {
-  const [filterInput, setFilterInput] = useState({
-    rangeInput: {
-      min: "",
-      max: "",
-    },
-    selectedDate: "",
-    selectedGender: Object.values(GenderType)[0],
-    selectedState: cities[0]
-
-  });
+const ThingPage = ({ url, toast }) => {
   const [ThingPosts, setThingPosts] = useState();
 
   const [loading, setLoading] = useState(true);
-  // const [PersonPosts, setPersonPosts] = useState([]);
   const [posts, setPosts] = useState({
     personPosts: [],
-    filteredPosts: []
-  })
+    filteredPosts: [],
+  });
 
-  const [permissions,setPermissions]=useState({
-    deletePermission:false
-  })
+  const [permissions, setPermissions] = useState({
+    deletePermission: false,
+  });
 
   useEffect(() => {
-    
     const getThingPostData = async () => {
       // authentication token
-      debugger;
       const token = localStorage.getItem("x_auth_token");
       // Request made to the backend api
       // Send formData object
       try {
-        const { data } = await axios.get(
-          url,
-          {
-            headers: {
-              x_auth_token: token,
-            },
-          }
-        );
-        console.log(data);
+        const { data } = await axios.get(url, {
+          headers: {
+            x_auth_token: token,
+          },
+        });
         setThingPosts(data);
+        setFilteredData(data);
       } catch (err) {
         if (err) console.log(err.response.data);
       }
@@ -77,8 +61,8 @@ const ThingPage = ({ url,toast }) => {
           }
         );
         debugger;
-        if(userType?.data==="admin")
-          setPermissions({deletePermission:true})
+        if (userType?.data === "admin")
+          setPermissions({ deletePermission: true });
       } catch (err) {
         console.log(err);
       }
@@ -88,115 +72,95 @@ const ThingPage = ({ url,toast }) => {
     validate();
   }, []);
 
+  const [filteredData, setFilteredData] = useState();
+  const [cityFilter, setCityFilter] = useState({
+    value: "",
+    label: "Select city",
+  });
+  const [categoryFilter, setCategoryFilter] = useState({
+    value: "",
+    label: "Select category",
+  });
 
-  const handleDeleteActivePost=(postId)=>{
-    debugger;
-    // Handle option change event
-    DeleteActivePost(postId).then(_response => {
-      // console.log(':', response.data);
-      const filteredPosts = posts.filteredPosts.filter(post => post.postId !== postId);
-      setPosts({ ...posts, filteredPosts });
-      toast.setToastMessage({ headerText: "Active Case", bodyText: "DELETE request successful" });
-      toast.setShow(true);
-    }).catch(error => {
-      console.error('DELETE request failed:', error);
-      toast.setToastMessage({ headerText: "Active Case", bodyText: "DELETE request failed" });
-      toast.setShow(true);
-    });
-  }
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
-  const handleDateChange = (date) => {
-    setFilterInput({ ...filterInput, selectedDate: date });
-
-    const filteredPosts = posts.personPosts.filter(x => {
-      if (!date) return posts.personPosts;
-      if (x.date) {
-        const serverDateObj = new Date(x.date);
-        const dateObj = new Date(date);
-        if (serverDateObj.getFullYear() > dateObj.getFullYear()) {
-          return x;
-        }
-        else if (serverDateObj.getFullYear() === dateObj.getFullYear()) {
-          if (serverDateObj.getMonth() > dateObj.getMonth()) {
-            return x;
-          }
-          else if (serverDateObj.getMonth() === dateObj.getMonth()) {
-            if (serverDateObj.getDate() > dateObj.getDate()) {
-              return x;
-            }
-            else if (serverDateObj.getDate() === dateObj.getDate()) {
-              return x;
-            }
-          }
-        }
+  useEffect(() => {
+    // Apply filter when cityFilter changes
+    const applyFilter = () => {
+      if (cityFilter.value !== "" && categoryFilter.value === "") {
+        const filtered = ThingPosts.filter(
+          (item) => item.data.city === cityFilter.value
+        );
+        setFilteredData(filtered);
+      } else if (cityFilter.value !== "" && categoryFilter.value !== "") {
+        const filtered = ThingPosts.filter(
+          (item) =>
+            item.data.city === cityFilter.value &&
+            item.data.category === categoryFilter.value
+        );
+        setFilteredData(filtered);
+      } else if (cityFilter.value === "" && categoryFilter.value !== "") {
+        const filtered = ThingPosts.filter(
+          (item) => item.data.category === categoryFilter.value
+        );
+        setFilteredData(filtered);
+      } else {
+        setFilteredData(ThingPosts);
       }
-    });
-    setPosts({ ...posts, filteredPosts });
-    console.log("Filtered Posts \"From\": ", filteredPosts);
+    };
+    applyFilter();
+  }, [filteredData, ThingPosts, cityFilter, categoryFilter]);
 
+  // Define the options for the city dropdown
+  const cityOptions = [
+    { value: "", label: "Select city" },
+    { value: "Lahore", label: "Lahore" },
+    { value: "Karachi", label: "Karachi" },
+    { value: "Peshwar", label: "Peshwar" },
+    { value: "Islamabad", label: "Islamabad" },
+    { value: "Multan", label: "Multan" },
+  ];
+
+  const categoryOptions = [
+    { value: "", label: "Select category" },
+    { value: "Mobile", label: "Mobile" },
+    { value: "Laptop", label: "Laptop" },
+    { value: "Watch", label: "Watch" },
+    { value: "Wallet", label: "Wallet" },
+    { value: "Glasses", label: "Glasses" },
+  ];
+
+  // Handle city selection
+  const handleCityChange = (selectedOption) => {
+    setCityFilter(selectedOption);
+    if (selectedOption.value === "") {
+      setFilteredData(ThingPosts);
+    }
   };
 
-  const onSearchClick = (state) => {
-    setFilterInput({ ...filterInput, selectedState: state });
-    if (state === "Select None") {
-      setPosts({ ...posts, filteredPosts: posts.personPosts });
-      return;
+  // Handle category selection
+  const handleCategoryChange = (selectedOption) => {
+    setCategoryFilter(selectedOption);
+    if (selectedOption.value === "") {
+      setFilteredData(ThingPosts);
     }
-    const filteredPosts = posts.personPosts.filter(post => {
-      return post.city === state;
+  };
+
+  const handleDateFilter = (startDate, endDate) => {
+    // Perform the filtering based on the selected dates
+    const filtered = ThingPosts.filter((item) => {
+      const itemDate = new Date(item.data.date);
+      return itemDate >= startDate && itemDate <= endDate;
     });
-    setPosts({...posts,filteredPosts});
-  }
 
-  // const handleSearchEvent = (e) => {
-  //   const results = posts.personPosts.filter(post => {
-  //     if (e.target.value === "") return posts.personPosts;
-  //     return post.name.toLowerCase().includes(e.target.value.toLowerCase());
-  //   });
-  //   setSearchList({
-  //     query: e.target.value,
-  //     list: results
-  //   });
-  //   console.log(results);
-  // }
+    // Update the filtered data state
+    setFilteredData(filtered);
+  };
 
-  const handleGenderChange = (gender) => {
-    setFilterInput({ ...filterInput, selectedGender: gender });
-    const filteredPosts = posts.personPosts.filter(post => post.gender === gender);
-    setPosts({ ...posts, filteredPosts });
-  }
-
-  const handleMinAgeChange = (event) => {
-    setFilterInput({
-      ...filterInput, rangeInput: {
-        ...filterInput.rangeInput, min: event.target.value
-      }
-    });
-    console.log(event.target.value);
-  }
-
-  const handleMaxAgeChange = (event) => {
-    setFilterInput({
-      ...filterInput, rangeInput: {
-        ...filterInput.rangeInput, max: event.target.value
-      }
-    });
-  }
-
-  const handleAgeGoClick = () => {
-    const { rangeInput } = filterInput;
-    if (!rangeInput.min || !rangeInput.max) {
-      setPosts({ ...posts, filteredPosts: posts.personPosts });
-      return;
-    }
-    if (!isNaN(+rangeInput.min) && !isNaN(+rangeInput.max)) {
-      const filteredPosts = posts.personPosts.filter(post => post.age >= rangeInput.min && post.age <= rangeInput.max);
-      setPosts({
-        ...posts,
-        filteredPosts
-      });
-    }
-  }
+  const handleFilter = () => {
+    handleDateFilter(startDate, endDate);
+  };
 
   // const screenHeight = window.innerHeight;
   return (
@@ -205,44 +169,53 @@ const ThingPage = ({ url,toast }) => {
       {/* <h1 className="App-header">Lost List</h1> */}
       <div className="MainContent">
         <div className="d-flex align-items-center justify-content-around FilterStyle">
-
-          <SearchEvent onSearchClick={onSearchClick} />
-          <RangeInput
-            label={"Age"}
-            minValue={filterInput.rangeInput.min}
-            maxValue={filterInput.rangeInput.max}
-            handleMinChange={handleMinAgeChange}
-            handleMaxChange={handleMaxAgeChange}
-            handleGoClick={handleAgeGoClick}></RangeInput>
-          <DropDown list={Object.keys(GenderType)} label="Gender" dropDownChange={handleGenderChange} />
-          <div id="start-date">
-            <label class="fs-6 me-1" style={{ color: COLORS.ifSpanColor }}>From</label>
-            <DatePicker onChange={handleDateChange} format="yyyy-MM-dd" />
-          </div>
-          <div id="start-date">
-            <label class="fs-6 me-1" style={{ color: COLORS.ifSpanColor }}>To</label>
-            <DatePicker onChange={handleDateChange} format="yyyy-MM-dd" />
-          </div>
+          <Select
+            options={cityOptions}
+            value={cityFilter}
+            onChange={handleCityChange}
+            placeholder="Select a city"
+          />
+          <Select
+            options={categoryOptions}
+            value={categoryFilter}
+            onChange={handleCategoryChange}
+            placeholder="Select a category"
+          />
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            placeholderText="Start Date"
+            dateFormat="yyyy-MM-dd"
+          />
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            placeholderText="End Date"
+            dateFormat="yyyy-MM-dd"
+          />
+          <button onClick={handleFilter}>Apply Filter</button>
         </div>
-
 
         <h1 className="App-header">Things Cases</h1>
         {!ThingPosts && (
-          <div className="spinner-grow fonts" role="status">
-            <span className="visually-hidden">Loading...</span>
+          <div className="center spinner-grow fonts" role="status">
+            <span className="center visually-hidden">Loading...</span>
           </div>
         )}
-        <div className="row">
-          {ThingPosts &&
-            ThingPosts.map((post) => (
-              <div key={Math.floor(Math.random() * 10000 + 1)} className="col">
+        <div style={{ margin: "30px" }} className="row">
+          {filteredData &&
+            filteredData.map((post) => (
+              <div
+                key={Math.floor(Math.random() * 10000 + 1)}
+                style={{ margin: "40px" }}
+                className="center"
+              >
                 <ThingPost image={post.image} data={post.data} />
               </div>
             ))}
         </div>
       </div>
       <Footer />
-
     </React.Fragment>
   );
 };

@@ -15,6 +15,7 @@ const allFoundPersonPosts = require("./routers/allFoundPersonPosts");
 const allMissingThingPosts = require("./routers/allMissingThingPosts");
 const allFoundThingPosts = require("./routers/allFoundThingPosts");
 const verifyToken = require("./routers/verifyToken");
+const getStats = require("./routers/getStats");
 const jwt = require("jsonwebtoken");
 const app = express();
 const { Image } = require("./models/image");
@@ -39,8 +40,8 @@ if (!config.get("JwtPrivateKey")) {
 // const mongoose = require('mongoose')
 
 // const url = `mongodb://uahmad565:usman565@ac-6p7zp25-shard-00-00.ns5xulq.mongodb.net:27017,ac-6p7zp25-shard-00-01.ns5xulq.mongodb.net:27017,ac-6p7zp25-shard-00-02.ns5xulq.mongodb.net:27017/?ssl=true&replicaSet=atlas-rrwik5-shard-0&authSource=admin&retryWrites=true&w=majority`;
-const url = "mongodb://muneeb:muneeb@cluster0-shard-00-00.v3vpd.mongodb.net:27017,cluster0-shard-00-01.v3vpd.mongodb.net:27017,cluster0-shard-00-02.v3vpd.mongodb.net:27017/?ssl=true&replicaSet=atlas-h6u2e8-shard-0&authSource=admin&retryWrites=true&w=majority"
-
+const url =
+  "mongodb://muneeb:muneeb@cluster0-shard-00-00.v3vpd.mongodb.net:27017,cluster0-shard-00-01.v3vpd.mongodb.net:27017,cluster0-shard-00-02.v3vpd.mongodb.net:27017/?ssl=true&replicaSet=atlas-h6u2e8-shard-0&authSource=admin&retryWrites=true&w=majority";
 
 // connecting to database (MongoDB)
 mongoose
@@ -48,8 +49,6 @@ mongoose
   // .connect("mongodb://localhost/IFound") // for deployment MongoDB Altas
   .then(() => console.log("connection to mongo db successful..."))
   .catch((err) => console.log("Error in connecting to mongo db...", err));
-
-
 
 // Routes
 app.use("/api/users", user);
@@ -64,7 +63,7 @@ app.use("/api/allFoundPersonPosts", allFoundPersonPosts);
 app.use("/api/allMissingThingPosts", allMissingThingPosts);
 app.use("/api/allFoundThingPosts", allFoundThingPosts);
 app.use("/verifyToken", verifyToken); // for differnt users dashboard validation
-
+app.use("/api/getStats", getStats);
 app.get("/api/users/:id", async (req, res) => {
   const currentUserId = req.params;
   console.log(currentUserId);
@@ -100,12 +99,10 @@ app.get("/api/postUploadedBy/:id", async (req, res) => {
     return res
       .status(500)
       .send("Internal Server Error! UserId Provided Is Not Correct");
-  }
-  else {
+  } else {
     console.log(user);
     return res.status(200).send(user);
   }
-
 });
 
 app.get("/image", async (req, res) => {

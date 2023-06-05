@@ -10,6 +10,7 @@ const ThingPost = (props) => {
       <div className="custom-post-card" style={{ marginBottom: "1rem" }}>
         <img
           src={image}
+          alt="ThingImage"
           className="card-img-top"
           style={{
             marginTop: "0.15rem",
@@ -18,7 +19,14 @@ const ThingPost = (props) => {
             height: "14rem",
           }}
         />
-        <div className="card-body" style={{ marginTop: "1rem" }}>
+        <div
+          className="center card-body"
+          style={{
+            direction: "flex",
+            flexDirection: "column",
+            marginTop: "1rem",
+          }}
+        >
           <h5 className="card-title">Name: {props.data.name}</h5>
           <h6 className="card-text">City: {props.data.city}</h6>
           <h6 className="card-text">Color: {props.data.color}</h6>
